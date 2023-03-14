@@ -1,0 +1,7 @@
+{
+  "name": "gitpedia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
