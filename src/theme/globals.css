@@ -1,0 +1,11 @@
+@import url('@fontsource/fira-code');
+
+ion-app {
+  --ion-font-family: 'Fira Code', monospace;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+ion-card {
+  border-radius: 12px;
+}
