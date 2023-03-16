@@ -1,0 +1,26 @@
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  max-height: 100%;
+  overflow: auto;
+
+  .title {
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  .illustration {
+    width: 70%;
+    max-width: 320px;
+  }
+
+  .cta {
+    margin: '4px 2px';
+  }
+}
