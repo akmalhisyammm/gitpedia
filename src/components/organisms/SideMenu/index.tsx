@@ -16,7 +16,7 @@ const SideMenu = () => {
   return (
     <IonMenu contentId="main">
       <IonHeader>
-        <IonToolbar color="tertiary">
+        <IonToolbar color="primary">
           <IonTitle>Gitpedia</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -25,15 +25,15 @@ const SideMenu = () => {
         <IonList>
           <IonMenuToggle autoHide={false}>
             <IonItem button routerLink="/login">
-              <IonIcon slot="start" color="tertiary" icon={logIn} />
+              <IonIcon slot="start" color="primary" icon={logIn} />
               <IonLabel>Masuk</IonLabel>
             </IonItem>
             <IonItem button routerLink="/register">
-              <IonIcon slot="start" color="tertiary" icon={personAdd} />
+              <IonIcon slot="start" color="primary" icon={personAdd} />
               <IonLabel>Daftar</IonLabel>
             </IonItem>
             <IonItem button routerLink="/about">
-              <IonIcon slot="start" color="tertiary" icon={informationCircle} />
+              <IonIcon slot="start" color="primary" icon={informationCircle} />
               <IonLabel>Tentang</IonLabel>
             </IonItem>
           </IonMenuToggle>
