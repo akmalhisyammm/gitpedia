@@ -14,7 +14,7 @@ type HeaderProps = {
 const Header = ({ title }: HeaderProps) => {
   return (
     <IonHeader>
-      <IonToolbar color="primary">
+      <IonToolbar color="tertiary">
         <IonTitle>{title}</IonTitle>
 
         <IonButtons slot="start">
