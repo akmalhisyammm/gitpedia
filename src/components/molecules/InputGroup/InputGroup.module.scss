@@ -1,0 +1,16 @@
+.item {
+  --background: inherit;
+  border-radius: 50px;
+  margin: 6px 0;
+  border: 2px solid var(--ion-color-medium);
+
+  .iconStart {
+    margin-right: 12px;
+  }
+
+  .iconEnd {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
