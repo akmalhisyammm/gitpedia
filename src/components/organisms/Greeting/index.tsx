@@ -1,5 +1,7 @@
-import { IonGrid, IonRow, IonCol, IonText, IonButton, IonRouterLink, IonIcon } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonText, IonRouterLink, IonIcon } from '@ionic/react';
 import { openOutline } from 'ionicons/icons';
+
+import { CustomButton, CustomImage } from 'components/atoms';
 
 import styles from './Greeting.module.scss';
 
@@ -11,15 +13,15 @@ const Greeting = () => {
           <h1 className={styles.title}>
             Selamat Datang di <IonText color="primary">Gitpedia</IonText>
           </h1>
-          <p>Aplikasi belajar Git yang mudah dan menyenangkan</p>
+          <p className={styles.subtitle}>Aplikasi belajar Git yang mudah dan menyenangkan</p>
         </IonCol>
       </IonRow>
 
       <IonRow className="ion-margin-vertical">
         <IonCol>
-          <img
-            src="/assets/img/software-code-testing-pana.svg"
-            alt="Software code testing illustration"
+          <CustomImage
+            src="/assets/icon/gitpedia.png"
+            alt="Gitpedia"
             className={styles.illustration}
           />
         </IonCol>
@@ -27,22 +29,22 @@ const Greeting = () => {
 
       <IonRow>
         <IonCol>
-          <IonButton
+          <CustomButton
             shape="round"
             expand="block"
             color="primary"
             routerLink="/auth/login"
             className={styles.cta}>
             Masuk
-          </IonButton>
-          <IonButton
+          </CustomButton>
+          <CustomButton
             shape="round"
             expand="block"
             color="secondary"
             routerLink="/auth/register"
             className={styles.cta}>
             Daftar
-          </IonButton>
+          </CustomButton>
         </IonCol>
       </IonRow>
 

@@ -15,12 +15,18 @@
     font-size: 32px;
   }
 
+  .subtitle {
+    margin-bottom: 0px;
+    color: var(--ion-color-medium);
+  }
+
   .illustration {
-    width: 70%;
-    max-width: 320px;
+    width: 60%;
+    max-width: 300px;
+    margin: auto;
   }
 
   .cta {
-    margin: '4px 2px';
+    margin: 8px 2px;
   }
 }
