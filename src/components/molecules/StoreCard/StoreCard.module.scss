@@ -1,0 +1,26 @@
+.wrapper {
+  border-radius: 12px;
+  border: 2px solid var(--ion-color-tertiary);
+  margin: 0;
+
+  .image {
+    height: 100px;
+    margin-top: 18px;
+    filter: drop-shadow(0 0 0.5rem var(--ion-color-tertiary));
+  }
+
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--ion-color-tertiary);
+    color: #fff;
+    padding: 8px;
+    border-radius: 12px;
+
+    .icon {
+      height: 20px;
+    }
+  }
+}
