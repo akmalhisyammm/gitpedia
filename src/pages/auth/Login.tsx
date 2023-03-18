@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
+import { Layout } from 'components/layouts';
 import { ForgotPasswordModal, LoginForm } from 'components/organisms';
-import Layout from 'components/layout';
 
 const Login = () => {
   const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);

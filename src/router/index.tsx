@@ -1,7 +1,7 @@
 import { IonRouterOutlet } from '@ionic/react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { MainTabs } from 'components/organisms';
+import { MainTabs } from 'components/layouts';
 import Onboarding from 'pages/Onboarding';
 import About from 'pages/About';
 import Login from 'pages/auth/Login';
