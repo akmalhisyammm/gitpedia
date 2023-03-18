@@ -1,8 +1,9 @@
 import { IonApp, IonSplitPane, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { SideMenu } from 'components/organisms';
 import Routes from 'router';
+
+import { SideMenu } from 'components/layouts';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
