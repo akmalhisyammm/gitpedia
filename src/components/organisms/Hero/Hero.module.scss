@@ -1,0 +1,17 @@
+.content {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 16px;
+  border-radius: 12px;
+
+  .coinInfo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .icon {
+      height: 20px;
+    }
+  }
+}
