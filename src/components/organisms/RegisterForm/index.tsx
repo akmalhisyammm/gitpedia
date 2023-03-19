@@ -96,7 +96,7 @@ const RegisterForm = () => {
         <IonCol>
           <IonText className={styles.footer}>
             Sudah punya akun?{' '}
-            <CustomLink color="primary" href="/auth/login">
+            <CustomLink color="primary" href="/auth/login" isUnderline>
               Masuk
             </CustomLink>
           </IonText>

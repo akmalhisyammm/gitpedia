@@ -3,20 +3,19 @@ import { star } from 'ionicons/icons';
 
 import { CustomImage } from 'components/atoms';
 
-import styles from './LeaderboardCard.module.scss';
+import styles from './LeaderboardItem.module.scss';
 
-type LeaderboardCardProps = {
+type LeaderboardItemProps = {
   rank: number;
-  username: string;
   name: string;
   score: number;
   avatar: string;
   frame: string;
 };
 
-const LeaderboardCard = ({ rank, username, name, score, avatar, frame }: LeaderboardCardProps) => {
+const LeaderboardItem = ({ rank, name, score, avatar, frame }: LeaderboardItemProps) => {
   return (
-    <IonItem routerLink={`/player/${username}`} button detail>
+    <IonItem button detail>
       <IonText>{rank}</IonText>
       <div className={styles.profile}>
         <div className={styles.imageWrapper}>
@@ -33,4 +32,4 @@ const LeaderboardCard = ({ rank, username, name, score, avatar, frame }: Leaderb
   );
 };
 
-export default LeaderboardCard;
+export default LeaderboardItem;

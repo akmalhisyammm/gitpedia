@@ -1,0 +1,26 @@
+.item {
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 8px;
+
+  .leftContent {
+    padding: 18px 0;
+    display: flex;
+    flex-direction: column;
+
+    .badge {
+      margin-bottom: 4px;
+      width: fit-content;
+    }
+  }
+
+  .lockIcon {
+    margin-right: 4px;
+  }
+
+  .starsWrapper {
+    display: flex;
+    gap: 2px;
+    margin-right: 4px;
+  }
+}

@@ -34,7 +34,7 @@ const ChapterList = () => {
         {CHAPTERS.map((chapter) => (
           <IonCol size="12" sizeSm="6" key={chapter.id}>
             {!chapter.isLocked ? (
-              <CustomLink color="primary" href={`/learn/${chapter.id}`}>
+              <CustomLink href={`/learn/${chapter.id}`}>
                 <ChapterCard
                   title={chapter.title}
                   imgSrc={chapter.imgSrc}
