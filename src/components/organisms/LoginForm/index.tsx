@@ -71,7 +71,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
 
       <IonRow>
         <IonCol>
-          <CustomLink color="primary" onClick={onForgotPassword}>
+          <CustomLink color="primary" onClick={onForgotPassword} isUnderline>
             Lupa Kata Sandi?
           </CustomLink>
         </IonCol>
@@ -81,7 +81,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
         <IonCol>
           <IonText className={styles.footer}>
             Belum punya akun?{' '}
-            <CustomLink color="primary" href="/auth/register">
+            <CustomLink color="primary" href="/auth/register" isUnderline>
               Daftar
             </CustomLink>
           </IonText>

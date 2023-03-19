@@ -1,6 +1,7 @@
 import { IonList } from '@ionic/react';
+import { CustomLink } from 'components/atoms';
 
-import { LeaderboardCard } from 'components/molecules';
+import { LeaderboardItem } from 'components/molecules';
 
 type LeaderboardListProps = {
   mode: string;
@@ -46,13 +47,13 @@ const FRIENDS = ['johnsmith', 'johndoe', 'johnwick'];
 const LeaderboardList = ({ mode }: LeaderboardListProps) => {
   return (
     <IonList>
-      {mode === 'friends'
-        ? PLAYERS.filter((player) => FRIENDS.includes(player.username))
-            .sort((a, b) => b.score - a.score)
-            .map((player, idx) => <LeaderboardCard key={player.id} rank={idx + 1} {...player} />)
-        : PLAYERS.sort((a, b) => b.score - a.score).map((player, idx) => (
-            <LeaderboardCard key={player.id} rank={idx + 1} {...player} />
-          ))}
+      {PLAYERS.filter((player) => (mode === 'friends' ? FRIENDS.includes(player.username) : true))
+        .sort((a, b) => b.score - a.score)
+        .map((player, idx) => (
+          <CustomLink key={player.id} href={`/player/${player.username}`}>
+            <LeaderboardItem rank={idx + 1} {...player} />
+          </CustomLink>
+        ))}
     </IonList>
   );
 };
