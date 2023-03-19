@@ -1,0 +1,40 @@
+.card {
+  border-radius: 12px;
+
+  .profile {
+    display: flex;
+    align-items: center;
+    margin: 18px 12px;
+
+    .imageWrapper {
+      position: relative;
+      width: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .avatar {
+        width: 60px;
+      }
+
+      .frame {
+        position: absolute;
+      }
+    }
+
+    .name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .divider {
+    border-bottom: 2px dashed var(--ion-color-secondary);
+  }
+
+  .socialMedia {
+    border-radius: 12px;
+    padding: 8px 8px 12px;
+  }
+}
