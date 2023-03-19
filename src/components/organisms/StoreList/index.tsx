@@ -9,25 +9,25 @@ const ITEMS = [
     id: 1,
     title: 'Strip Frame',
     price: 150,
-    image: '/assets/icon/strip-frame.png',
+    image: '/assets/icon/frames/strip.png',
   },
   {
     id: 2,
     title: 'Technology Frame',
     price: 200,
-    image: '/assets/icon/technology-frame.png',
+    image: '/assets/icon/frames/technology.png',
   },
   {
     id: 3,
     title: 'Rainbow Frame',
     price: 250,
-    image: '/assets/icon/rainbow-frame.png',
+    image: '/assets/icon/frames/rainbow.png',
   },
   {
     id: 4,
     title: 'Colorful Frame',
     price: 300,
-    image: '/assets/icon/colorful-frame.png',
+    image: '/assets/icon/frames/colorful.png',
   },
 ];
 
