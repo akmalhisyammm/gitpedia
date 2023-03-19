@@ -9,4 +9,6 @@ export { default as RegisterForm } from './RegisterForm';
 /* MAIN */
 export { default as ChapterList } from './ChapterList';
 export { default as Hero } from './Hero';
+export { default as LeaderboardList } from './LeaderboardList';
+export { default as LeaderboardSegment } from './LeaderboardSegment';
 export { default as StoreList } from './StoreList';
