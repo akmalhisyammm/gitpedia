@@ -4,7 +4,7 @@ import styles from './CustomLink.module.scss';
 
 type CustomLinkProps = {
   children: React.ReactNode;
-  color:
+  color?:
     | 'primary'
     | 'secondary'
     | 'tertiary'
@@ -15,16 +15,17 @@ type CustomLinkProps = {
     | 'medium'
     | 'dark';
   href?: string;
+  isUnderline?: boolean;
   onClick?: () => void;
   [key: string]: unknown;
 };
 
-const CustomLink = ({ children, color, href, onClick, ...rest }: CustomLinkProps) => {
+const CustomLink = ({ children, color, href, isUnderline, onClick, ...rest }: CustomLinkProps) => {
   return (
     <IonRouterLink
       color={color}
       routerLink={href}
-      className={styles.link}
+      className={isUnderline ? styles.link : ''}
       onClick={onClick}
       {...rest}>
       {children}

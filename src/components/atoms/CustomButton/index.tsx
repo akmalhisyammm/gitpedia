@@ -2,7 +2,7 @@ import { IonButton } from '@ionic/react';
 
 type CustomButtonProps = {
   children: React.ReactNode;
-  color:
+  color?:
     | 'primary'
     | 'secondary'
     | 'tertiary'
