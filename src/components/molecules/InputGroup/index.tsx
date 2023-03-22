@@ -1,4 +1,4 @@
-import { IonItem, IonIcon, IonInput } from '@ionic/react';
+import { IonItem, IonIcon, IonInput, IonLabel } from '@ionic/react';
 
 import styles from './InputGroup.module.scss';
 
@@ -19,6 +19,8 @@ type InputGroupProps = {
     | 'week';
   inputMode?: 'decimal' | 'email' | 'none' | 'numeric' | 'search' | 'tel' | 'text' | 'url';
   placeholder?: string;
+  labelStart?: string;
+  labelEnd?: string;
   iconStart?: string;
   iconEnd?: string;
   onToggleType?: React.MouseEventHandler<HTMLIonIconElement>;
@@ -30,6 +32,8 @@ const InputGroup = ({
   type,
   inputMode,
   placeholder,
+  labelStart,
+  labelEnd,
   iconStart,
   iconEnd,
   onToggleType,
@@ -37,6 +41,11 @@ const InputGroup = ({
 }: InputGroupProps) => {
   return (
     <IonItem className={styles.item}>
+      {labelStart && (
+        <IonLabel slot="start" className={styles.labelStart}>
+          {labelStart}
+        </IonLabel>
+      )}
       {iconStart && (
         <IonIcon icon={iconStart} color="primary" slot="start" className={styles.iconStart} />
       )}
@@ -46,8 +55,8 @@ const InputGroup = ({
         inputMode={inputMode}
         placeholder={placeholder}
         onKeyDown={onKeyDown}
-        required
       />
+      {labelEnd && <IonLabel slot="end">{labelEnd}</IonLabel>}
       {iconEnd && (
         <IonIcon slot="end" icon={iconEnd} className={styles.iconEnd} onClick={onToggleType} />
       )}
