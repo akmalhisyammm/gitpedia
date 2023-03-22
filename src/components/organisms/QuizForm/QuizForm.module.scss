@@ -1,0 +1,17 @@
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto;
+  width: 100%;
+  max-width: 600px;
+  max-height: 100%;
+  overflow: auto;
+
+  .card {
+    text-align: justify;
+    border-radius: 12px;
+    margin: 0;
+  }
+}
