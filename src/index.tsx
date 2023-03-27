@@ -4,12 +4,18 @@ import { createRoot } from 'react-dom/client';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import { ChapterProvider } from 'contexts/chapter';
+import { StoreProvider } from 'contexts/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <ChapterProvider>
+      <StoreProvider>
+        <App />
+      </StoreProvider>
+    </ChapterProvider>
   </React.StrictMode>
 );
 
