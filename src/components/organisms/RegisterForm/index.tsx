@@ -1,4 +1,14 @@
-import { IonGrid, IonRow, IonCol, IonText, IonList } from '@ionic/react';
+import { useState, useRef, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import {
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonText,
+  IonList,
+  useIonLoading,
+  useIonToast,
+} from '@ionic/react';
 import {
   mailOutline,
   lockClosedOutline,
@@ -6,11 +16,15 @@ import {
   eye,
   personOutline,
   keyOutline,
+  maleFemaleOutline,
+  schoolOutline,
+  alertCircle,
+  checkmarkCircle,
 } from 'ionicons/icons';
-import { useState, useRef } from 'react';
 
+import { AuthContext } from 'contexts/auth';
 import { CustomButton, CustomLink } from 'components/atoms';
-import { InputGroup } from 'components/molecules';
+import { InputGroup, SelectGroup } from 'components/molecules';
 
 import styles from './RegisterForm.module.scss';
 
@@ -18,19 +32,119 @@ const RegisterForm = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false);
 
-  const fullNameRef = useRef<HTMLIonInputElement>(null);
+  const [presentToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
+
+  const history = useHistory();
+  const authCtx = useContext(AuthContext);
+
+  const nameRef = useRef<HTMLIonInputElement>(null);
+  const occupationRef = useRef<HTMLIonInputElement>(null);
+  const genderRef = useRef<HTMLIonSelectElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const confirmPasswordRef = useRef<HTMLIonInputElement>(null);
 
   const handleRegister = async () => {
-    console.log('Register');
-  };
+    const name = nameRef.current?.value as string;
+    const occupation = occupationRef.current?.value as string;
+    const gender = genderRef.current?.value as 'male' | 'female';
+    const email = emailRef.current?.value as string;
+    const password = passwordRef.current?.value as string;
+    const confirmPassword = confirmPasswordRef.current?.value as string;
 
-  const enterKeyDown = (e: React.KeyboardEvent<HTMLIonInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleRegister();
+    if (!name.trim().length) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Nama harus diisi!',
+        color: 'danger',
+        duration: 3000,
+        icon: alertCircle,
+      });
+    }
+
+    if (!occupation.trim().length) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Pekerjaan harus diisi!',
+        color: 'danger',
+        duration: 3000,
+        icon: alertCircle,
+      });
+    }
+
+    if (!gender) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Jenis kelamin harus diisi!',
+        color: 'danger',
+        duration: 3000,
+        icon: alertCircle,
+      });
+    }
+
+    if (!email.trim().length) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Email harus diisi!',
+        color: 'danger',
+        duration: 3000,
+        icon: alertCircle,
+      });
+    }
+
+    if (password.length < 6) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Kata sandi minimal 6 karakter!',
+        color: 'danger',
+        duration: 3000,
+        icon: alertCircle,
+      });
+    }
+
+    if (password !== confirmPassword) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Kata sandi tidak sama!',
+        color: 'danger',
+        duration: 3000,
+        icon: alertCircle,
+      });
+    }
+
+    try {
+      presentLoading({ mode: 'ios', spinner: 'crescent' });
+
+      await authCtx.register({ name, occupation, gender, email, password });
+
+      presentToast({
+        mode: 'ios',
+        message: 'Berhasil mendaftar, silakan cek email kamu untuk verifikasi!',
+        color: 'success',
+        cssClass: 'custom-toast',
+        icon: checkmarkCircle,
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+          },
+        ],
+      });
+
+      history.replace('/auth/login');
+    } catch (error) {
+      if (error instanceof Error) {
+        presentToast({
+          mode: 'ios',
+          message: error.message,
+          color: 'danger',
+          duration: 3000,
+          icon: alertCircle,
+        });
+      }
+    } finally {
+      dismissLoading();
     }
   };
 
@@ -38,57 +152,74 @@ const RegisterForm = () => {
     <IonGrid className={styles.wrapper}>
       <IonRow>
         <IonCol>
-          <h1 className={styles.header}>
-            <IonText>Daftar</IonText>
-          </h1>
+          <IonText>
+            <h1>Daftar</h1>
+          </IonText>
+        </IonCol>
+      </IonRow>
 
-          <IonRow>
-            <IonCol>
-              <IonList className={styles.list}>
-                <InputGroup
-                  ref={fullNameRef}
-                  type="text"
-                  inputMode="text"
-                  placeholder="Nama Lengkap"
-                  iconStart={personOutline}
-                  onKeyDown={(e) => enterKeyDown(e)}
-                />
-                <InputGroup
-                  ref={emailRef}
-                  type="email"
-                  inputMode="email"
-                  placeholder="Email"
-                  iconStart={mailOutline}
-                  onKeyDown={(e) => enterKeyDown(e)}
-                />
-                <InputGroup
-                  ref={passwordRef}
-                  type={isShowPassword ? 'text' : 'password'}
-                  placeholder="Kata Sandi"
-                  iconStart={lockClosedOutline}
-                  iconEnd={isShowPassword ? eyeOff : eye}
-                  onKeyDown={(e) => enterKeyDown(e)}
-                  onToggleType={() => setIsShowPassword(!isShowPassword)}
-                />
-                <InputGroup
-                  ref={confirmPasswordRef}
-                  type={isShowPassword ? 'text' : 'password'}
-                  placeholder="Ulangi Kata Sandi"
-                  iconStart={keyOutline}
-                  iconEnd={isShowPassword ? eyeOff : eye}
-                  onKeyDown={(e) => enterKeyDown(e)}
-                  onToggleType={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
-                />
-              </IonList>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              <CustomButton color="primary" onClick={handleRegister}>
-                Daftar
-              </CustomButton>
-            </IonCol>
-          </IonRow>
+      <IonRow>
+        <IonCol size="12">
+          <IonList className={styles.list}>
+            <InputGroup
+              ref={nameRef}
+              type="text"
+              inputMode="text"
+              placeholder="Nama Lengkap"
+              iconStart={personOutline}
+            />
+            <InputGroup
+              ref={occupationRef}
+              type="text"
+              inputMode="text"
+              placeholder="Pekerjaan"
+              iconStart={schoolOutline}
+            />
+            <SelectGroup
+              ref={genderRef}
+              type="popover"
+              placeholder="Jenis Kelamin"
+              iconStart={maleFemaleOutline}
+              options={[
+                {
+                  label: 'Laki-laki',
+                  value: 'male',
+                },
+                {
+                  label: 'Perempuan',
+                  value: 'female',
+                },
+              ]}
+            />
+            <InputGroup
+              ref={emailRef}
+              type="email"
+              inputMode="email"
+              placeholder="Email"
+              iconStart={mailOutline}
+            />
+            <InputGroup
+              ref={passwordRef}
+              type={isShowPassword ? 'text' : 'password'}
+              placeholder="Kata Sandi"
+              iconStart={lockClosedOutline}
+              iconEnd={isShowPassword ? eyeOff : eye}
+              onToggleType={() => setIsShowPassword(!isShowPassword)}
+            />
+            <InputGroup
+              ref={confirmPasswordRef}
+              type={isShowPassword ? 'text' : 'password'}
+              placeholder="Ulangi Kata Sandi"
+              iconStart={keyOutline}
+              iconEnd={isShowPassword ? eyeOff : eye}
+              onToggleType={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
+            />
+          </IonList>
+        </IonCol>
+        <IonCol size="12">
+          <CustomButton color="primary" onClick={handleRegister}>
+            Daftar
+          </CustomButton>
         </IonCol>
       </IonRow>
 

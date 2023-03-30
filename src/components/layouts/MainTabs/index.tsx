@@ -1,6 +1,6 @@
+import { Redirect, Route } from 'react-router-dom';
 import { IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/react';
 import { home, storefront, statsChart, person } from 'ionicons/icons';
-import { Redirect, Route } from 'react-router-dom';
 
 import Home from 'pages/main/Home';
 import Store from 'pages/main/Store';

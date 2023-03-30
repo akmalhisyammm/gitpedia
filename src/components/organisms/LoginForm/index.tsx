@@ -1,11 +1,28 @@
-import { IonGrid, IonRow, IonCol, IonText, IonList } from '@ionic/react';
-import { mailOutline, lockClosedOutline, eyeOff, eye } from 'ionicons/icons';
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import {
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonText,
+  IonList,
+  useIonLoading,
+  useIonToast,
+} from '@ionic/react';
+import {
+  mailOutline,
+  lockClosedOutline,
+  eyeOff,
+  eye,
+  alertCircle,
+  checkmarkCircle,
+} from 'ionicons/icons';
 
+import { AuthContext } from 'contexts/auth';
+import { CustomButton, CustomLink } from 'components/atoms';
 import { InputGroup } from 'components/molecules';
 
 import styles from './LoginForm.module.scss';
-import { CustomButton, CustomLink } from 'components/atoms';
 
 type LoginFormProps = {
   onForgotPassword: () => void;
@@ -14,17 +31,55 @@ type LoginFormProps = {
 const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
+  const [presentToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
+
+  const history = useHistory();
+  const authCtx = useContext(AuthContext);
+
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
 
   const handleLogin = async () => {
-    console.log('Login');
-  };
+    const email = emailRef.current?.value as string;
+    const password = passwordRef.current?.value as string;
 
-  const enterKeyDown = (e: React.KeyboardEvent<HTMLIonInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleLogin();
+    if (!email || !password) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Email dan kata sandi harus diisi!',
+        color: 'danger',
+        duration: 3000,
+        icon: alertCircle,
+      });
+    }
+
+    try {
+      presentLoading({ mode: 'ios', spinner: 'crescent' });
+
+      await authCtx.login({ email, password });
+
+      presentToast({
+        mode: 'ios',
+        message: 'Berhasil masuk!',
+        color: 'success',
+        duration: 3000,
+        icon: checkmarkCircle,
+      });
+
+      history.replace('/main');
+    } catch (error) {
+      if (error instanceof Error) {
+        presentToast({
+          mode: 'ios',
+          message: error.message,
+          color: 'danger',
+          duration: 3000,
+          icon: alertCircle,
+        });
+      }
+    } finally {
+      dismissLoading();
     }
   };
 
@@ -32,53 +87,46 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
     <IonGrid className={styles.wrapper}>
       <IonRow>
         <IonCol>
-          <h1 className={styles.header}>
-            <IonText>Masuk</IonText>
-          </h1>
-
-          <IonRow>
-            <IonCol>
-              <IonList className={styles.list}>
-                <InputGroup
-                  ref={emailRef}
-                  type="email"
-                  inputMode="email"
-                  placeholder="Email"
-                  iconStart={mailOutline}
-                  onKeyDown={(e) => enterKeyDown(e)}
-                />
-                <InputGroup
-                  ref={passwordRef}
-                  type={isShowPassword ? 'text' : 'password'}
-                  placeholder="Kata Sandi"
-                  iconStart={lockClosedOutline}
-                  iconEnd={isShowPassword ? eyeOff : eye}
-                  onKeyDown={(e) => enterKeyDown(e)}
-                  onToggleType={() => setIsShowPassword(!isShowPassword)}
-                />
-              </IonList>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              <CustomButton color="primary" onClick={handleLogin}>
-                Masuk
-              </CustomButton>
-            </IonCol>
-          </IonRow>
+          <IonText>
+            <h1>Masuk</h1>
+          </IonText>
         </IonCol>
       </IonRow>
 
       <IonRow>
-        <IonCol>
+        <IonCol size="12">
+          <IonList className={styles.list}>
+            <InputGroup
+              ref={emailRef}
+              type="email"
+              inputMode="email"
+              placeholder="Email"
+              iconStart={mailOutline}
+            />
+            <InputGroup
+              ref={passwordRef}
+              type={isShowPassword ? 'text' : 'password'}
+              placeholder="Kata Sandi"
+              iconStart={lockClosedOutline}
+              iconEnd={isShowPassword ? eyeOff : eye}
+              onToggleType={() => setIsShowPassword(!isShowPassword)}
+            />
+          </IonList>
+        </IonCol>
+        <IonCol size="12">
+          <CustomButton color="primary" onClick={handleLogin}>
+            Masuk
+          </CustomButton>
+        </IonCol>
+      </IonRow>
+
+      <IonRow>
+        <IonCol size="12">
           <CustomLink color="primary" onClick={onForgotPassword} isUnderline>
             Lupa Kata Sandi?
           </CustomLink>
         </IonCol>
-      </IonRow>
-
-      <IonRow>
-        <IonCol>
+        <IonCol size="12">
           <IonText className={styles.footer}>
             Belum punya akun?{' '}
             <CustomLink color="primary" href="/auth/register" isUnderline>

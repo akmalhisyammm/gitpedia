@@ -21,10 +21,7 @@ const Layout = ({ title, children }: LayoutProps) => {
         <IonHeader>
           <IonToolbar color="tertiary">
             <IonButtons slot="start">
-              {title === 'Beranda' ||
-              title === 'Toko' ||
-              title === 'Peringkat' ||
-              title === 'Profil' ? (
+              {['Beranda', 'Toko', 'Peringkat', 'Profil'].includes(title) ? (
                 <IonMenuButton />
               ) : (
                 <IonBackButton defaultHref="/" />
