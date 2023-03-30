@@ -1,0 +1,94 @@
+import { useContext, useEffect, useState } from 'react';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+
+import { UserContext } from './UserContext';
+import { AuthContext } from 'contexts/auth';
+import { usersCollection } from 'lib/firebase';
+
+import type { IUser, IUserItem, IUserProfile, IUserProgress } from 'types/user';
+
+type UserProviderProps = {
+  children: React.ReactNode;
+};
+
+export const UserProvider = ({ children }: UserProviderProps) => {
+  const [user, setUser] = useState<IUser | null>(null);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
+
+  const authCtx = useContext(AuthContext);
+
+  const addItem = async (payload: IUserItem) => {
+    setIsFetching(true);
+
+    if (authCtx.user && user) {
+      try {
+        await updateDoc(doc(usersCollection, authCtx.user.uid), {
+          items: [...user.items, payload],
+        });
+      } catch (error) {
+        throw new Error('Terjadi kesalahan!');
+      }
+    }
+  };
+
+  const updateProgress = async (payload: IUserProgress) => {
+    setIsFetching(true);
+
+    if (authCtx.user && user) {
+      try {
+        await updateDoc(doc(usersCollection, authCtx.user.uid), { progress: payload });
+      } catch (error) {
+        throw new Error('Terjadi kesalahan!');
+      }
+    }
+  };
+
+  const updateProfile = async (payload: IUserProfile) => {
+    setIsFetching(true);
+
+    if (authCtx.user) {
+      try {
+        await updateDoc(doc(usersCollection, authCtx.user.uid), { ...payload });
+      } catch (error) {
+        throw new Error('Terjadi kesalahan!');
+      }
+    }
+  };
+
+  useEffect(() => {
+    const getUserData = async () => {
+      if (authCtx.user) {
+        const snapshot = await getDoc(doc(usersCollection, authCtx.user.uid));
+        const data = snapshot.exists() ? (snapshot.data() as IUser) : null;
+
+        if (data) {
+          const newData = {
+            ...data,
+            progress: {
+              ...data.progress,
+              learns: data.progress.learns.sort((a, b) => {
+                if (a.chapterId === b.chapterId) {
+                  return a.lessonId - b.lessonId;
+                }
+
+                return a.chapterId - b.chapterId;
+              }),
+            },
+          };
+
+          setUser(newData);
+        }
+      }
+
+      setIsFetching(false);
+    };
+
+    getUserData();
+  }, [authCtx.user, isFetching]);
+
+  return (
+    <UserContext.Provider value={{ user, addItem, updateProgress, updateProfile }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
