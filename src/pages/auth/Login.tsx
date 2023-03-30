@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useIonLoading, useIonToast } from '@ionic/react';
+import { alertCircle } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
 import { Layout } from 'components/layouts';
 import { ForgotPasswordModal, LoginForm } from 'components/organisms';
-import { alertCircle } from 'ionicons/icons';
 
 const Login = () => {
   const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
@@ -33,6 +34,10 @@ const Login = () => {
       dismissLoading();
     }
   };
+
+  if (authCtx.user) {
+    return <Redirect exact from="/" to="/main" />;
+  }
 
   return (
     <Layout>

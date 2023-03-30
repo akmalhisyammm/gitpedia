@@ -17,6 +17,8 @@ import { MainTabs } from 'components/layouts';
 const Routes = () => {
   const authCtx = useContext(AuthContext);
 
+  console.log(authCtx.user);
+
   return (
     <IonRouterOutlet id="main">
       <Route exact path="/" component={Onboarding} />
@@ -30,15 +32,8 @@ const Routes = () => {
       <PrivateRoute path="/player/:playerId" component={Player} />
       <PrivateRoute path="/player/edit" component={EditProfile} />
 
-      {authCtx.user ? (
-        <>
-          <Redirect exact from="/" to="/main" />
-          <Redirect exact from="/auth/login" to="/main" />
-          <Redirect exact from="/auth/register" to="/main" />
-        </>
-      ) : (
-        <Redirect exact to="/" />
-      )}
+      <Redirect exact from="/auth" to="/auth/login" />
+      {authCtx.user ? <Redirect exact from="/" to="/main" /> : <Redirect exact to="/" />}
     </IonRouterOutlet>
   );
 };

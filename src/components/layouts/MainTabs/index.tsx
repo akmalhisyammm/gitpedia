@@ -11,11 +11,11 @@ const MainTabs = () => {
   return (
     <IonTabs>
       <IonRouterOutlet>
-        <Redirect exact from="/main" to="/main/home" />
         <Route path="/main/home" component={Home} />
         <Route path="/main/store" component={Store} />
         <Route path="/main/leaderboard" component={Leaderboard} />
         <Route path="/main/profile" component={Profile} />
+        <Redirect exact from="/main" to="/main/home" />
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom" color="tertiary">
