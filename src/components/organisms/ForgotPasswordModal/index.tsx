@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import {
   IonModal,
   IonHeader,
@@ -11,18 +12,17 @@ import {
   IonText,
 } from '@ionic/react';
 import { mailOutline } from 'ionicons/icons';
-import { useRef } from 'react';
 
 import { InputGroup } from 'components/molecules';
 
 type ForgotPasswordModalProps = {
   isOpen: boolean;
-  onRequest: () => void;
+  onRequest: (email: string) => Promise<void>;
   onDismiss: () => void;
 };
 
 const ForgotPasswordModal = ({ isOpen, onRequest, onDismiss }: ForgotPasswordModalProps) => {
-  const forgotPasswordEmailRef = useRef<HTMLIonInputElement>(null);
+  const emailRef = useRef<HTMLIonInputElement>(null);
 
   return (
     <IonModal isOpen={isOpen}>
@@ -40,7 +40,7 @@ const ForgotPasswordModal = ({ isOpen, onRequest, onDismiss }: ForgotPasswordMod
             </IonCol>
             <IonCol size="12">
               <InputGroup
-                ref={forgotPasswordEmailRef}
+                ref={emailRef}
                 type="email"
                 inputMode="email"
                 placeholder="Email"
@@ -51,7 +51,11 @@ const ForgotPasswordModal = ({ isOpen, onRequest, onDismiss }: ForgotPasswordMod
 
           <IonRow className="ion-text-center">
             <IonCol>
-              <IonButton color="primary" expand="block" shape="round" onClick={onRequest}>
+              <IonButton
+                color="primary"
+                expand="block"
+                shape="round"
+                onClick={onRequest.bind(null, emailRef.current?.value as string)}>
                 Kirim
               </IonButton>
             </IonCol>
