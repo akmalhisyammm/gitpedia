@@ -6,16 +6,22 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { ChapterProvider } from 'contexts/chapter';
 import { StoreProvider } from 'contexts/store';
+import { AuthProvider } from 'contexts/auth';
+import { UserProvider } from 'contexts/user';
 
 const container = document.getElementById('root');
 const root = createRoot(container as HTMLElement);
 root.render(
   <React.StrictMode>
-    <ChapterProvider>
-      <StoreProvider>
-        <App />
-      </StoreProvider>
-    </ChapterProvider>
+    <AuthProvider>
+      <ChapterProvider>
+        <StoreProvider>
+          <UserProvider>
+            <App />
+          </UserProvider>
+        </StoreProvider>
+      </ChapterProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
