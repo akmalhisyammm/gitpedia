@@ -17,8 +17,6 @@ import { MainTabs } from 'components/layouts';
 const Routes = () => {
   const authCtx = useContext(AuthContext);
 
-  console.log(authCtx.user);
-
   return (
     <IonRouterOutlet id="main">
       <Route exact path="/" component={Onboarding} />
