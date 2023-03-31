@@ -1,11 +1,9 @@
 import { createContext } from 'react';
 
-import { IStoreItem } from 'types/store';
+import type { IStoreItem } from 'types/store';
 
 interface IContext {
   items: IStoreItem[];
 }
 
-export const StoreContext = createContext<IContext>({
-  items: [],
-});
+export const StoreContext = createContext<IContext>({ items: [] });

@@ -1,11 +1,9 @@
 import { createContext } from 'react';
 
-import { IChapter } from 'types/chapter';
+import type { IChapter } from 'types/chapter';
 
 interface IContext {
   chapters: IChapter[];
 }
 
-export const ChapterContext = createContext<IContext>({
-  chapters: [],
-});
+export const ChapterContext = createContext<IContext>({ chapters: [] });

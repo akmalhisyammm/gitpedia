@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { getDocs } from 'firebase/firestore';
 
 import { ChapterContext } from './ChapterContext';
-import { getAllChapters } from 'lib/firebase';
-import { IChapter } from 'types/chapter';
+import { chaptersCollection } from 'lib/firebase';
+
+import type { IChapter } from 'types/chapter';
 
 type ChapterProviderProps = {
   children: React.ReactNode;
@@ -12,13 +14,14 @@ export const ChapterProvider = ({ children }: ChapterProviderProps) => {
   const [chapters, setChapters] = useState<IChapter[]>([]);
 
   useEffect(() => {
-    const fetchChapters = async () => {
-      const data = await getAllChapters();
+    const getAllChapters = async () => {
+      const snapshot = await getDocs(chaptersCollection);
+      const data = snapshot.docs.map((doc) => ({ ...(doc.data() as IChapter) }));
 
-      setChapters(data);
+      return setChapters(data);
     };
 
-    fetchChapters();
+    getAllChapters();
   }, []);
 
   return <ChapterContext.Provider value={{ chapters }}>{children}</ChapterContext.Provider>;

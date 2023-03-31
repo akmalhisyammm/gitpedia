@@ -20,70 +20,69 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const addItem = async (payload: IUserItem) => {
     setIsFetching(true);
 
-    if (authCtx.user && user) {
-      try {
-        await updateDoc(doc(usersCollection, authCtx.user.uid), {
-          items: [...user.items, payload],
-        });
-      } catch (error) {
-        throw new Error('Terjadi kesalahan!');
-      }
+    if (!authCtx.user || !user) return;
+
+    try {
+      await updateDoc(doc(usersCollection, authCtx.user.uid), {
+        items: [...user.items, payload],
+      });
+    } catch (error) {
+      throw new Error('Terjadi kesalahan!');
     }
   };
 
   const updateProgress = async (payload: IUserProgress) => {
     setIsFetching(true);
 
-    if (authCtx.user && user) {
-      try {
-        await updateDoc(doc(usersCollection, authCtx.user.uid), { progress: payload });
-      } catch (error) {
-        throw new Error('Terjadi kesalahan!');
-      }
+    if (!authCtx.user) return;
+
+    try {
+      await updateDoc(doc(usersCollection, authCtx.user.uid), { progress: payload });
+    } catch (error) {
+      throw new Error('Terjadi kesalahan!');
     }
   };
 
   const updateProfile = async (payload: IUserProfile) => {
     setIsFetching(true);
 
-    if (authCtx.user) {
-      try {
-        await updateDoc(doc(usersCollection, authCtx.user.uid), { ...payload });
-      } catch (error) {
-        throw new Error('Terjadi kesalahan!');
-      }
+    if (!authCtx.user) return;
+
+    try {
+      await updateDoc(doc(usersCollection, authCtx.user.uid), { ...payload });
+    } catch (error) {
+      throw new Error('Terjadi kesalahan!');
     }
   };
 
   useEffect(() => {
-    const getUserData = async () => {
-      if (authCtx.user) {
-        const snapshot = await getDoc(doc(usersCollection, authCtx.user.uid));
-        const data = snapshot.exists() ? (snapshot.data() as IUser) : null;
+    const getUser = async () => {
+      if (!authCtx.user) return;
 
-        if (data) {
-          const newData = {
-            ...data,
-            progress: {
-              ...data.progress,
-              learns: data.progress.learns.sort((a, b) => {
-                if (a.chapterId === b.chapterId) {
-                  return a.lessonId - b.lessonId;
-                }
+      const snapshot = await getDoc(doc(usersCollection, authCtx.user.uid));
+      const data = snapshot.exists() ? (snapshot.data() as IUser) : null;
 
-                return a.chapterId - b.chapterId;
-              }),
-            },
-          };
+      if (!data) return;
 
-          setUser(newData);
-        }
-      }
+      const newData = {
+        ...data,
+        progress: {
+          ...data.progress,
+          learns: data.progress.learns.sort((a, b) => {
+            if (a.chapterId === b.chapterId) {
+              return a.lessonId - b.lessonId;
+            }
 
+            return a.chapterId - b.chapterId;
+          }),
+        },
+      };
+
+      setUser(newData);
       setIsFetching(false);
     };
 
-    getUserData();
+    getUser();
   }, [authCtx.user, isFetching]);
 
   return (

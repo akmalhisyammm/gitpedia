@@ -82,7 +82,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           ],
         },
       });
-
       await sendEmailVerification(user);
     } catch (error) {
       if (error instanceof FirebaseError) {
