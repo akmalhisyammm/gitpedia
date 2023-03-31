@@ -4,9 +4,10 @@ import { createRoot } from 'react-dom/client';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-import { ChapterProvider } from 'contexts/chapter';
-import { StoreProvider } from 'contexts/store';
 import { AuthProvider } from 'contexts/auth';
+import { ChapterProvider } from 'contexts/chapter';
+import { LeaderboardProvider } from 'contexts/leaderboard';
+import { StoreProvider } from 'contexts/store';
 import { UserProvider } from 'contexts/user';
 
 const container = document.getElementById('root');
@@ -16,9 +17,11 @@ root.render(
     <AuthProvider>
       <ChapterProvider>
         <StoreProvider>
-          <UserProvider>
-            <App />
-          </UserProvider>
+          <LeaderboardProvider>
+            <UserProvider>
+              <App />
+            </UserProvider>
+          </LeaderboardProvider>
         </StoreProvider>
       </ChapterProvider>
     </AuthProvider>
