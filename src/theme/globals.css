@@ -9,3 +9,7 @@ ion-app {
 ion-card {
   border-radius: 12px;
 }
+
+ion-toast.custom-toast::part(button) {
+  border-left: 1px solid #fff;
+}
