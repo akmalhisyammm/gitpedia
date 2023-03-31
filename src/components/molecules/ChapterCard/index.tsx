@@ -14,16 +14,16 @@ import styles from './ChapterCard.module.scss';
 
 type ChapterCardProps = {
   title: string;
-  imgSrc: string;
+  thumbnail: string;
   percentage?: number;
   isLocked?: boolean;
 };
 
-const ChapterCard = ({ title, imgSrc, percentage, isLocked }: ChapterCardProps) => {
+const ChapterCard = ({ title, thumbnail, percentage, isLocked }: ChapterCardProps) => {
   return (
     <IonCard className={`${styles.wrapper} ion-activatable ripple-parent rounded-rectangle`}>
       <CustomImage
-        src={imgSrc}
+        src={thumbnail}
         alt={title}
         className={styles.background}
         style={{ opacity: isLocked ? 0.5 : 1 }}
@@ -47,8 +47,8 @@ const ChapterCard = ({ title, imgSrc, percentage, isLocked }: ChapterCardProps) 
         <IonText>
           <h2>{title}</h2>
         </IonText>
-        {!isLocked && percentage && (
-          <IonProgressBar value={percentage * 0.01} className={styles.progressBar} />
+        {!isLocked && percentage !== undefined && (
+          <IonProgressBar value={percentage} className={styles.progressBar} />
         )}
       </IonCardContent>
     </IonCard>

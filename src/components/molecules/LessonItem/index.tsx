@@ -16,13 +16,16 @@ const LessonItem = ({ title, totalStars, isLocked }: LessonItemProps) => {
       button={!isLocked}
       detail={!isLocked}
       className={styles.item}
-      style={{
-        opacity: isLocked ? 0.5 : 1,
-      }}>
+      style={{ opacity: isLocked ? 0.5 : 1 }}>
       <div className={styles.leftContent}>
         {totalStars > 0 && (
           <IonBadge color="success" className={styles.badge}>
             Lulus
+          </IonBadge>
+        )}
+        {!isLocked && totalStars === 0 && (
+          <IonBadge color="secondary" className={styles.badge}>
+            Sedang Belajar
           </IonBadge>
         )}
         <IonText>{title}</IonText>

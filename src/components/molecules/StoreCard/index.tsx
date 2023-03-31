@@ -7,13 +7,13 @@ import styles from './StoreCard.module.scss';
 type StoreCardProps = {
   title: string;
   price: number;
-  image: string;
+  thumbnail: string;
 };
 
-const StoreCard = ({ title, price, image }: StoreCardProps) => {
+const StoreCard = ({ title, price, thumbnail }: StoreCardProps) => {
   return (
     <IonCard color="secondary" className={styles.wrapper}>
-      <CustomImage src={image} alt={title} className={styles.image} />
+      <CustomImage src={thumbnail} alt={title} className={styles.image} />
       <IonCardContent>
         <div className={styles.content}>
           <IonCardTitle>{price}</IonCardTitle>
