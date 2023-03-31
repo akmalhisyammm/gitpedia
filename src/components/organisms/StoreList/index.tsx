@@ -1,39 +1,34 @@
+import { useContext } from 'react';
 import { IonGrid, IonRow, IonCol, IonText } from '@ionic/react';
 
+import { StoreContext } from 'contexts/store';
 import { StoreCard } from 'components/molecules';
 
 import styles from './StoreList.module.scss';
 
-const ITEMS = [
-  {
-    id: 1,
-    title: 'Strip Frame',
-    price: 150,
-    image: '/assets/icon/frames/strip.png',
-  },
-  {
-    id: 2,
-    title: 'Technology Frame',
-    price: 200,
-    image: '/assets/icon/frames/technology.png',
-  },
-  {
-    id: 3,
-    title: 'Rainbow Frame',
-    price: 250,
-    image: '/assets/icon/frames/rainbow.png',
-  },
-  {
-    id: 4,
-    title: 'Colorful Frame',
-    price: 300,
-    image: '/assets/icon/frames/colorful.png',
-  },
-];
-
 const StoreList = () => {
+  const storeCtx = useContext(StoreContext);
+
   return (
     <IonGrid>
+      <IonRow className="ion-margin-bottom">
+        <IonCol size="12">
+          <IonText>
+            <h4 className={styles.title}>Avatar</h4>
+          </IonText>
+          <IonText color="medium">
+            <small>Beli avatar untuk digunakan pada profil kamu.</small>
+          </IonText>
+        </IonCol>
+        {storeCtx.items
+          .filter((item) => item.type === 'avatar')
+          .sort((a, b) => a.price - b.price)
+          .map((item) => (
+            <IonCol size="6" key={item.id}>
+              <StoreCard title={item.name} price={item.price} thumbnail={item.thumbnail} />
+            </IonCol>
+          ))}
+      </IonRow>
       <IonRow>
         <IonCol size="12">
           <IonText>
@@ -43,11 +38,14 @@ const StoreList = () => {
             <small>Beli bingkai untuk digunakan pada profil kamu.</small>
           </IonText>
         </IonCol>
-        {ITEMS.map((item) => (
-          <IonCol size="6" key={item.id}>
-            <StoreCard title={item.title} price={item.price} image={item.image} />
-          </IonCol>
-        ))}
+        {storeCtx.items
+          .filter((item) => item.type === 'frame')
+          .sort((a, b) => a.price - b.price)
+          .map((item) => (
+            <IonCol size="6" key={item.id}>
+              <StoreCard title={item.name} price={item.price} thumbnail={item.thumbnail} />
+            </IonCol>
+          ))}
       </IonRow>
     </IonGrid>
   );

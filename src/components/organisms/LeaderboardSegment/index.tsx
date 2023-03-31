@@ -12,7 +12,7 @@ const LeaderboardSegment = ({ selectedValue, onSelect }: LeaderboardSegmentProps
 
   return (
     <IonSegment value={selectedValue} onIonChange={handleSegmentChange}>
-      <IonSegmentButton value="all">Semua</IonSegmentButton>
+      <IonSegmentButton value="globals">Semua</IonSegmentButton>
       <IonSegmentButton value="friends">Teman</IonSegmentButton>
     </IonSegment>
   );

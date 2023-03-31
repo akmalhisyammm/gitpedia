@@ -10,8 +10,16 @@
   overflow: auto;
 
   .card {
-    text-align: justify;
     border-radius: 12px;
     margin: 0;
+
+    h2 {
+      line-height: 1.5em;
+    }
+  }
+
+  .radio {
+    margin: 8px 0;
+    border-radius: 12px;
   }
 }

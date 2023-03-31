@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
   IonCard,
   IonCardHeader,
@@ -8,14 +9,19 @@ import {
 } from '@ionic/react';
 
 import { CustomButton, CustomImage } from 'components/atoms';
+import { UserContext } from 'contexts/user';
 
 import styles from './Hero.module.scss';
 
 const Hero = () => {
+  const userCtx = useContext(UserContext);
+
+  if (!userCtx.user) return null;
+
   return (
     <IonCard color="tertiary">
       <IonCardHeader>
-        <IonCardTitle>Halo, John Doe</IonCardTitle>
+        <IonCardTitle>Halo, {userCtx.user.name.split(' ')[0]}</IonCardTitle>
         <IonCardSubtitle>Siap belajar hari ini?</IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent>
@@ -27,7 +33,7 @@ const Hero = () => {
             <div className={styles.coinInfo}>
               <CustomImage src="/assets/icon/coin.png" alt="Coin" className={styles.icon} />
               <IonText>
-                <h2>100</h2>
+                <h2>{userCtx.user.progress.totalCoins}</h2>
               </IonText>
             </div>
           </div>

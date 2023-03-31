@@ -1,25 +1,28 @@
+import ReactMarkdown from 'react-markdown';
 import { IonCol, IonGrid, IonRow, IonText } from '@ionic/react';
-import { useLocation } from 'react-router-dom';
 
 import { CustomButton } from 'components/atoms';
 
-const LessonContent = () => {
-  const location = useLocation();
+import styles from './LessonContent.module.scss';
 
+type LessonContentProps = {
+  content: string;
+  onStartQuiz: () => void;
+};
+
+const LessonContent = ({ content, onStartQuiz }: LessonContentProps) => {
   return (
     <IonGrid>
-      <IonRow className="ion-text-justify">
+      <IonRow>
         <IonCol>
-          <IonText>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis atque beatae alias
-            porro fugit voluptates. Dolor voluptatibus maxime dolorem? Nisi eveniet vitae blanditiis
-            voluptatum soluta sequi adipisci rerum ut impedit.
+          <IonText className={styles.content}>
+            <ReactMarkdown>{content.replaceAll('\\n', '\n')}</ReactMarkdown>
           </IonText>
         </IonCol>
       </IonRow>
       <IonRow className="ion-margin-vertical">
         <IonCol>
-          <CustomButton color="primary" href={`${location.pathname}/quiz`}>
+          <CustomButton color="primary" onClick={onStartQuiz}>
             Mulai Kuis
           </CustomButton>
         </IonCol>

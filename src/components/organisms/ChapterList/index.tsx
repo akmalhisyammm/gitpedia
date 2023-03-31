@@ -1,56 +1,49 @@
+import { useContext } from 'react';
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
 
+import { ChapterContext } from 'contexts/chapter';
+import { UserContext } from 'contexts/user';
 import { CustomLink } from 'components/atoms';
 import { ChapterCard } from 'components/molecules';
 
-const CHAPTERS = [
-  {
-    id: 1,
-    title: 'Pendahuluan',
-    imgSrc: '/assets/img/software-code-testing-pana.svg',
-    percentage: 25,
-    isLocked: false,
-  },
-  {
-    id: 2,
-    title: 'Dasar-Dasar Git',
-    imgSrc: '/assets/img/low-code-development-pana.svg',
-    percentage: 0,
-    isLocked: true,
-  },
-  {
-    id: 3,
-    title: 'Bekerja Jarak Jauh',
-    imgSrc: '/assets/img/pull-request-pana.svg',
-    percentage: 0,
-    isLocked: true,
-  },
-];
-
 const ChapterList = () => {
+  const chapterCtx = useContext(ChapterContext);
+  const userCtx = useContext(UserContext);
+
   return (
     <IonGrid>
       <IonRow>
-        {CHAPTERS.map((chapter) => (
-          <IonCol size="12" sizeSm="6" key={chapter.id}>
-            {!chapter.isLocked ? (
-              <CustomLink href={`/learn/${chapter.id}`}>
-                <ChapterCard
-                  title={chapter.title}
-                  imgSrc={chapter.imgSrc}
-                  percentage={chapter.percentage}
-                />
-              </CustomLink>
-            ) : (
-              <ChapterCard
-                title={chapter.title}
-                imgSrc={chapter.imgSrc}
-                percentage={chapter.percentage}
-                isLocked
-              />
-            )}
-          </IonCol>
-        ))}
+        {chapterCtx.chapters.map((chapter) => {
+          if (!userCtx.user) return null;
+
+          // Get previous learn
+          const currentLearnIdx = userCtx.user.progress.learns.findIndex(
+            (learn) => learn.chapterId === chapter.id && learn.lessonId === 1
+          );
+          const prevLearn = userCtx.user.progress.learns[currentLearnIdx - 1];
+
+          // Calculate chapter progress
+          const chapterPercentage =
+            userCtx.user.progress.learns.filter(
+              (learn) => learn.chapterId === chapter.id && learn.isPassed
+            ).length / chapter.lessons.length;
+
+          return (
+            <IonCol size="12" sizeSm="6" key={chapter.id}>
+              {chapter.id === 1 || prevLearn.isPassed ? (
+                <CustomLink href={`/learn/${chapter.id}`}>
+                  <ChapterCard
+                    title={chapter.title}
+                    thumbnail={chapter.thumbnail}
+                    percentage={chapterPercentage}
+                  />
+                </CustomLink>
+              ) : (
+                <ChapterCard title={chapter.title} thumbnail={chapter.thumbnail} isLocked />
+              )}
+            </IonCol>
+          );
+        })}
       </IonRow>
     </IonGrid>
   );
