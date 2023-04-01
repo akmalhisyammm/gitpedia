@@ -9,7 +9,7 @@ const Register = () => {
   const authCtx = useContext(AuthContext);
 
   if (authCtx.user) {
-    return <Redirect exact from="/" to="/main" />;
+    return <Redirect exact to="/main" />;
   }
 
   return (

@@ -49,7 +49,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
         mode: 'ios',
         message: 'Email dan kata sandi harus diisi!',
         color: 'danger',
-        duration: 3000,
+        duration: 2000,
         icon: alertCircle,
       });
     }
@@ -63,7 +63,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
         mode: 'ios',
         message: 'Berhasil masuk!',
         color: 'success',
-        duration: 3000,
+        duration: 2000,
         icon: checkmarkCircle,
       });
 
@@ -74,7 +74,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
           mode: 'ios',
           message: error.message,
           color: 'danger',
-          duration: 3000,
+          duration: 2000,
           icon: alertCircle,
         });
       }
@@ -129,7 +129,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
         <IonCol size="12">
           <IonText className={styles.footer}>
             Belum punya akun?{' '}
-            <CustomLink color="primary" href="/auth/register" isUnderline>
+            <CustomLink href="/auth/register" color="primary" isUnderline>
               Daftar
             </CustomLink>
           </IonText>

@@ -28,7 +28,7 @@ const SideMenu = () => {
       mode: 'ios',
       message: 'Berhasil keluar!',
       color: 'success',
-      duration: 3000,
+      duration: 2000,
       icon: checkmarkCircle,
     });
   };

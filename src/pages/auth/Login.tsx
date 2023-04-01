@@ -26,7 +26,7 @@ const Login = () => {
           mode: 'ios',
           message: error.message,
           color: 'danger',
-          duration: 3000,
+          duration: 2000,
           icon: alertCircle,
         });
       }
@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   if (authCtx.user) {
-    return <Redirect exact from="/" to="/main" />;
+    return <Redirect exact to="/main" />;
   }
 
   return (

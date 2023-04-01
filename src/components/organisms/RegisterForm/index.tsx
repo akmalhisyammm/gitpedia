@@ -45,6 +45,15 @@ const RegisterForm = () => {
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const confirmPasswordRef = useRef<HTMLIonInputElement>(null);
 
+  const resetAllInputs = () => {
+    nameRef.current?.value && (nameRef.current.value = '');
+    occupationRef.current?.value && (occupationRef.current.value = '');
+    genderRef.current?.value && (genderRef.current.value = '');
+    emailRef.current?.value && (emailRef.current.value = '');
+    passwordRef.current?.value && (passwordRef.current.value = '');
+    confirmPasswordRef.current?.value && (confirmPasswordRef.current.value = '');
+  };
+
   const handleRegister = async () => {
     const name = nameRef.current?.value as string;
     const occupation = occupationRef.current?.value as string;
@@ -58,7 +67,7 @@ const RegisterForm = () => {
         mode: 'ios',
         message: 'Nama harus diisi!',
         color: 'danger',
-        duration: 3000,
+        duration: 2000,
         icon: alertCircle,
       });
     }
@@ -68,7 +77,7 @@ const RegisterForm = () => {
         mode: 'ios',
         message: 'Pekerjaan harus diisi!',
         color: 'danger',
-        duration: 3000,
+        duration: 2000,
         icon: alertCircle,
       });
     }
@@ -78,7 +87,7 @@ const RegisterForm = () => {
         mode: 'ios',
         message: 'Jenis kelamin harus diisi!',
         color: 'danger',
-        duration: 3000,
+        duration: 2000,
         icon: alertCircle,
       });
     }
@@ -88,7 +97,7 @@ const RegisterForm = () => {
         mode: 'ios',
         message: 'Email harus diisi!',
         color: 'danger',
-        duration: 3000,
+        duration: 2000,
         icon: alertCircle,
       });
     }
@@ -98,7 +107,7 @@ const RegisterForm = () => {
         mode: 'ios',
         message: 'Kata sandi minimal 6 karakter!',
         color: 'danger',
-        duration: 3000,
+        duration: 2000,
         icon: alertCircle,
       });
     }
@@ -108,7 +117,7 @@ const RegisterForm = () => {
         mode: 'ios',
         message: 'Kata sandi tidak sama!',
         color: 'danger',
-        duration: 3000,
+        duration: 2000,
         icon: alertCircle,
       });
     }
@@ -139,11 +148,12 @@ const RegisterForm = () => {
           mode: 'ios',
           message: error.message,
           color: 'danger',
-          duration: 3000,
+          duration: 2000,
           icon: alertCircle,
         });
       }
     } finally {
+      resetAllInputs();
       dismissLoading();
     }
   };
@@ -165,7 +175,7 @@ const RegisterForm = () => {
               ref={nameRef}
               type="text"
               inputMode="text"
-              placeholder="Nama Lengkap"
+              placeholder="Nama"
               iconStart={personOutline}
             />
             <InputGroup
@@ -227,7 +237,7 @@ const RegisterForm = () => {
         <IonCol>
           <IonText className={styles.footer}>
             Sudah punya akun?{' '}
-            <CustomLink color="primary" href="/auth/login" isUnderline>
+            <CustomLink href="/auth/login" color="primary" isUnderline>
               Masuk
             </CustomLink>
           </IonText>
