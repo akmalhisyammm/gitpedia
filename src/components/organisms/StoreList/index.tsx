@@ -1,13 +1,95 @@
 import { useContext } from 'react';
-import { IonGrid, IonRow, IonCol, IonText } from '@ionic/react';
+import {
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonText,
+  useIonToast,
+  useIonLoading,
+  useIonAlert,
+} from '@ionic/react';
+import { alertCircle, checkmarkCircle } from 'ionicons/icons';
 
 import { StoreContext } from 'contexts/store';
+import { UserContext } from 'contexts/user';
 import { StoreCard } from 'components/molecules';
+
+import type { IStoreItem } from 'types/store';
 
 import styles from './StoreList.module.scss';
 
 const StoreList = () => {
+  const [presentToast] = useIonToast();
+  const [presentAlert] = useIonAlert();
+  const [presentLoading, dismissLoading] = useIonLoading();
+
   const storeCtx = useContext(StoreContext);
+  const userCtx = useContext(UserContext);
+
+  const handleBuyItem = (item: IStoreItem) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { price: _, ...payload } = item;
+
+    presentAlert({
+      mode: 'ios',
+      header: 'Konfirmasi Pembelian',
+      message: `Apakah kamu yakin ingin membeli ${
+        item.type === 'avatar' ? 'avatar' : 'bingkai'
+      } ini?`,
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel',
+        },
+        {
+          text: 'Beli',
+          handler: async () => {
+            if (!userCtx.user) return;
+
+            if (userCtx.user.progress.totalCoins < item.price) {
+              return presentToast({
+                mode: 'ios',
+                message: 'Koin kamu tidak cukup!',
+                color: 'danger',
+                duration: 2000,
+                icon: alertCircle,
+              });
+            }
+
+            try {
+              presentLoading({ mode: 'ios', spinner: 'crescent' });
+
+              await userCtx.addItem(payload);
+              await userCtx.updateProgress({
+                ...userCtx.user.progress,
+                totalCoins: userCtx.user.progress.totalCoins - item.price,
+              });
+
+              presentToast({
+                mode: 'ios',
+                message: `Berhasil membeli ${item.type === 'avatar' ? 'avatar' : 'bingkai'}!`,
+                color: 'success',
+                duration: 2000,
+                icon: checkmarkCircle,
+              });
+            } catch (error) {
+              if (error instanceof Error) {
+                presentToast({
+                  mode: 'ios',
+                  message: error.message,
+                  color: 'danger',
+                  duration: 2000,
+                  icon: alertCircle,
+                });
+              }
+            } finally {
+              dismissLoading();
+            }
+          },
+        },
+      ],
+    });
+  };
 
   return (
     <IonGrid>
@@ -21,11 +103,34 @@ const StoreList = () => {
           </IonText>
         </IonCol>
         {storeCtx.items
-          .filter((item) => item.type === 'avatar')
+          .filter(
+            (item) => item.type === 'avatar' && !userCtx.user?.items.some((i) => i.id === item.id)
+          )
+          .sort((a, b) => a.price - b.price)
+          .map((item) => {
+            if (!userCtx.user) return null;
+
+            return (
+              <IonCol size="6" key={item.id}>
+                <div onClick={() => handleBuyItem(item)}>
+                  <StoreCard title={item.name} price={item.price} thumbnail={item.thumbnail} />
+                </div>
+              </IonCol>
+            );
+          })}
+        {storeCtx.items
+          .filter(
+            (item) => item.type === 'avatar' && userCtx.user?.items.some((i) => i.id === item.id)
+          )
           .sort((a, b) => a.price - b.price)
           .map((item) => (
             <IonCol size="6" key={item.id}>
-              <StoreCard title={item.name} price={item.price} thumbnail={item.thumbnail} />
+              <StoreCard
+                title={item.name}
+                price={item.price}
+                thumbnail={item.thumbnail}
+                isPurchased
+              />
             </IonCol>
           ))}
       </IonRow>
@@ -39,11 +144,34 @@ const StoreList = () => {
           </IonText>
         </IonCol>
         {storeCtx.items
-          .filter((item) => item.type === 'frame')
+          .filter(
+            (item) => item.type === 'frame' && !userCtx.user?.items.some((i) => i.id === item.id)
+          )
+          .sort((a, b) => a.price - b.price)
+          .map((item) => {
+            if (!userCtx.user) return null;
+
+            return (
+              <IonCol size="6" key={item.id}>
+                <div onClick={() => handleBuyItem(item)}>
+                  <StoreCard title={item.name} price={item.price} thumbnail={item.thumbnail} />
+                </div>
+              </IonCol>
+            );
+          })}
+        {storeCtx.items
+          .filter(
+            (item) => item.type === 'frame' && userCtx.user?.items.some((i) => i.id === item.id)
+          )
           .sort((a, b) => a.price - b.price)
           .map((item) => (
             <IonCol size="6" key={item.id}>
-              <StoreCard title={item.name} price={item.price} thumbnail={item.thumbnail} />
+              <StoreCard
+                title={item.name}
+                price={item.price}
+                thumbnail={item.thumbnail}
+                isPurchased
+              />
             </IonCol>
           ))}
       </IonRow>

@@ -1,5 +1,5 @@
 export interface IUserItem {
-  id: string;
+  id: number;
   type: 'avatar' | 'frame';
   name: string;
   thumbnail: string;
