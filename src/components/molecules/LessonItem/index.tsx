@@ -25,7 +25,7 @@ const LessonItem = ({ title, totalStars, isLocked }: LessonItemProps) => {
         )}
         {!isLocked && totalStars === 0 && (
           <IonBadge color="secondary" className={styles.badge}>
-            Sedang Belajar
+            Belum Lulus
           </IonBadge>
         )}
         <IonText>{title}</IonText>

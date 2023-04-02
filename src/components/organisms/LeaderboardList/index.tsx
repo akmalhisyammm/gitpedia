@@ -14,8 +14,6 @@ type LeaderboardListProps = {
 const LeaderboardList = ({ mode }: LeaderboardListProps) => {
   const leaderboardCtx = useContext(LeaderboardContext);
 
-  console.log(leaderboardCtx.globals);
-
   return (
     <IonList className={styles.list}>
       {mode === 'globals' ? (

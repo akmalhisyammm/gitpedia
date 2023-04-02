@@ -6,6 +6,7 @@ import styles from './SelectGroup.module.scss';
 type SelectGroupProps = {
   type: 'action-sheet' | 'alert' | 'popover';
   options: { value: string; label: string }[];
+  value?: string;
   placeholder?: string;
   labelStart?: string;
   labelEnd?: string;
@@ -14,7 +15,7 @@ type SelectGroupProps = {
 };
 
 const SelectGroup = (
-  { type, options, placeholder, labelStart, labelEnd, iconStart, iconEnd }: SelectGroupProps,
+  { type, options, value, placeholder, labelStart, labelEnd, iconStart, iconEnd }: SelectGroupProps,
   ref: React.Ref<HTMLIonSelectElement>
 ) => {
   return (
@@ -27,7 +28,12 @@ const SelectGroup = (
       {iconStart && (
         <IonIcon icon={iconStart} color="primary" slot="start" className={styles.iconStart} />
       )}
-      <IonSelect ref={ref} interface={type} placeholder={placeholder} className={styles.select}>
+      <IonSelect
+        ref={ref}
+        value={value}
+        interface={type}
+        placeholder={placeholder}
+        className={styles.select}>
         {options.map((option) => (
           <IonSelectOption key={option.value} value={option.value}>
             {option.label}

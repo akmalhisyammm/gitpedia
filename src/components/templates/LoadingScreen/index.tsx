@@ -9,7 +9,7 @@ const LoadingScreen = () => {
         <IonContent color="tertiary">
           <div className={styles.wrapper}>
             <IonSpinner name="dots" className={styles.spinner} />
-            <IonText>Mohon Tunggu</IonText>
+            <IonText>Sedang Memuat</IonText>
           </div>
         </IonContent>
       </IonPage>

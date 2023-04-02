@@ -29,20 +29,10 @@ const Greeting = () => {
 
       <IonRow>
         <IonCol>
-          <CustomButton
-            shape="round"
-            expand="block"
-            color="primary"
-            routerLink="/auth/login"
-            className={styles.cta}>
+          <CustomButton href="/auth/login" color="primary" className={styles.cta}>
             Masuk
           </CustomButton>
-          <CustomButton
-            shape="round"
-            expand="block"
-            color="secondary"
-            routerLink="/auth/register"
-            className={styles.cta}>
+          <CustomButton href="/auth/register" color="secondary" className={styles.cta}>
             Daftar
           </CustomButton>
         </IonCol>
@@ -50,7 +40,7 @@ const Greeting = () => {
 
       <IonRow className="ion-margin-vertical">
         <IonCol>
-          <IonRouterLink color="primary" routerLink="/about">
+          <IonRouterLink href="/about" color="primary">
             Tentang Aplikasi <IonIcon icon={openOutline} />
           </IonRouterLink>
         </IonCol>

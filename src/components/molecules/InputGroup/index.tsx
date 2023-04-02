@@ -18,6 +18,7 @@ type InputGroupProps = {
     | 'url'
     | 'week';
   inputMode?: 'decimal' | 'email' | 'none' | 'numeric' | 'search' | 'tel' | 'text' | 'url';
+  value?: string;
   placeholder?: string;
   labelStart?: string;
   labelEnd?: string;
@@ -30,6 +31,7 @@ const InputGroup = (
   {
     type,
     inputMode,
+    value,
     placeholder,
     labelStart,
     labelEnd,
@@ -49,7 +51,13 @@ const InputGroup = (
       {iconStart && (
         <IonIcon icon={iconStart} color="primary" slot="start" className={styles.iconStart} />
       )}
-      <IonInput ref={ref} type={type} inputMode={inputMode} placeholder={placeholder} />
+      <IonInput
+        ref={ref}
+        value={value}
+        type={type}
+        inputMode={inputMode}
+        placeholder={placeholder}
+      />
       {labelEnd && <IonLabel slot="end">{labelEnd}</IonLabel>}
       {iconEnd && (
         <IonIcon slot="end" icon={iconEnd} className={styles.iconEnd} onClick={onToggleType} />

@@ -16,5 +16,5 @@ export { default as LessonContent } from './LessonContent';
 export { default as LessonList } from './LessonList';
 export { default as ProfileInfo } from './ProfileInfo';
 export { default as ProfileStats } from './ProfileStats';
-export { default as QuizModal } from './QuizModal';
+export { default as QuizForm } from './QuizForm';
 export { default as StoreList } from './StoreList';
