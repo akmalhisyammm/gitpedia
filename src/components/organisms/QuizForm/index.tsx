@@ -87,6 +87,7 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
               isPassed: correctCount > 0 || currentLearn.isPassed,
             },
           ],
+          lastUpdated: Date.now(),
         });
       } catch (error) {
         if (error instanceof Error) {
@@ -161,8 +162,6 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
       setIsFinished(true);
     }
   }, [quiz, number]);
-
-  console.log(isFinished);
 
   return (
     <IonGrid className={styles.wrapper}>

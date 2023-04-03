@@ -3,7 +3,7 @@ import { CustomImage } from 'components/atoms';
 import styles from './FramedAvatar.module.scss';
 
 type FramedAvatarProps = {
-  avatar: string;
+  avatar?: string;
   frame?: string;
   width: number;
 };

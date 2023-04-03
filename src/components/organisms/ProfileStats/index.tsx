@@ -1,28 +1,41 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
 
-import { UserContext } from 'contexts/user';
+import { LeaderboardContext } from 'contexts/leaderboard';
 import { StatisticCard } from 'components/molecules';
 
-const ProfileStats = () => {
-  const userCtx = useContext(UserContext);
+import type { IUserLeaderboard } from 'types/leaderboard';
 
-  if (!userCtx.user) return null;
+type ProfileStatsProps = {
+  userId: string;
+};
+
+const ProfileStats = ({ userId }: ProfileStatsProps) => {
+  const [currentUser, setCurrentUser] = useState<IUserLeaderboard | null>(null);
+
+  const leaderboardCtx = useContext(LeaderboardContext);
+
+  useEffect(() => {
+    const user = leaderboardCtx.globals.find((user) => user.id === userId);
+    setCurrentUser(user || null);
+  }, [leaderboardCtx.globals, userId]);
+
+  if (!currentUser) return null;
 
   return (
     <IonGrid className="ion-text-center">
       <IonRow>
         <IonCol size="6">
-          <StatisticCard title="Mengikuti" value={userCtx.user.activity.following.length} />
+          <StatisticCard title="Mengikuti" value={currentUser.following.length} />
         </IonCol>
         <IonCol size="6">
-          <StatisticCard title="Pengikut" value={userCtx.user.activity.followers.length} />
+          <StatisticCard title="Pengikut" value={currentUser.followers.length} />
         </IonCol>
         <IonCol size="12">
-          <StatisticCard title="Peringkat Dunia" value={2} />
+          <StatisticCard title="Peringkat Dunia" value={currentUser.rank} />
         </IonCol>
         <IonCol size="12">
-          <StatisticCard title="Total Bintang" value={userCtx.user.progress.totalStars} />
+          <StatisticCard title="Total Bintang" value={currentUser.totalStars} />
         </IonCol>
       </IonRow>
     </IonGrid>

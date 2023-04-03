@@ -6,8 +6,6 @@ import { LeaderboardList, LeaderboardSegment } from 'components/organisms';
 const Leaderboard = () => {
   const [segment, setSegment] = useState('globals');
 
-  console.log(Date.now());
-
   return (
     <Layout title="Peringkat" isMenuButton>
       <LeaderboardSegment selectedValue={segment} onSelect={(value) => setSegment(value)} />

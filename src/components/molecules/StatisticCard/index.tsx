@@ -9,7 +9,7 @@ type StatisticCardProps = {
 
 const StatisticCard = ({ title, value }: StatisticCardProps) => {
   return (
-    <IonCard color="secondary" className={styles.card}>
+    <IonCard color="medium" className={styles.card}>
       <IonCardHeader>
         <IonCardSubtitle>{title}</IonCardSubtitle>
         <IonCardTitle>{value}</IonCardTitle>

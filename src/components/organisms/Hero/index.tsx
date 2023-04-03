@@ -37,7 +37,9 @@ const Hero = () => {
               </IonText>
             </div>
           </div>
-          <CustomButton color="primary">Toko</CustomButton>
+          <CustomButton href="/main/store" color="primary">
+            Toko
+          </CustomButton>
         </div>
       </IonCardContent>
     </IonCard>

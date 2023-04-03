@@ -98,6 +98,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
           <IonList className={styles.list}>
             <InputGroup
               ref={emailRef}
+              value={emailRef.current?.value as string}
               type="email"
               inputMode="email"
               placeholder="Email"
@@ -105,6 +106,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
             />
             <InputGroup
               ref={passwordRef}
+              value={passwordRef.current?.value as string}
               type={isShowPassword ? 'text' : 'password'}
               placeholder="Kata Sandi"
               iconStart={lockClosedOutline}
