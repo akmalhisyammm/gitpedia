@@ -1,20 +1,16 @@
-import { IonIcon } from '@ionic/react';
-import { logOutOutline } from 'ionicons/icons';
+import { useContext } from 'react';
 
+import { UserContext } from 'contexts/user';
 import { Layout } from 'components/layouts';
-import { CustomButton } from 'components/atoms';
 import { ProfileInfo, ProfileStats } from 'components/organisms';
 
 const Profile = () => {
-  return (
-    <Layout title="Profil">
-      <ProfileInfo />
-      <ProfileStats />
+  const userCtx = useContext(UserContext);
 
-      <CustomButton color="danger" style={{ margin: '8px 12px' }}>
-        <IonIcon slot="start" icon={logOutOutline} />
-        Keluar
-      </CustomButton>
+  return (
+    <Layout title="Profil" isMenuButton>
+      <ProfileInfo type="self" userId={String(userCtx.user?.id)} />
+      <ProfileStats userId={String(userCtx.user?.id)} />
     </Layout>
   );
 };

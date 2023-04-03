@@ -3,7 +3,7 @@ import { StoreList } from 'components/organisms';
 
 const Store = () => {
   return (
-    <Layout title="Toko">
+    <Layout title="Toko" isMenuButton>
       <StoreList />
     </Layout>
   );

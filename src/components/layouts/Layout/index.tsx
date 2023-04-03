@@ -11,21 +11,18 @@ import {
 
 type LayoutProps = {
   title?: string;
+  isMenuButton?: boolean;
   children: React.ReactNode;
 };
 
-const Layout = ({ title, children }: LayoutProps) => {
+const Layout = ({ title, isMenuButton, children }: LayoutProps) => {
   return (
     <IonPage>
       {title && (
         <IonHeader>
           <IonToolbar color="tertiary">
             <IonButtons slot="start">
-              {['Beranda', 'Toko', 'Peringkat', 'Profil'].includes(title) ? (
-                <IonMenuButton />
-              ) : (
-                <IonBackButton defaultHref="/" />
-              )}
+              {isMenuButton ? <IonMenuButton /> : <IonBackButton defaultHref="/" />}
             </IonButtons>
             <IonTitle>{title}</IonTitle>
           </IonToolbar>

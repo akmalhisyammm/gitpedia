@@ -3,7 +3,7 @@ import { ChapterList, Hero } from 'components/organisms';
 
 const Home = () => {
   return (
-    <Layout title="Beranda">
+    <Layout title="Beranda" isMenuButton>
       <Hero />
       <ChapterList />
     </Layout>
