@@ -17,11 +17,11 @@ root.render(
     <AuthProvider>
       <ChapterProvider>
         <StoreProvider>
-          <LeaderboardProvider>
-            <UserProvider>
+          <UserProvider>
+            <LeaderboardProvider>
               <App />
-            </UserProvider>
-          </LeaderboardProvider>
+            </LeaderboardProvider>
+          </UserProvider>
         </StoreProvider>
       </ChapterProvider>
     </AuthProvider>

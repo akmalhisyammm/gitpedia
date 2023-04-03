@@ -10,8 +10,8 @@ import Register from 'pages/auth/Register';
 import Chapter from 'pages/learn/Chapter';
 import Lesson from 'pages/learn/Lesson';
 import Quiz from 'pages/learn/Quiz';
-import Player from 'pages/player/Player';
-import EditProfile from 'pages/player/EditProfile';
+import OthersProfile from 'pages/user/OthersProfile';
+import EditProfile from 'pages/user/EditProfile';
 import { AuthContext } from 'contexts/auth';
 import { MainTabs } from 'components/layouts';
 
@@ -29,8 +29,8 @@ const Routes = () => {
       <PrivateRoute exact path="/learn/:chapterId" component={Chapter} />
       <PrivateRoute exact path="/learn/:chapterId/:lessonId" component={Lesson} />
       <PrivateRoute path="/learn/:chapterId/:lessonId/quiz" component={Quiz} />
-      <PrivateRoute path="/player/:playerId" component={Player} />
-      <PrivateRoute path="/player/edit" component={EditProfile} />
+      <PrivateRoute path="/user/:userId" component={OthersProfile} />
+      <PrivateRoute path="/user/edit" component={EditProfile} />
 
       {authCtx.user ? <Redirect exact from="/" to="/main" /> : <Redirect exact to="/" />}
     </IonRouterOutlet>

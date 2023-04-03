@@ -10,6 +10,10 @@ export interface IUserActivity {
   followers: string[];
 }
 
+export interface IOtherUserActivity extends IUserActivity {
+  id: string;
+}
+
 export interface IUserProgress {
   totalCoins: number;
   totalStars: number;
@@ -19,6 +23,7 @@ export interface IUserProgress {
     stars: number;
     isPassed: boolean;
   }[];
+  lastUpdated: number;
 }
 
 export interface IUserProfile {

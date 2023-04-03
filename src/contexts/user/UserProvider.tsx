@@ -5,7 +5,14 @@ import { UserContext } from './UserContext';
 import { AuthContext } from 'contexts/auth';
 import { usersCollection } from 'lib/firebase';
 
-import type { IUser, IUserItem, IUserProfile, IUserProgress } from 'types/user';
+import type {
+  IOtherUserActivity,
+  IUser,
+  IUserActivity,
+  IUserItem,
+  IUserProfile,
+  IUserProgress,
+} from 'types/user';
 
 type UserProviderProps = {
   children: React.ReactNode;
@@ -25,6 +32,24 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     try {
       await updateDoc(doc(usersCollection, authCtx.user.uid), {
         items: [...user.items, payload],
+      });
+    } catch (error) {
+      throw new Error('Terjadi kesalahan!');
+    }
+  };
+
+  const updateActivity = async (selfPayload: IUserActivity, othersPayload: IOtherUserActivity) => {
+    setIsFetching(true);
+
+    if (!authCtx.user) return;
+
+    try {
+      await updateDoc(doc(usersCollection, authCtx.user.uid), { activity: selfPayload });
+      await updateDoc(doc(usersCollection, othersPayload.id), {
+        activity: {
+          following: othersPayload.following,
+          followers: othersPayload.followers,
+        },
       });
     } catch (error) {
       throw new Error('Terjadi kesalahan!');
@@ -86,7 +111,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, [authCtx.user, isFetching]);
 
   return (
-    <UserContext.Provider value={{ user, addItem, updateProgress, updateProfile }}>
+    <UserContext.Provider value={{ user, addItem, updateActivity, updateProgress, updateProfile }}>
       {children}
     </UserContext.Provider>
   );
