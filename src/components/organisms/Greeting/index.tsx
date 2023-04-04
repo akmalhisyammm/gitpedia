@@ -1,7 +1,7 @@
-import { IonGrid, IonRow, IonCol, IonText, IonRouterLink, IonIcon } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonText, IonIcon } from '@ionic/react';
 import { openOutline } from 'ionicons/icons';
 
-import { CustomButton, CustomImage } from 'components/atoms';
+import { CustomButton, CustomImage, CustomLink } from 'components/atoms';
 
 import styles from './Greeting.module.scss';
 
@@ -40,9 +40,9 @@ const Greeting = () => {
 
       <IonRow className="ion-margin-vertical">
         <IonCol>
-          <IonRouterLink href="/about" color="primary">
+          <CustomLink href="/about" color="primary">
             Tentang Aplikasi <IonIcon icon={openOutline} />
-          </IonRouterLink>
+          </CustomLink>
         </IonCol>
       </IonRow>
     </IonGrid>

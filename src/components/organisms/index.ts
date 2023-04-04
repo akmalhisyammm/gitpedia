@@ -7,6 +7,7 @@ export { default as LoginForm } from './LoginForm';
 export { default as RegisterForm } from './RegisterForm';
 
 /* MAIN */
+export { default as AboutContent } from './AboutContent';
 export { default as ChapterList } from './ChapterList';
 export { default as EditProfileForm } from './EditProfileForm';
 export { default as Hero } from './Hero';
