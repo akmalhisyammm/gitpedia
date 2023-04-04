@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -13,7 +13,7 @@ import { UserProvider } from 'contexts/user';
 const container = document.getElementById('root');
 const root = createRoot(container as HTMLElement);
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <AuthProvider>
       <ChapterProvider>
         <StoreProvider>
@@ -25,7 +25,7 @@ root.render(
         </StoreProvider>
       </ChapterProvider>
     </AuthProvider>
-  </React.StrictMode>
+  </StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
