@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { FirebaseError } from 'firebase/app';
 import {
+  applyActionCode,
+  confirmPasswordReset,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  verifyPasswordResetCode,
   type User,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -14,7 +17,13 @@ import { AuthContext } from './AuthContext';
 import { LoadingScreen } from 'components/templates';
 import { firebaseAuth, usersCollection } from 'lib/firebase';
 
-import type { ILoginPayload, IRegisterPayload, IResetPasswordPayload } from 'types/auth';
+import type {
+  IConfirmResetPasswordPayload,
+  ILoginPayload,
+  IRegisterPayload,
+  IRequestResetPasswordPayload,
+  IVerifyPayload,
+} from 'types/auth';
 
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -88,7 +97,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         switch (error.code) {
           case 'auth/invalid-email':
             throw new Error('Email tidak valid!');
-          case 'auth/email-already-exists':
+          case 'auth/email-already-in-use':
             throw new Error('Email sudah digunakan!');
           default:
             throw new Error('Terjadi kesalahan!');
@@ -120,7 +129,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           case 'auth/wrong-password':
             throw new Error('Email atau kata sandi salah!');
           case 'auth/user-not-found':
-            throw new Error('Email belum terdaftar!');
+            throw new Error('Akun belum terdaftar!');
           default:
             throw new Error('Terjadi kesalahan!');
         }
@@ -136,12 +145,81 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     await signOut(firebaseAuth);
   };
 
-  const resetPassword = async (payload: IResetPasswordPayload) => {
+  const verifyEmail = async (payload: IVerifyPayload) => {
     try {
-      if (!payload.email.trim().length) {
-        throw new Error('Email harus diisi!');
+      await applyActionCode(firebaseAuth, payload.oobCode);
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/invalid-action-code':
+            throw new Error('Kode verifikasi tidak valid atau sudah kedaluwarsa!');
+          default:
+            throw new Error('Terjadi kesalahan!');
+        }
       }
 
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  };
+
+  const verifyResetPassword = async (payload: IVerifyPayload) => {
+    try {
+      const email = await verifyPasswordResetCode(firebaseAuth, payload.oobCode);
+
+      return email;
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/invalid-action-code':
+            throw new Error('Kode verifikasi tidak valid atau sudah kedaluwarsa!');
+          default:
+            throw new Error('Terjadi kesalahan!');
+        }
+      }
+
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  };
+
+  const requestEmailVerification = async (payload: ILoginPayload) => {
+    try {
+      const { user } = await signInWithEmailAndPassword(
+        firebaseAuth,
+        payload.email,
+        payload.password
+      );
+
+      if (user.emailVerified) {
+        throw new Error('Email kamu sudah diverifikasi!');
+      }
+
+      await sendEmailVerification(user);
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/invalid-email':
+            throw new Error('Email tidak valid!');
+          case 'auth/wrong-password':
+            throw new Error('Email atau kata sandi salah!');
+          case 'auth/user-not-found':
+            throw new Error('Akun belum terdaftar!');
+          default:
+            throw new Error('Terjadi kesalahan!');
+        }
+      }
+
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  };
+
+  const requestResetPassword = async (payload: IRequestResetPasswordPayload) => {
+    try {
       await sendPasswordResetEmail(firebaseAuth, payload.email);
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -150,6 +228,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             throw new Error('Email tidak valid!');
           case 'auth/user-not-found':
             throw new Error('Email tidak ditemukan!');
+          default:
+            throw new Error('Terjadi kesalahan!');
+        }
+      }
+
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  };
+
+  const confirmResetPassword = async (payload: IConfirmResetPasswordPayload) => {
+    try {
+      await confirmPasswordReset(firebaseAuth, payload.oobCode, payload.newPassword);
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/invalid-action-code':
+            throw new Error('Kode verifikasi tidak valid atau sudah kedaluwarsa!');
           default:
             throw new Error('Terjadi kesalahan!');
         }
@@ -175,7 +272,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, register, login, logout, resetPassword }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        register,
+        login,
+        logout,
+        verifyEmail,
+        verifyResetPassword,
+        requestEmailVerification,
+        requestResetPassword,
+        confirmResetPassword,
+      }}>
       {children}
     </AuthContext.Provider>
   );

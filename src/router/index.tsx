@@ -7,6 +7,7 @@ import Onboarding from 'pages/Onboarding';
 import About from 'pages/About';
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
+import Action from 'pages/auth/Action';
 import Chapter from 'pages/learn/Chapter';
 import Lesson from 'pages/learn/Lesson';
 import Quiz from 'pages/learn/Quiz';
@@ -24,6 +25,7 @@ const Routes = () => {
       <Route path="/about" component={About} />
       <Route path="/auth/login" component={Login} />
       <Route path="/auth/register" component={Register} />
+      <Route path="/auth/action" component={Action} />
 
       <PrivateRoute path="/main" component={MainTabs} />
       <PrivateRoute exact path="/learn/:chapterId" component={Chapter} />
@@ -32,7 +34,11 @@ const Routes = () => {
       <PrivateRoute path="/user/:userId" component={OthersProfile} />
       <PrivateRoute path="/user/edit" component={EditProfile} />
 
-      {authCtx.user ? <Redirect exact from="/" to="/main" /> : <Redirect exact to="/" />}
+      {authCtx.user && authCtx.user.emailVerified ? (
+        <Redirect exact from="/" to="/main" />
+      ) : (
+        <Redirect exact to="/" />
+      )}
     </IonRouterOutlet>
   );
 };
