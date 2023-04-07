@@ -16,7 +16,11 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }: PrivateRouteProps)
     <Route
       {...rest}
       render={(routeProps) =>
-        authCtx.user ? <RouteComponent {...routeProps} /> : <Redirect exact to="/auth/login" />
+        authCtx.user && authCtx.user.emailVerified ? (
+          <RouteComponent {...routeProps} />
+        ) : (
+          <Redirect exact to="/auth/login" />
+        )
       }
     />
   );
