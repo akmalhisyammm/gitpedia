@@ -8,7 +8,7 @@ import { AuthContext } from 'contexts/auth';
 const Register = () => {
   const authCtx = useContext(AuthContext);
 
-  if (authCtx.user) {
+  if (authCtx.user && authCtx.user.emailVerified) {
     return <Redirect exact to="/main" />;
   }
 
