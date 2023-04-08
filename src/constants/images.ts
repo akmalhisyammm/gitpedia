@@ -18,6 +18,6 @@ export const VERIFIED_ILLUSTRATION_URL =
 export const EXPIRED_ILLUSTRATION_URL =
   'https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/illustrations%2Fstress-pana.svg?alt=media&token=47fc9c1f-0686-4702-b196-e12e72184e07';
 export const PASSED_ILLUSTRATION_URL =
-  'https://firebasestorage.googleapis.com/v0/b/gitpedia-dev.appspot.com/o/illustrations%2Fwinners-pana.svg?alt=media&token=5fbafa20-f03d-4680-8123-398b2d9864ee';
+  'https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/illustrations%2Fwinners-pana.svg?alt=media&token=e7d1bdc6-aecc-460a-b145-0db3c006891f';
 export const FAILED_ILLUSTRATION_URL =
-  'https://firebasestorage.googleapis.com/v0/b/gitpedia-dev.appspot.com/o/illustrations%2Fanxiety-pana.svg?alt=media&token=56804564-a5d6-4ee6-bf5d-9e233146446a';
+  'https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/illustrations%2Fanxiety-pana.svg?alt=media&token=4da5bfed-4395-4ba6-9f9b-d213088a9dc2';
