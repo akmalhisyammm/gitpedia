@@ -88,7 +88,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
       <IonRow>
         <IonCol>
           <IonText>
-            <h1>Masuk</h1>
+            <h1 className={styles.title}>Masuk</h1>
           </IonText>
         </IonCol>
       </IonRow>

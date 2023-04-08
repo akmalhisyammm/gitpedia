@@ -45,15 +45,6 @@ const RegisterForm = () => {
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const confirmPasswordRef = useRef<HTMLIonInputElement>(null);
 
-  const resetAllInputs = () => {
-    nameRef.current?.value && (nameRef.current.value = '');
-    occupationRef.current?.value && (occupationRef.current.value = '');
-    genderRef.current?.value && (genderRef.current.value = '');
-    emailRef.current?.value && (emailRef.current.value = '');
-    passwordRef.current?.value && (passwordRef.current.value = '');
-    confirmPasswordRef.current?.value && (confirmPasswordRef.current.value = '');
-  };
-
   const handleRegister = async () => {
     const name = nameRef.current?.value as string;
     const occupation = occupationRef.current?.value as string;
@@ -129,7 +120,7 @@ const RegisterForm = () => {
 
       presentToast({
         mode: 'ios',
-        message: 'Berhasil mendaftar, silakan cek email kamu untuk verifikasi!',
+        message: 'Berhasil mendaftar, silakan periksa email kamu untuk verifikasi!',
         color: 'success',
         cssClass: 'custom-toast',
         icon: checkmarkCircle,
@@ -153,7 +144,6 @@ const RegisterForm = () => {
         });
       }
     } finally {
-      resetAllInputs();
       dismissLoading();
     }
   };
@@ -163,7 +153,7 @@ const RegisterForm = () => {
       <IonRow>
         <IonCol>
           <IonText>
-            <h1>Daftar</h1>
+            <h1 className={styles.title}>Daftar</h1>
           </IonText>
         </IonCol>
       </IonRow>
@@ -173,6 +163,7 @@ const RegisterForm = () => {
           <IonList className={styles.list}>
             <InputGroup
               ref={nameRef}
+              value={nameRef.current?.value as string}
               type="text"
               inputMode="text"
               placeholder="Nama"
@@ -180,6 +171,7 @@ const RegisterForm = () => {
             />
             <InputGroup
               ref={occupationRef}
+              value={occupationRef.current?.value as string}
               type="text"
               inputMode="text"
               placeholder="Pekerjaan"
@@ -187,6 +179,7 @@ const RegisterForm = () => {
             />
             <SelectGroup
               ref={genderRef}
+              value={genderRef.current?.value as string}
               type="popover"
               placeholder="Jenis Kelamin"
               iconStart={maleFemaleOutline}
@@ -203,6 +196,7 @@ const RegisterForm = () => {
             />
             <InputGroup
               ref={emailRef}
+              value={emailRef.current?.value as string}
               type="email"
               inputMode="email"
               placeholder="Email"
@@ -210,6 +204,7 @@ const RegisterForm = () => {
             />
             <InputGroup
               ref={passwordRef}
+              value={passwordRef.current?.value as string}
               type={isShowPassword ? 'text' : 'password'}
               placeholder="Kata Sandi"
               iconStart={lockClosedOutline}
@@ -218,10 +213,11 @@ const RegisterForm = () => {
             />
             <InputGroup
               ref={confirmPasswordRef}
-              type={isShowPassword ? 'text' : 'password'}
+              value={confirmPasswordRef.current?.value as string}
+              type={isShowConfirmPassword ? 'text' : 'password'}
               placeholder="Ulangi Kata Sandi"
               iconStart={keyOutline}
-              iconEnd={isShowPassword ? eyeOff : eye}
+              iconEnd={isShowConfirmPassword ? eyeOff : eye}
               onToggleType={() => setIsShowConfirmPassword(!isShowConfirmPassword)}
             />
           </IonList>

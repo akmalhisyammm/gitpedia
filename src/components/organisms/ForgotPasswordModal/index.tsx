@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import {
   IonModal,
   IonHeader,
@@ -8,21 +8,79 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonButton,
   IonText,
+  useIonLoading,
+  useIonToast,
+  IonList,
 } from '@ionic/react';
-import { mailOutline } from 'ionicons/icons';
+import { alertCircle, checkmarkCircle, mailOutline } from 'ionicons/icons';
 
+import { AuthContext } from 'contexts/auth';
+import { CustomButton } from 'components/atoms';
 import { InputGroup } from 'components/molecules';
+
+import styles from './ForgotPasswordModal.module.scss';
 
 type ForgotPasswordModalProps = {
   isOpen: boolean;
-  onRequest: (email: string) => Promise<void>;
   onDismiss: () => void;
 };
 
-const ForgotPasswordModal = ({ isOpen, onRequest, onDismiss }: ForgotPasswordModalProps) => {
+const ForgotPasswordModal = ({ isOpen, onDismiss }: ForgotPasswordModalProps) => {
+  const [presentToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
+
+  const authCtx = useContext(AuthContext);
+
   const emailRef = useRef<HTMLIonInputElement>(null);
+
+  const handleSendResetPasswordEmail = async () => {
+    const email = emailRef.current?.value as string;
+
+    if (!email.trim().length) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Email harus diisi!',
+        color: 'danger',
+        duration: 2000,
+        icon: alertCircle,
+      });
+    }
+
+    try {
+      presentLoading({ mode: 'ios', spinner: 'crescent' });
+
+      await authCtx.requestResetPassword({ email });
+
+      presentToast({
+        mode: 'ios',
+        message: 'Berhasil terkirim, silakan periksa email kamu!',
+        color: 'success',
+        cssClass: 'custom-toast',
+        icon: checkmarkCircle,
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel',
+          },
+        ],
+      });
+
+      onDismiss();
+    } catch (error) {
+      if (error instanceof Error) {
+        presentToast({
+          mode: 'ios',
+          message: error.message,
+          color: 'danger',
+          duration: 2000,
+          icon: alertCircle,
+        });
+      }
+    } finally {
+      dismissLoading();
+    }
+  };
 
   return (
     <IonModal isOpen={isOpen}>
@@ -33,36 +91,35 @@ const ForgotPasswordModal = ({ isOpen, onRequest, onDismiss }: ForgotPasswordMod
       </IonHeader>
 
       <IonContent>
-        <IonGrid>
-          <IonRow className="ion-text-center ion-margin-top">
-            <IonCol size="12">
-              <IonText>Masukkan email yang telah kamu daftarkan pada aplikasi:</IonText>
-            </IonCol>
-            <IonCol size="12">
-              <InputGroup
-                ref={emailRef}
-                type="email"
-                inputMode="email"
-                placeholder="Email"
-                iconStart={mailOutline}
-              />
+        <IonGrid className="ion-text-center">
+          <IonRow>
+            <IonCol>
+              <IonText>
+                <p>Kirim tautan atur ulang kata sandi dengan memasukkan email Gitpedia kamu:</p>
+              </IonText>
+              <IonList className={styles.list}>
+                <InputGroup
+                  ref={emailRef}
+                  value={emailRef.current?.value as string}
+                  type="email"
+                  inputMode="email"
+                  placeholder="Email"
+                  iconStart={mailOutline}
+                />
+              </IonList>
             </IonCol>
           </IonRow>
 
-          <IonRow className="ion-text-center">
+          <IonRow>
             <IonCol>
-              <IonButton
-                color="primary"
-                expand="block"
-                shape="round"
-                onClick={onRequest.bind(null, emailRef.current?.value as string)}>
+              <CustomButton color="primary" onClick={handleSendResetPasswordEmail}>
                 Kirim
-              </IonButton>
+              </CustomButton>
             </IonCol>
             <IonCol>
-              <IonButton color="secondary" expand="block" shape="round" onClick={onDismiss}>
+              <CustomButton color="secondary" onClick={onDismiss}>
                 Batalkan
-              </IonButton>
+              </CustomButton>
             </IonCol>
           </IonRow>
         </IonGrid>

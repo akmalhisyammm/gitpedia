@@ -1,12 +1,12 @@
-// Card
+/* CARD */
 export { default as ChapterCard } from './ChapterCard';
 export { default as StoreCard } from './StoreCard';
 export { default as StatisticCard } from './StatisticCard';
 
-// Item
+/* ITEM */
 export { default as LeaderboardItem } from './LeaderboardItem';
 export { default as LessonItem } from './LessonItem';
 
-// Group
+/* GROUP */
 export { default as InputGroup } from './InputGroup';
 export { default as SelectGroup } from './SelectGroup';

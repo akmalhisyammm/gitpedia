@@ -1,5 +1,6 @@
 import { IonCard, IonCardTitle, IonCardContent, IonRippleEffect } from '@ionic/react';
 
+import { COIN_ICON_URL } from 'constants/images';
 import { CustomImage } from 'components/atoms';
 
 import styles from './StoreCard.module.scss';
@@ -23,7 +24,7 @@ const StoreCard = ({ title, price, thumbnail, isPurchased }: StoreCardProps) => 
         {!isPurchased ? (
           <div className={styles.content}>
             <IonCardTitle>{price}</IonCardTitle>
-            <CustomImage src="/assets/icon/coin.png" alt="Coin" className={styles.icon} />
+            <CustomImage src={COIN_ICON_URL} alt="Coin" className={styles.icon} />
           </div>
         ) : (
           <div className={styles.content}>

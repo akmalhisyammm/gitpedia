@@ -7,7 +7,6 @@ import {
   IonChip,
   IonIcon,
   IonLabel,
-  IonRouterLink,
   IonText,
   useIonLoading,
   useIonToast,
@@ -23,9 +22,10 @@ import {
   alertCircle,
 } from 'ionicons/icons';
 
+import { COIN_ICON_URL } from 'constants/images';
 import { LeaderboardContext } from 'contexts/leaderboard';
 import { UserContext } from 'contexts/user';
-import { CustomButton, FramedAvatar } from 'components/atoms';
+import { CustomButton, CustomLink, FramedAvatar } from 'components/atoms';
 
 import type { IUserLeaderboard } from 'types/leaderboard';
 
@@ -134,16 +134,12 @@ const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
         {currentUser.socials.length ? (
           <div className={styles.socialWrapper}>
             {currentUser.socials.map((social) => (
-              <IonRouterLink
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer">
+              <CustomLink key={social.name} href={social.url} isExternal>
                 <IonChip color="light" outline>
                   <IonIcon icon={getSocialIcon(social.name)} />
                   <IonLabel>{social.name}</IonLabel>
                 </IonChip>
-              </IonRouterLink>
+              </CustomLink>
             ))}
           </div>
         ) : (
@@ -162,7 +158,7 @@ const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
             <IonText color="medium">
               <small>Lengkapi profil kamu untuk mendapatkan +250</small>
             </IonText>
-            <img src="/assets/icon/coin.png" alt="Koin" width={14} className={styles.icon} />
+            <img src={COIN_ICON_URL} alt="Coin" width={14} className={styles.icon} />
           </div>
         </>
       ) : !userCtx.user.activity.following.includes(userId) ? (

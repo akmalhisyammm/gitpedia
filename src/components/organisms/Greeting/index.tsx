@@ -1,6 +1,7 @@
 import { IonGrid, IonRow, IonCol, IonText, IonIcon } from '@ionic/react';
 import { openOutline } from 'ionicons/icons';
 
+import { LOGO_ICON_URL } from 'constants/images';
 import { CustomButton, CustomImage, CustomLink } from 'components/atoms';
 
 import styles from './Greeting.module.scss';
@@ -19,11 +20,7 @@ const Greeting = () => {
 
       <IonRow className="ion-margin-vertical">
         <IonCol>
-          <CustomImage
-            src="/assets/icon/gitpedia.png"
-            alt="Gitpedia"
-            className={styles.illustration}
-          />
+          <CustomImage src={LOGO_ICON_URL} alt="Gitpedia" className={styles.illustration} />
         </IonCol>
       </IonRow>
 

@@ -1,6 +1,10 @@
 .section {
   line-height: 1.5em;
 
+  .brand {
+    font-weight: bold;
+  }
+
   .illustration {
     width: 80%;
     max-width: 300px;
@@ -9,7 +13,7 @@
 
   h3 {
     font-size: 1.25em;
-    font-weight: 700;
+    font-weight: bold;
     margin: 0;
     padding-bottom: 8px;
     color: var(--ion-color-primary);

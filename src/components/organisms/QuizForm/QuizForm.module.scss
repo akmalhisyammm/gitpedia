@@ -5,7 +5,6 @@
   transform: translate(-50%, -50%);
   margin: auto;
   width: 100%;
-  max-width: 600px;
   max-height: 100%;
   overflow: auto;
 
@@ -23,13 +22,30 @@
     border-radius: 12px;
   }
 
-  .editInfo {
-    text-align: center;
-    margin-bottom: 8px;
+  .illustration {
+    width: 80%;
+    margin: auto;
+    max-width: 360px;
+  }
 
-    .icon {
-      vertical-align: middle;
-      margin: 0 4px;
+  .info {
+    h3 {
+      color: var(--ion-color-primary);
+      font-weight: bold;
+    }
+
+    div {
+      text-align: center;
+      margin-bottom: 8px;
+
+      small {
+        color: var(--ion-color-success);
+      }
+
+      .icon {
+        vertical-align: middle;
+        margin: 0 4px;
+      }
     }
   }
 }

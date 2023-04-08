@@ -24,6 +24,7 @@ type InputGroupProps = {
   labelEnd?: string;
   iconStart?: string;
   iconEnd?: string;
+  isDisabled?: boolean;
   onToggleType?: React.MouseEventHandler<HTMLIonIconElement>;
 };
 
@@ -37,6 +38,7 @@ const InputGroup = (
     labelEnd,
     iconStart,
     iconEnd,
+    isDisabled,
     onToggleType,
   }: InputGroupProps,
   ref: React.Ref<HTMLIonInputElement>
@@ -57,6 +59,7 @@ const InputGroup = (
         type={type}
         inputMode={inputMode}
         placeholder={placeholder}
+        disabled={isDisabled}
       />
       {labelEnd && <IonLabel slot="end">{labelEnd}</IonLabel>}
       {iconEnd && (

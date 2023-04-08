@@ -8,8 +8,9 @@ import {
   IonText,
 } from '@ionic/react';
 
-import { CustomButton, CustomImage } from 'components/atoms';
+import { COIN_ICON_URL } from 'constants/images';
 import { UserContext } from 'contexts/user';
+import { CustomButton, CustomImage } from 'components/atoms';
 
 import styles from './Hero.module.scss';
 
@@ -31,7 +32,7 @@ const Hero = () => {
               <p>Koin Kamu</p>
             </IonText>
             <div className={styles.coinInfo}>
-              <CustomImage src="/assets/icon/coin.png" alt="Coin" className={styles.icon} />
+              <CustomImage src={COIN_ICON_URL} alt="Coin" className={styles.icon} />
               <IonText>
                 <h2>{userCtx.user.progress.totalCoins}</h2>
               </IonText>

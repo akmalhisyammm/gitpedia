@@ -16,16 +16,28 @@ type CustomLinkProps = {
     | 'dark';
   href?: string;
   isUnderline?: boolean;
+  isExternal?: boolean;
   onClick?: () => void;
   [key: string]: unknown;
 };
 
-const CustomLink = ({ children, color, href, isUnderline, onClick, ...rest }: CustomLinkProps) => {
+const CustomLink = ({
+  children,
+  color,
+  href,
+  isUnderline,
+  isExternal,
+  onClick,
+  ...rest
+}: CustomLinkProps) => {
   return (
     <IonRouterLink
       color={color}
-      routerLink={href}
-      className={isUnderline ? styles.link : ''}
+      routerLink={!isExternal ? href : undefined}
+      href={isExternal ? href : undefined}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      className={isUnderline ? styles.link : undefined}
       onClick={onClick}
       {...rest}>
       {children}

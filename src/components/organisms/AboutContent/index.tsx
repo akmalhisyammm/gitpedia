@@ -1,7 +1,8 @@
-import { IonCol, IonGrid, IonIcon, IonRouterLink, IonRow, IonText } from '@ionic/react';
+import { IonCol, IonGrid, IonIcon, IonRow, IonText } from '@ionic/react';
 import { openOutline } from 'ionicons/icons';
 
-import { CustomImage } from 'components/atoms';
+import { CODING_ILLUSTRATION_URL } from 'constants/images';
+import { CustomImage, CustomLink } from 'components/atoms';
 
 import styles from './AboutContent.module.scss';
 
@@ -12,7 +13,7 @@ const AboutContent = () => {
         <IonCol>
           <IonText>
             <p>
-              <IonText color="primary" style={{ fontWeight: 700 }}>
+              <IonText color="primary" className={styles.brand}>
                 Gitpedia
               </IonText>{' '}
               merupakan aplikasi pembelajaran Git yang dibangun untuk membantu para pengembang dalam
@@ -27,11 +28,7 @@ const AboutContent = () => {
           <IonText>
             <h3>Pembuatan Aplikasi</h3>
           </IonText>
-          <CustomImage
-            src="https://firebasestorage.googleapis.com/v0/b/gitpedia-dev.appspot.com/o/illustrations%2Fcoding.svg?alt=media&token=ae2478ff-3235-43d6-a5d2-5541d6946e8b"
-            alt="Coding"
-            className={styles.illustration}
-          />
+          <CustomImage src={CODING_ILLUSTRATION_URL} alt="Coding" className={styles.illustration} />
           <IonText>
             <p>
               Gitpedia dibangun sebagai proyek penelitian skripsi yang ditujukan untuk meraih gelar
@@ -70,13 +67,9 @@ const AboutContent = () => {
       <IonRow className="ion-text-center ion-margin-vertical">
         <IonCol>
           <IonText>&copy; 2023 &bull; </IonText>
-          <IonRouterLink
-            href="https://akmalhisyam.my.id"
-            color="primary"
-            target="_blank"
-            rel="noopener noreferrer">
+          <CustomLink href="https://akmalhisyam.my.id" color="primary" isExternal>
             Muhammad Akmal Hisyam <IonIcon icon={openOutline} />
-          </IonRouterLink>
+          </CustomLink>
         </IonCol>
       </IonRow>
     </IonGrid>

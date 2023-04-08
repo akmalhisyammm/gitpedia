@@ -2,9 +2,11 @@
   line-height: 1.5em;
 
   h3 {
-    border-bottom: 1px solid #fff;
+    color: var(--ion-color-primary);
+    border-bottom: 1px solid var(--ion-color-primary);
     padding: 8px 0;
     font-size: 1.25em;
+    font-weight: bold;
   }
 
   p {

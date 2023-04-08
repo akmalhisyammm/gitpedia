@@ -17,6 +17,7 @@ import {
 } from '@ionic/react';
 import { alertCircle, checkmarkCircle, closeCircle } from 'ionicons/icons';
 
+import { COIN_ICON_URL, FAILED_ILLUSTRATION_URL, PASSED_ILLUSTRATION_URL } from 'constants/images';
 import { ChapterContext } from 'contexts/chapter';
 import { UserContext } from 'contexts/user';
 import { CustomButton, CustomImage } from 'components/atoms';
@@ -172,27 +173,20 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
               <IonRow>
                 <IonCol>
                   <CustomImage
-                    src="https://firebasestorage.googleapis.com/v0/b/gitpedia-dev.appspot.com/o/illustrations%2Fwinners-pana.svg?alt=media&token=5fbafa20-f03d-4680-8123-398b2d9864ee"
-                    alt="Illustration"
-                    style={{ width: '80%', margin: 'auto' }}
+                    src={PASSED_ILLUSTRATION_URL}
+                    alt="Passed"
+                    className={styles.illustration}
                   />
                 </IonCol>
               </IonRow>
               <IonRow className="ion-text-center">
                 <IonCol>
-                  <IonText>
-                    <div className={styles.editInfo}>
-                      <IonText color="primary">
-                        <small>Kamu mendapatkan +{correctCount * 50}</small>
-                      </IonText>
-                      <img
-                        src="/assets/icon/coin.png"
-                        alt="Koin"
-                        width={14}
-                        className={styles.icon}
-                      />
+                  <IonText className={styles.info}>
+                    <div>
+                      <small>Kamu mendapatkan +{correctCount * 50}</small>
+                      <img src={COIN_ICON_URL} alt="Coin" width={14} className={styles.icon} />
                     </div>
-                    <h2>Selamat, kamu lulus pada materi ini!</h2>
+                    <h3>Selamat, kamu lulus pada materi ini!</h3>
                     <p>Silahkan lanjut ke materi berikutnya.</p>
                   </IonText>
                 </IonCol>
@@ -203,16 +197,16 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
               <IonRow>
                 <IonCol>
                   <CustomImage
-                    src="https://firebasestorage.googleapis.com/v0/b/gitpedia-dev.appspot.com/o/illustrations%2Fanxiety-pana.svg?alt=media&token=56804564-a5d6-4ee6-bf5d-9e233146446a"
-                    alt="Illustration"
-                    style={{ width: '80%', margin: 'auto' }}
+                    src={FAILED_ILLUSTRATION_URL}
+                    alt="Failed"
+                    className={styles.illustration}
                   />
                 </IonCol>
               </IonRow>
               <IonRow className="ion-text-center">
                 <IonCol>
-                  <IonText>
-                    <h2>Maaf, kamu belum lulus pada materi ini!</h2>
+                  <IonText className={styles.info}>
+                    <h3>Maaf, kamu belum lulus pada materi ini!</h3>
                     <p>Silakan pelajari kembali materi ini dan coba lagi.</p>
                   </IonText>
                 </IonCol>
