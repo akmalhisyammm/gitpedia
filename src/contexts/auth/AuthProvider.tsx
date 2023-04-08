@@ -35,21 +35,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const register = async (payload: IRegisterPayload) => {
     try {
-      const { user } = await createUserWithEmailAndPassword(
-        firebaseAuth,
-        payload.email,
-        payload.password
-      );
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password: _, ...rest } = payload;
+      const { email, password, ...profile } = payload;
+      const { user } = await createUserWithEmailAndPassword(firebaseAuth, email, password);
 
       await setDoc(doc(usersCollection, user.uid), {
-        ...rest,
         id: user.uid,
-        avatar: '',
-        frame: '',
+        email,
+        profile: {
+          ...profile,
+          avatar: '',
+          frame: '',
+          socials: [],
+          isCompleted: false,
+        },
         items: [],
-        socials: [],
         activity: {
           following: [],
           followers: [],

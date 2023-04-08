@@ -154,12 +154,14 @@ const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
           <CustomButton href="/user/edit" color="primary" className={styles.button}>
             Ubah Profil
           </CustomButton>
-          <div className={styles.info}>
-            <IonText color="medium">
-              <small>Lengkapi profil kamu untuk mendapatkan +250</small>
-            </IonText>
-            <img src={COIN_ICON_URL} alt="Coin" width={14} className={styles.icon} />
-          </div>
+          {!userCtx.user.profile.isCompleted && (
+            <div className={styles.info}>
+              <IonText color="medium">
+                <small>Lengkapi profil kamu untuk mendapatkan +250</small>
+              </IonText>
+              <img src={COIN_ICON_URL} alt="Coin" width={14} className={styles.icon} />
+            </div>
+          )}
         </>
       ) : !userCtx.user.activity.following.includes(userId) ? (
         <CustomButton

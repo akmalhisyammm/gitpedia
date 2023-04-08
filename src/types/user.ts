@@ -1,3 +1,16 @@
+export interface IUserProfile {
+  name: string;
+  occupation: string;
+  gender: 'male' | 'female';
+  avatar: string;
+  frame: string;
+  socials: {
+    name: 'Website' | 'GitHub' | 'LinkedIn' | 'Instagram' | 'Twitter';
+    url: string;
+  }[];
+  isCompleted: boolean;
+}
+
 export interface IUserItem {
   id: number;
   type: 'avatar' | 'frame';
@@ -26,21 +39,10 @@ export interface IUserProgress {
   lastUpdated: number;
 }
 
-export interface IUserProfile {
-  name: string;
-  occupation: string;
-  gender: 'male' | 'female';
-  avatar: string;
-  frame: string;
-  socials: {
-    name: 'Website' | 'GitHub' | 'LinkedIn' | 'Instagram' | 'Twitter';
-    url: string;
-  }[];
-}
-
-export interface IUser extends IUserProfile {
+export interface IUser {
   id: string;
   email: string;
+  profile: IUserProfile;
   items: IUserItem[];
   activity: IUserActivity;
   progress: IUserProgress;

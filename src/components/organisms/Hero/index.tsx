@@ -22,7 +22,7 @@ const Hero = () => {
   return (
     <IonCard color="tertiary">
       <IonCardHeader>
-        <IonCardTitle>Halo, {userCtx.user.name.split(' ')[0]}</IonCardTitle>
+        <IonCardTitle>Halo, {userCtx.user.profile.name.split(' ')[0]}</IonCardTitle>
         <IonCardSubtitle>Siap belajar hari ini?</IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent>

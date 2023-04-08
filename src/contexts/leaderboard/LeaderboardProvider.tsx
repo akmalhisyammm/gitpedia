@@ -15,7 +15,6 @@ type LeaderboardProviderProps = {
 export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
   const [globals, setGlobals] = useState<IUserLeaderboard[]>([]);
   const [friends, setFriends] = useState<IUserLeaderboard[]>([]);
-  const [isFetching, setIsFetching] = useState<boolean>(true);
 
   const userCtx = useContext(UserContext);
 
@@ -34,15 +33,15 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
         .map((user, idx) => ({
           id: user.id,
           rank: idx + 1,
-          name: user.name,
-          occupation: user.occupation,
-          gender: user.gender,
-          avatar: user.avatar,
-          frame: user.frame,
+          name: user.profile.name,
+          occupation: user.profile.occupation,
+          gender: user.profile.gender,
+          avatar: user.profile.avatar,
+          frame: user.profile.frame,
           following: user.activity.following,
           followers: user.activity.followers,
           totalStars: user.progress.totalStars,
-          socials: user.socials,
+          socials: user.profile.socials,
         }));
 
       const friendUsers = data
@@ -56,24 +55,23 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
         .map((user, idx) => ({
           id: user.id,
           rank: idx + 1,
-          name: user.name,
-          occupation: user.occupation,
-          gender: user.gender,
-          avatar: user.avatar,
-          frame: user.frame,
+          name: user.profile.name,
+          occupation: user.profile.occupation,
+          gender: user.profile.gender,
+          avatar: user.profile.avatar,
+          frame: user.profile.frame,
           following: user.activity.following,
           followers: user.activity.followers,
           totalStars: user.progress.totalStars,
-          socials: user.socials,
+          socials: user.profile.socials,
         }));
 
       setGlobals(globalUsers);
       setFriends(friendUsers);
-      setIsFetching(false);
     };
 
     getAllUsers();
-  }, [userCtx.user, userCtx.user?.progress, isFetching]);
+  }, [userCtx.user, userCtx.user?.profile, userCtx.user?.progress]);
 
   return (
     <LeaderboardContext.Provider value={{ globals, friends }}>

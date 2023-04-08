@@ -30,6 +30,8 @@ import { InputGroup, SelectGroup } from 'components/molecules';
 
 import type { IUserItem } from 'types/user';
 
+import styles from './EditProfileForm.module.scss';
+
 const EditProfileForm = () => {
   const [avatar, setAvatarUrl] = useState<string>('');
   const [frame, setFrameUrl] = useState<string>('');
@@ -121,50 +123,106 @@ const EditProfileForm = () => {
     const name = nameRef.current?.value as string;
     const occupation = occupationRef.current?.value as string;
     const gender = genderRef.current?.value as 'male' | 'female';
+    const website = websiteRef.current?.value as string;
+    const github = githubRef.current?.value as string;
+    const linkedin = linkedinRef.current?.value as string;
+    const instagram = instagramRef.current?.value as string;
+    const twitter = twitterRef.current?.value as string;
+
     const socials = [] as {
       name: 'Website' | 'GitHub' | 'LinkedIn' | 'Instagram' | 'Twitter';
       url: string;
     }[];
 
-    if (websiteRef.current?.value) {
+    if (website && website.trim().length) {
       socials.push({
         name: 'Website',
-        url: websiteRef.current?.value as string,
+        url:
+          website.includes('https://') || website.includes('http://')
+            ? website
+            : `https://${website}`,
       });
     }
 
-    if (githubRef.current?.value) {
+    if (github && github.trim().length) {
       socials.push({
         name: 'GitHub',
-        url: `https://github.com/${githubRef.current?.value as string}`,
+        url: `https://github.com/${github}`,
       });
     }
 
-    if (linkedinRef.current?.value) {
+    if (linkedin && linkedin.trim().length) {
       socials.push({
         name: 'LinkedIn',
-        url: `https://linkedin.com/in/${linkedinRef.current?.value as string}`,
+        url: `https://linkedin.com/in/${linkedin}`,
       });
     }
 
-    if (instagramRef.current?.value) {
+    if (instagram && instagram.trim().length) {
       socials.push({
         name: 'Instagram',
-        url: `https://instagram.com/${instagramRef.current?.value as string}`,
+        url: `https://instagram.com/${instagram}`,
       });
     }
 
-    if (twitterRef.current?.value) {
+    if (twitter && twitter.trim().length) {
       socials.push({
         name: 'Twitter',
-        url: `https://twitter.com/${twitterRef.current?.value as string}`,
+        url: `https://twitter.com/${twitter}`,
       });
     }
+
+    if (!name.trim().length) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Nama harus diisi!',
+        color: 'danger',
+        duration: 2000,
+        icon: alertCircle,
+      });
+    }
+
+    if (!occupation.trim().length) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Pekerjaan harus diisi!',
+        color: 'danger',
+        duration: 2000,
+        icon: alertCircle,
+      });
+    }
+
+    if (!gender) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Jenis kelamin harus diisi!',
+        color: 'danger',
+        duration: 2000,
+        icon: alertCircle,
+      });
+    }
+
+    if (!userCtx.user) return;
 
     try {
       presentLoading({ mode: 'ios', spinner: 'crescent' });
 
-      await userCtx.updateProfile({ name, occupation, gender, avatar, frame, socials });
+      if (!userCtx.user.profile.isCompleted && socials.length === 5) {
+        await userCtx.updateProgress({
+          ...userCtx.user.progress,
+          totalCoins: userCtx.user.progress.totalCoins + 250,
+        });
+      }
+
+      await userCtx.updateProfile({
+        name,
+        occupation,
+        gender,
+        avatar,
+        frame,
+        socials,
+        isCompleted: userCtx.user.profile.isCompleted || socials.length === 5,
+      });
 
       presentToast({
         mode: 'ios',
@@ -193,17 +251,14 @@ const EditProfileForm = () => {
   useEffect(() => {
     if (!userCtx.user) return;
 
-    setAvatarUrl(userCtx.user.avatar);
-    setFrameUrl(userCtx.user.frame);
+    setAvatarUrl(userCtx.user.profile.avatar);
+    setFrameUrl(userCtx.user.profile.frame);
   }, []);
 
   return (
     <IonGrid>
       <IonRow>
-        <IonCol
-          size="12"
-          className="ion-margin-vertical"
-          style={{ display: 'flex', justifyContent: 'center' }}>
+        <IonCol size="12" className={`${styles.imageWrapper} ion-margin-vertical`}>
           <FramedAvatar avatar={avatar} frame={frame} width={130} />
         </IonCol>
         <IonCol size="12">
@@ -221,7 +276,7 @@ const EditProfileForm = () => {
 
             <InputGroup
               ref={nameRef}
-              value={userCtx.user?.name}
+              value={userCtx.user?.profile.name}
               type="text"
               inputMode="text"
               placeholder="Nama Lengkap"
@@ -229,7 +284,7 @@ const EditProfileForm = () => {
             />
             <InputGroup
               ref={occupationRef}
-              value={userCtx.user?.occupation}
+              value={userCtx.user?.profile.occupation}
               type="text"
               inputMode="text"
               placeholder="Pekerjaan"
@@ -237,7 +292,7 @@ const EditProfileForm = () => {
             />
             <SelectGroup
               ref={genderRef}
-              value={userCtx.user?.gender}
+              value={userCtx.user?.profile.gender}
               type="popover"
               placeholder="Jenis Kelamin"
               iconStart={maleFemaleOutline}
@@ -259,7 +314,7 @@ const EditProfileForm = () => {
             </IonItemDivider>
             <InputGroup
               ref={websiteRef}
-              value={userCtx.user?.socials.find((social) => social.name === 'Website')?.url}
+              value={userCtx.user?.profile.socials.find((social) => social.name === 'Website')?.url}
               type="text"
               inputMode="text"
               placeholder="Link Website"
@@ -268,7 +323,9 @@ const EditProfileForm = () => {
             <InputGroup
               ref={githubRef}
               value={
-                userCtx.user?.socials.find((social) => social.name === 'GitHub')?.url.split('/')[3]
+                userCtx.user?.profile.socials
+                  .find((social) => social.name === 'GitHub')
+                  ?.url.split('/')[3]
               }
               type="text"
               inputMode="text"
@@ -278,9 +335,9 @@ const EditProfileForm = () => {
             <InputGroup
               ref={linkedinRef}
               value={
-                userCtx.user?.socials
+                userCtx.user?.profile.socials
                   .find((social) => social.name === 'LinkedIn')
-                  ?.url.split('/')[3]
+                  ?.url.split('/')[4]
               }
               type="text"
               inputMode="text"
@@ -290,7 +347,7 @@ const EditProfileForm = () => {
             <InputGroup
               ref={instagramRef}
               value={
-                userCtx.user?.socials
+                userCtx.user?.profile.socials
                   .find((social) => social.name === 'Instagram')
                   ?.url.split('/')[3]
               }
@@ -302,7 +359,9 @@ const EditProfileForm = () => {
             <InputGroup
               ref={twitterRef}
               value={
-                userCtx.user?.socials.find((social) => social.name === 'Twitter')?.url.split('/')[3]
+                userCtx.user?.profile.socials
+                  .find((social) => social.name === 'Twitter')
+                  ?.url.split('/')[3]
               }
               type="text"
               inputMode="text"

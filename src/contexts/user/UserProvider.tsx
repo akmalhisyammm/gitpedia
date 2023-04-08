@@ -74,7 +74,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     if (!authCtx.user) return;
 
     try {
-      await updateDoc(doc(usersCollection, authCtx.user.uid), { ...payload });
+      await updateDoc(doc(usersCollection, authCtx.user.uid), { profile: payload });
     } catch (error) {
       throw new Error('Terjadi kesalahan!');
     }
