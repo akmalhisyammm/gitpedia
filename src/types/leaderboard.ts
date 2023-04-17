@@ -9,8 +9,10 @@ export interface IUserLeaderboard {
   following: string[];
   followers: string[];
   totalStars: number;
+  totalExp: number;
   socials: {
     name: 'Website' | 'GitHub' | 'LinkedIn' | 'Instagram' | 'Twitter';
     url: string;
   }[];
+  lastUpdated: number;
 }
