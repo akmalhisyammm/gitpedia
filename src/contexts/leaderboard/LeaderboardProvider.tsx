@@ -18,6 +18,31 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
 
   const userCtx = useContext(UserContext);
 
+  const sortBy = (mode: 'total_stars' | 'total_exp') => {
+    const sortedGlobals = globals
+      .sort((a, b) => {
+        const sortByMode =
+          mode === 'total_stars' ? b.totalStars - a.totalStars : b.totalExp - a.totalExp;
+        const sortByLastUpdated = a.lastUpdated - b.lastUpdated;
+
+        return sortByMode !== 0 ? sortByMode : sortByLastUpdated;
+      })
+      .map((user, idx) => ({ ...user, rank: idx + 1 }));
+
+    const sortedFriends = friends
+      .sort((a, b) => {
+        const sortByMode =
+          mode === 'total_stars' ? b.totalStars - a.totalStars : b.totalExp - a.totalExp;
+        const sortByLastUpdated = a.lastUpdated - b.lastUpdated;
+
+        return sortByMode !== 0 ? sortByMode : sortByLastUpdated;
+      })
+      .map((user, idx) => ({ ...user, rank: idx + 1 }));
+
+    setGlobals(sortedGlobals);
+    setFriends(sortedFriends);
+  };
+
   useEffect(() => {
     const getAllUsers = async () => {
       const snapshot = await getDocs(usersCollection);
@@ -25,10 +50,10 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
 
       const globalUsers = data
         .sort((a, b) => {
-          const sortedTotalStars = b.progress.totalStars - a.progress.totalStars;
-          const sortedLastUpdated = a.progress.lastUpdated - b.progress.lastUpdated;
+          const sortByTotalStars = b.progress.totalStars - a.progress.totalStars;
+          const sortByLastUpdated = a.progress.lastUpdated - b.progress.lastUpdated;
 
-          return sortedTotalStars !== 0 ? sortedTotalStars : sortedLastUpdated;
+          return sortByTotalStars !== 0 ? sortByTotalStars : sortByLastUpdated;
         })
         .map((user, idx) => ({
           id: user.id,
@@ -41,15 +66,17 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
           following: user.activity.following,
           followers: user.activity.followers,
           totalStars: user.progress.totalStars,
+          totalExp: user.progress.totalExp,
           socials: user.profile.socials,
+          lastUpdated: user.progress.lastUpdated,
         }));
 
       const friendUsers = data
         .sort((a, b) => {
-          const sortedTotalStars = b.progress.totalStars - a.progress.totalStars;
-          const sortedLastUpdated = a.progress.lastUpdated - b.progress.lastUpdated;
+          const sortByTotalStars = b.progress.totalStars - a.progress.totalStars;
+          const sortByLastUpdated = a.progress.lastUpdated - b.progress.lastUpdated;
 
-          return sortedTotalStars !== 0 ? sortedTotalStars : sortedLastUpdated;
+          return sortByTotalStars !== 0 ? sortByTotalStars : sortByLastUpdated;
         })
         .filter((user) => userCtx.user?.activity.following.includes(user.id))
         .map((user, idx) => ({
@@ -63,7 +90,9 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
           following: user.activity.following,
           followers: user.activity.followers,
           totalStars: user.progress.totalStars,
+          totalExp: user.progress.totalExp,
           socials: user.profile.socials,
+          lastUpdated: user.progress.lastUpdated,
         }));
 
       setGlobals(globalUsers);
@@ -74,7 +103,7 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
   }, [userCtx.user, userCtx.user?.profile, userCtx.user?.progress]);
 
   return (
-    <LeaderboardContext.Provider value={{ globals, friends }}>
+    <LeaderboardContext.Provider value={{ globals, friends, sortBy }}>
       {children}
     </LeaderboardContext.Provider>
   );

@@ -31,11 +31,14 @@ const ProfileStats = ({ userId }: ProfileStatsProps) => {
         <IonCol size="6">
           <StatisticCard title="Pengikut" value={currentUser.followers.length} />
         </IonCol>
-        <IonCol size="12">
-          <StatisticCard title="Peringkat Dunia" value={currentUser.rank} />
+        <IonCol size="6">
+          <StatisticCard title="Total Bintang" value={currentUser.totalStars} />
+        </IonCol>
+        <IonCol size="6">
+          <StatisticCard title="Total XP" value={currentUser.totalExp} />
         </IonCol>
         <IonCol size="12">
-          <StatisticCard title="Total Bintang" value={currentUser.totalStars} />
+          <StatisticCard title="Peringkat Global" value={currentUser.rank} />
         </IonCol>
       </IonRow>
     </IonGrid>

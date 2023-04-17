@@ -30,6 +30,7 @@ export interface IOtherUserActivity extends IUserActivity {
 export interface IUserProgress {
   totalCoins: number;
   totalStars: number;
+  totalExp: number;
   learns: {
     chapterId: number;
     lessonId: number;
