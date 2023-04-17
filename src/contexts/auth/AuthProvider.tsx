@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         progress: {
           totalCoins: 0,
           totalStars: 0,
+          totalExp: 0,
           learns: [
             {
               chapterId: 1,
