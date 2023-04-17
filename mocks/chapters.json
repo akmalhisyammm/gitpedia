@@ -1,0 +1,197 @@
+[
+  {
+    "id": 1,
+    "title": "Pendahuluan",
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/illustrations%2Fsoftware-code-testing-pana.svg?alt=media&token=d6f37644-2ad6-4c52-88cb-82f1d0b4d220",
+    "lessons": [
+      {
+        "id": 1,
+        "title": "Pengaturan Git",
+        "content": "Git hadir dengan perintah yang disebut `git config`, yang memungkinkan pengguna mendapatkan dan mengatur variabel konfigurasi yang mengontrol semua aspek tampilan dan pengoperasian Git. \\n ### Identitas Pengguna \\n Hal pertama yang harus dilakukan pertama kali adalah mengatur nama dan alamat email pengguna. Hal ini penting karena setiap rekaman pada Git akan menggunakan informasi ini, dan informasi ini disimpan secara permanen ke dalam rekaman yang telah pengguna buat. Pengguna dapat mengatur identitasnya menggunakan perintah berikut: \\n ``` \\n $ git config --global user.name \"<nama>\" \\n $ git config --global user.email \"<email>\" \\n ``` \\n Contoh: \\n ``` \\n $ git config --global user.name \"John Doe\" \\n $ git config --global user.email \"john.doe@example.com\" \\n ``` \\n Pengguna perlu melakukan ini hanya sekali jika menambahkan opsi `--global`, karena telah disimpan secara global sehingga Git akan selalu menggunakan informasi itu untuk proyek apa pun yang terdapat pada sistem tersebut. Jika pengguna ingin menimpanya dengan nama atau alamat email yang berbeda dalam proyek tertentu, pengguna dapat menjalankan perintah tersebut dengan opsi `--local` saat pengguna berada dalam proyek tersebut. \\n ### Text Editor \\n Setelah identitas diatur, pengguna dapat mengonfigurasi text editor yang akan digunakan saat Git membutuhkan pengguna untuk mengetik pesan. Jika tidak dikonfigurasi, maka secara otomatis Git menggunakan text editor bawaan sistem pengguna. Jika pengguna ingin menggunakan text editor lain, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --global core.editor \"<editor>\" \\n ``` \\n Contoh: \\n ``` \\n $ git config --global core.editor \"vim\" \\n ``` \\n ### Nama Cabang \\n Secara default, Git akan membuat cabang utama bernama `master` saat pengguna membuat repositori baru. Mulai dari Git versi 2.28 dan seterusnya, pengguna dapat menetapkan nama yang berbeda untuk cabang utama. Jika pengguna ingin mengatur nama cabang utama, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --global init.defaultBranch <nama> \\n ``` \\n Contoh: \\n ``` \\n $ git config --global init.defaultBranch main \\n ``` \\n ### Memeriksa Pengaturan \\n Jika pengguna ingin memeriksa pengaturan konfigurasi dengan menampilkan daftar pengaturan Git yang terdapat pada sistem tersebut, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --list \\n ``` \\n Selain itu, pengguna juga dapat memeriksa pengaturan dengan nilai kunci tertentu. Jika pengguna hanya ingin menampilkan pengaturan Git secara spesifik, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config <objek> \\n ``` \\n Contoh: \\n ``` \\n $ git config user.name \\n ```",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Seorang pengguna yang bernama Tony Stark baru saja menginstall Git pada komputernya. Jika pengguna tersebut ingin mengatur namanya agar tersimpan pada konfigurasi Git secara global, perintah apa yang harus dijalankan?",
+            "answer": "git config --global user.name \"Tony Stark\"",
+            "type": "fill"
+          },
+          {
+            "id": 2,
+            "question": "Jika pengguna ingin mengatur default dari nama cabang utama dengan nama production pada konfigurasi Git secara global, perintah apa harus dijalankan?",
+            "answer": "git config --global init.defaultBranch production",
+            "type": "fill"
+          },
+          {
+            "id": 3,
+            "question": "Jika pengguna ingin menampilkan daftar konfigurasi pengaturan Git pada komputernya secara keseluruhan, perintah apa yang harus dijalankan?",
+            "answer": "git config --list",
+            "type": "fill"
+          },
+          {
+            "id": 4,
+            "question": "Jika pengguna ingin menampilkan konfigurasi email pada pengaturan Git di komputernya secara spesifik, perintah apa yang harus dijalankan?",
+            "answer": "git config user.email",
+            "type": "fill"
+          },
+          {
+            "id": 5,
+            "question": "Jika pengguna ingin mengatur konfigurasi Git untuk satu proyek saja, apakah opsi yang dapat digunakan oleh pengguna?",
+            "answer": "--local",
+            "options": ["--global", "--local", "--help"],
+            "type": "choice"
+          },
+          {
+            "id": 6,
+            "question": "Jika pengguna belum pernah mengatur default dari nama cabang utama pada konfigurasi Git, apakah nama cabang utama yang dibuat oleh Git secara default saat pengguna membuat repositori baru?",
+            "answer": "master",
+            "options": ["master", "main", "production"],
+            "type": "choice"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Dasar-Dasar Git",
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/illustrations%2Flow-code-development-pana.svg?alt=media&token=373d5072-db0a-41c0-ac98-4b8a9fb3c078",
+    "lessons": [
+      {
+        "id": 1,
+        "title": "Mendapatkan Repositori Git",
+        "content": "Pengguna biasanya mendapatkan repositori Git dengan dua cara, yaitu menginisialisasi direktori lokal yang tidak berada di bawah kontrol versi menjadi repositori Git atau mengkloning repositori Git yang telah ada dari sebuah server seperti GitHub, GitLab, dan lainnya. \\n ### Menginisialisasi repositori pada direktori lokal \\n Jika pengguna memiliki direktori proyek yang saat ini tidak berada di bawah kontrol versi dan ingin mulai mengontrolnya dengan Git, pengguna harus masuk ke direktori proyek tersebut kemudian gunakan perintah berikut: \\n ``` \\n $ git init \\n ``` \\n Perintah ini akan membuat subdirektori baru bernama `.git` yang merupakan direktori tersembunyi yang berisi informasi dan metadata penting tentang repository Git. \\n ### Mengkloning repositori Git yang telah ada \\n Jika pengguna ingin mengkloning repositori yang telah ada dari sebuah server, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git clone <url> \\n ``` \\n Contoh: \\n ``` \\n $ git clone https://github.com/akmalhisyammm/next-chakra-starter.git \\n ``` \\n Saat pengguna menggunakan perintah ini, setiap versi file pada riwayat proyek tersebut ditarik secara default. Perintah tersebut akan membuat direktori lokal dengan nama yang sama seperti yang ada di server, menginisialisasi direktori `.git` di dalamnya, menarik semua data pada repositori tersebut, dan memeriksa salinan pekerjaan dari versi terbaru. Jika pengguna masuk ke direktori tersebut, pengguna dapat melihat file-file proyek yang telah dikloning dan siap untuk digunakan.",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Jika pengguna ingin menginisialisasi repositori Git pada direktori lokal, perintah apa yang harus dijalankan?",
+            "answer": "git init",
+            "type": "fill"
+          },
+          {
+            "id": 2,
+            "question": "Seorang pengguna ingin mengkloning repositori Git yang telah ada dari sebuah server. Jika url repositori tersebut adalah https://github.com/gojek/heimdall, perintah apa yang harus dijalankan?",
+            "answer": "git clone https://github.com/gojek/heimdall",
+            "type": "fill"
+          },
+          {
+            "id": 3,
+            "question": "Manakah yang bukan cara praktis untuk mendapatkan repositori Git?",
+            "answer": "Mengunduh repositori Git dalam bentuk zip dari sebuah server",
+            "options": [
+              "Mengunduh repositori Git dalam bentuk zip dari sebuah server",
+              "Mengkloning repositori Git yang telah ada dari sebuah server",
+              "Menginisialisasi repositori Git pada direktori lokal"
+            ]
+          },
+          {
+            "id": 4,
+            "question": "Apakah fungsi utama dari subdirektori .git?",
+            "answer": "Menyimpan informasi dan metadata penting tentang repository Git",
+            "options": [
+              "Menyimpan informasi dan metadata penting tentang repository Git",
+              "Sebagai arsip untuk menyimpan semua file proyek yang tidak digunakan",
+              "Sebagai penanda bahwa direktori tersebut merupakan repositori Git"
+            ],
+            "type": "choice"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Merekam Perubahan ke Repositori",
+        "content": "Pada tahap ini, pengguna harus memiliki repositori Git pada direktori lokal beserta salinan pekerjaan dari semua filenya. Biasanya, pengguna ingin membuat perubahan dan merekam perubahan tersebut ke dalam repositorinya setiap kali proyek mencapai status yang ingin direkam. Setiap file yang ada di direktori kerja pengguna dapat berada di salah satu dari dua kondisi, yaitu terlacak atau tidak terlacak. Singkatnya, file yang terlacak adalah file yang diketahui oleh Git, sedangkan file yang tidak terlacak merupakan file yang tidak ada di rekaman terakhir maupun di area tahapan. File yang terlacak dapat berstatus tidak diubah (unmodified), diubah (modified), maupun bertahap (staged). \\n ![Git Lifecycle](https://git-scm.com/book/en/v2/images/lifecycle.png) \\n ### Memeriksa status file pada repositori \\n Untuk menampilkan status dari masing-masing file yang terdapat pada sebuah repositori, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git status \\n ``` \\n ### Melacak file baru pada repositori \\n Untuk mulai melacak file baru, pengguna dapat menggunakan perintah berikut: \\n ``` \\n git add <file> \\n ``` \\n Contoh: \\n ``` \\n $ git add README.md \\n ``` \\n Setelah menjalankan perintah berikut, pengguna dapat memeriksa status repositori kembali untuk melihat bahwa file tersebut telah terlacak dan masuk ke area tahapan untuk direkam. \\n ### Merekam perubahan yang dilakukan \\n Pada tahap ini, pengguna dapat merekam perubahan pada file yang telah masuk ke area tahapan. Ingatlah bahwa perubahan apa pun pada file yang belum masuk ke dalam area tahapan tidak akan terekam. Sebelum merekam, sebaiknya periksa status repositori terlebih dahulu untuk melihat file apa saja yang berada di area tahapan. Pengguna dapat merekam perubahan dengan perintah berikut: \\n ``` \\n git commit -m \"<pesan>\" \\n ``` \\n Contoh: \\n ``` \\n $ git commit -m \"Menambahkan README\" \\n ``` \\n Pengguna dapat merekam perubahan lain untuk menambahkannya ke riwayat repositori. Setiap kali pengguna menggunakan perintah ini, pengguna merekam perubahan yang dapat dikembalikan atau dibandingkan di waktu yang akan datang.",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Jika pengguna ingin menampilkan daftar status dari setiap file yang terdapat pada sebuah repositori, perintah apa yang harus dijalankan?",
+            "answer": "git status",
+            "type": "fill"
+          },
+          {
+            "id": 2,
+            "question": "Seorang pengguna baru saja menambahkan dan mengubah beberapa file pada sebuah repositori. Jika pengguna ingin memasukkan semua file tersebut ke dalam area tahapan secara sekaligus, perintah apa yang harus dijalankan?",
+            "answer": "git add .",
+            "type": "fill"
+          },
+          {
+            "id": 3,
+            "question": "Seorang pengguna baru saja menambahkan dan mengubah beberapa file pada sebuah repositori. Jika pengguna hanya ingin memasukkan file yang bernama README.md ke dalam area tahapan, perintah apa yang harus dijalankan?",
+            "answer": "git add README.md",
+            "type": "fill"
+          },
+          {
+            "id": 4,
+            "question": "Seorang pengguna telah memasukkan beberapa file ke dalam area tahapan. Jika pengguna ingin merekam perubahan pada semua file yang terdapat pada area tahapan dengan memberi pesan \"Menambahkan beberapa komponen dashboard\", perintah apa yang harus dijalankan?",
+            "answer": "git commit -m \"Menambahkan beberapa komponen dashboard\"",
+            "type": "fill"
+          },
+          {
+            "id": 5,
+            "question": "Manakah yang bukan status dari file yang terdapat pada repositori Git?",
+            "answer": "Untracked",
+            "options": ["Modified", "Staged", "Untracked"],
+            "type": "choice"
+          },
+          {
+            "id": 6,
+            "question": "Apakah fungsi dari area tahapan?",
+            "answer": "Menyimpan perubahan pada file yang akan direkam ke dalam riwayat repositori",
+            "options": [
+              "Menyimpan perubahan pada file yang akan direkam ke dalam riwayat repositori",
+              "Menyimpan perubahan pada file yang akan dihapus dari riwayat repositori",
+              "Menyimpan perubahan pada file yang akan diubah dari riwayat repositori"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Melihat Riwayat Rekaman",
+        "content": "Setelah pengguna membuat beberapa rekaman atau mengkloning repositori dengan riwayat rekaman yang ada, pengguna mungkin ingin melihat ke belakang untuk melihat perubahan apa saja yang telah terjadi. Pengguna dapat melakukan hal tersebut dengan menggunakan perintah berikut: \\n ``` \\n $ git log \\n ``` \\n Secara default, perintah ini menampilkan rekaman yang telah dibuat pada repositori tersebut dalam urutan kronologis terbalik, yaitu rekaman terbaru terletak pada urutan pertama sedangkan rekaman terlama terletak pada urutan terakhir. Perintah ini mencantumkan setiap rekaman dengan menampilkan checksum SHA-1, nama dan email penulis, tanggal penulisan, serta pesan rekaman.",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Jika pengguna ingin melihat riwayat rekaman dari sebuah repositori, perintah apa yang harus dijalankan?",
+            "answer": "git log",
+            "type": "fill"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Membatalkan Suatu Hal",
+        "content": "Pada tahap tertentu, pengguna mungkin ingin membatalkan sesuatu. Hal ini dapat dilakukan, namun pengguna harus berhati-hati. Jika pengguna salah langkah, pengguna mungkin akan kehilangan beberapa pekerjaan yang telah dilakukan. Salah satu pembatalan yang umum terjadi adalah ketika pengguna merekam perubahan terlalu dini dan lupa menambahkan beberapa file pada rekaman tersebut, atau pengguna menuliskan pesan rekaman yang salah. Jika pengguna ingin mengulangi rekaman tersebut, hal yang perlu dilakukan adalah membuat perubahan tambahan yang pengguna lupakan, masukkan ke area tahapan, dan rekam kembali dengan menambahkan opsi `--amend` seperti perintah berikut: \\n ``` \\n $ git commit --amend -m \"<pesan>\" \\n ``` \\n Perintah ini mengambil semua file yang terdapat pada area tahapan untuk direkam ulang. Jika pengguna tidak membuat perubahan sejak rekaman terakhir, rekaman ini akan terlihat sama persis, dan yang akan terubah hanyalah pesan dari rekaman tersebut. \\n ### Membatalkan file dari area tahapan  \\n Jika pengguna telah mengubah dua file dan ingin merekam sebagai dua perubahan yang terpisah, tetapi pengguna secara tidak sengaja memasukkan keduanya ke dalam area tahapan dan ingin membatalkannya, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git restore --staged <file> \\n ``` \\n Contoh: \\n ``` \\n $ git restore --staged README.md \\n ``` \\n ### Membatalkan perubahan file \\n Jika pengguna tidak ingin menyimpan perubahan pada file dan ingin membatalkan perubahannya dengan mengembalikannya seperti yang terdapat pada rekaman terakhir, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git restore <file> \\n ``` \\n Contoh: \\n ``` \\n $ git restore README.md \\n ```",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Pada suatu ketika, seorang pengguna melakukan kesalahan dalam menulis pesan pada rekaman terakhirnya. Jika pengguna ingin mengubah pesan pada rekaman terakhirnya menjadi \"Mengubah tipe data mahasiswa\", perintah apa yang harus dijalankan?",
+            "answer": "git commit --amend -m \"Mengubah tipe data mahasiswa\"",
+            "type": "fill"
+          },
+          {
+            "id": 2,
+            "question": "Seorang pengguna tidak sengaja memasukkan sebuah file yang bernama README.md ke dalam area tahapan. Jika pengguna tersebut ingin membatalkan penambahan file tersebut dari area tahapan, perintah apa yang harus dijalankan?",
+            "answer": "git restore --staged README.md",
+            "type": "fill"
+          },
+          {
+            "id": 3,
+            "question": "Seorang pengguna tidak sengaja mengubah sebuah file yang bernama README.md. Jika pengguna tersebut ingin membatalkan perubahan yang telah dilakukan pada file tersebut, perintah apa yang harus dijalankan?",
+            "answer": "git restore README.md",
+            "type": "fill"
+          },
+          {
+            "id": 4,
+            "question": "Apakah perbedaan antara perintah git restore --staged <file> dan git restore <file>?",
+            "answer": "Perintah git restore --staged <file> digunakan untuk membatalkan penambahan file ke dalam area tahapan, sedangkan perintah git restore <file> digunakan untuk membatalkan perubahan pada file",
+            "options": [
+              "Perintah git restore --staged <file> digunakan untuk membatalkan penambahan file ke dalam area tahapan, sedangkan perintah git restore <file> digunakan untuk membatalkan perubahan pada file",
+              "Perintah git restore --staged <file> digunakan untuk membatalkan perubahan pada file, sedangkan perintah git restore <file> digunakan untuk membatalkan penambahan file ke dalam area tahapan",
+              "Tidak ada perbedaan antara kedua perintah tersebut"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

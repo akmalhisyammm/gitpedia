@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "type": "avatar",
+    "name": "Bear",
+    "price": 400,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Fbear.png?alt=media&token=a95f46f6-6efc-4204-bd9a-af3d7f33d1db"
+  },
+  {
+    "id": 2,
+    "type": "avatar",
+    "name": "Cat",
+    "price": 500,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Fcat.png?alt=media&token=3f4a455e-d4ad-40e2-aaf3-af66efc1ed11"
+  },
+  {
+    "id": 3,
+    "type": "avatar",
+    "name": "Elephant",
+    "price": 300,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Felephant.png?alt=media&token=0c392020-3a50-40dc-9221-7b25fe15524b"
+  },
+  {
+    "id": 4,
+    "type": "avatar",
+    "name": "Lion",
+    "price": 600,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Flion.png?alt=media&token=ad9c4f66-735b-4fed-b889-dd063c9e76b9"
+  },
+  {
+    "id": 5,
+    "type": "avatar",
+    "name": "Rabbit",
+    "price": 200,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Frabbit.png?alt=media&token=6429afe3-e47d-41f8-9121-ee5cf2d09d72"
+  },
+  {
+    "id": 6,
+    "type": "avatar",
+    "name": "Tasmanian",
+    "price": 700,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Ftasmanian.png?alt=media&token=5e6d078c-1c9c-40d0-972a-b283227219aa"
+  },
+  {
+    "id": 7,
+    "type": "frame",
+    "name": "Colorful",
+    "price": 700,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Fcolorful.png?alt=media&token=2cb835b7-7db1-4efa-86e7-560c478e4aa2"
+  },
+  {
+    "id": 8,
+    "type": "frame",
+    "name": "Rainbow",
+    "price": 600,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Frainbow.png?alt=media&token=35d3447f-8ac9-4e1f-ba6f-f21d78969f5f"
+  },
+  {
+    "id": 9,
+    "type": "frame",
+    "name": "Striped",
+    "price": 500,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Fstriped.png?alt=media&token=fc8ca9a3-1344-4898-a626-d2e032443079"
+  },
+  {
+    "id": 10,
+    "type": "frame",
+    "name": "Technology",
+    "price": 400,
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Ftechnology.png?alt=media&token=4131c772-1312-4452-a1b3-272973846b25"
+  }
+]

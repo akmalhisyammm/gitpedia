@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "name": "Admin Gitpedia",
+    "username": "admin",
+    "occupation": "Software Engineer",
+    "gender": "male",
+    "email": "mcyuutogaming@gmail.com",
+    "avatar": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Fbear.png?alt=media&token=a95f46f6-6efc-4204-bd9a-af3d7f33d1db",
+    "frame": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Fcolorful.png?alt=media&token=2cb835b7-7db1-4efa-86e7-560c478e4aa2",
+    "items": [
+      {
+        "id": 1,
+        "type": "avatar",
+        "name": "Bear",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Fbear.png?alt=media&token=a95f46f6-6efc-4204-bd9a-af3d7f33d1db"
+      },
+      {
+        "id": 2,
+        "type": "avatar",
+        "name": "Cat",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Fcat.png?alt=media&token=3f4a455e-d4ad-40e2-aaf3-af66efc1ed11"
+      },
+      {
+        "id": 3,
+        "type": "avatar",
+        "name": "Elephant",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Felephant.png?alt=media&token=0c392020-3a50-40dc-9221-7b25fe15524b"
+      },
+      {
+        "id": 7,
+        "type": "frame",
+        "name": "Colorful",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Fcolorful.png?alt=media&token=2cb835b7-7db1-4efa-86e7-560c478e4aa2"
+      },
+      {
+        "id": 8,
+        "type": "frame",
+        "name": "Rainbow",
+        "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Frainbow.png?alt=media&token=35d3447f-8ac9-4e1f-ba6f-f21d78969f5f"
+      }
+    ],
+    "socials": [],
+    "activity": {
+      "following": [],
+      "followers": []
+    },
+    "progress": {
+      "totalCoins": 1000,
+      "totalStars": 9,
+      "totalExp": 500,
+      "learns": [
+        {
+          "chapterId": 1,
+          "lessonId": 1,
+          "stars": 3,
+          "isPassed": true
+        },
+        {
+          "chapterId": 2,
+          "lessonId": 1,
+          "stars": 3,
+          "isPassed": true
+        },
+        {
+          "chapterId": 2,
+          "lessonId": 2,
+          "stars": 3,
+          "isPassed": true
+        },
+        {
+          "chapterId": 2,
+          "lessonId": 3,
+          "stars": 0,
+          "isPassed": false
+        },
+        {
+          "chapterId": 2,
+          "lessonId": 4,
+          "stars": 0,
+          "isPassed": false
+        }
+      ],
+      "lastUpdated": 1681708997667
+    }
+  }
+]
