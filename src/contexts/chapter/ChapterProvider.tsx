@@ -18,7 +18,7 @@ export const ChapterProvider = ({ children }: ChapterProviderProps) => {
       const snapshot = await getDocs(chaptersCollection);
       const data = snapshot.docs.map((doc) => ({ ...(doc.data() as IChapter) }));
 
-      return setChapters(data);
+      setChapters(data);
     };
 
     getAllChapters();
