@@ -11,9 +11,19 @@ type LeaderboardItemProps = {
   avatar: string;
   frame: string;
   totalStars: number;
+  totalExp: number;
+  mode: 'total_stars' | 'total_exp';
 };
 
-const LeaderboardItem = ({ rank, name, avatar, frame, totalStars }: LeaderboardItemProps) => {
+const LeaderboardItem = ({
+  rank,
+  name,
+  avatar,
+  frame,
+  totalStars,
+  totalExp,
+  mode,
+}: LeaderboardItemProps) => {
   return (
     <IonItem button detail>
       <IonText>{rank}</IonText>
@@ -21,10 +31,16 @@ const LeaderboardItem = ({ rank, name, avatar, frame, totalStars }: LeaderboardI
         <FramedAvatar avatar={avatar} frame={frame} width={60} />
         <IonText>{name}</IonText>
       </div>
-      <div slot="end" className={styles.stars}>
-        <IonText>{totalStars}</IonText>
-        <IonIcon icon={star} color="warning" />
-      </div>
+      {mode === 'total_stars' ? (
+        <div slot="end" className={styles.stars}>
+          <IonText>{totalStars}</IonText>
+          <IonIcon icon={star} color="warning" />
+        </div>
+      ) : (
+        <div slot="end" className={styles.stars}>
+          <IonText>{totalExp} XP</IonText>
+        </div>
+      )}
     </IonItem>
   );
 };

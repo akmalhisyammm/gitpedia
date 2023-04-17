@@ -80,6 +80,7 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
             correctCount > currentLearn.stars
               ? userCtx.user.progress.totalStars + correctCount - currentLearn.stars
               : userCtx.user.progress.totalStars,
+          totalExp: userCtx.user.progress.totalExp + correctCount * 10,
           learns: [
             ...otherLearns,
             {
@@ -183,7 +184,9 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
                 <IonCol>
                   <IonText className={styles.info}>
                     <div>
-                      <small>Kamu mendapatkan +{correctCount * 50}</small>
+                      <small>
+                        Kamu mendapatkan +{correctCount * 10} XP dan +{correctCount * 50}
+                      </small>
                       <img src={COIN_ICON_URL} alt="Coin" width={14} className={styles.icon} />
                     </div>
                     <h3>Selamat, kamu lulus pada materi ini!</h3>
@@ -230,7 +233,7 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
             <IonCol className="ion-text-end">
               <Countdown
                 ref={timerRef}
-                date={Date.now() + 120000}
+                date={Date.now() + 60000}
                 onComplete={handleTimeUp}
                 renderer={({ minutes, seconds }) => (
                   <IonText>

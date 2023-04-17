@@ -1,4 +1,8 @@
 .list {
   background-color: transparent;
   padding: 0;
+
+  .sort {
+    --background: inherit;
+  }
 }
