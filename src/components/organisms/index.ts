@@ -25,3 +25,4 @@ export { default as QuizForm } from './QuizForm';
 export { default as EditProfileForm } from './EditProfileForm';
 export { default as ProfileInfo } from './ProfileInfo';
 export { default as ProfileStats } from './ProfileStats';
+export { default as FriendListModal } from './FriendListModal';
