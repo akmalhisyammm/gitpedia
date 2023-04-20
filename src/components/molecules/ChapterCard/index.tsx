@@ -21,7 +21,9 @@ type ChapterCardProps = {
 
 const ChapterCard = ({ title, thumbnail, percentage, isLocked }: ChapterCardProps) => {
   return (
-    <IonCard className={`${styles.wrapper} ion-activatable ripple-parent rounded-rectangle`}>
+    <IonCard
+      className={`${styles.wrapper} ion-activatable ripple-parent rounded-rectangle`}
+      style={{ cursor: isLocked ? '' : 'pointer' }}>
       <CustomImage
         src={thumbnail}
         alt={title}

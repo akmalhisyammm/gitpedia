@@ -16,7 +16,7 @@ const FramedAvatar = ({ avatar, frame, width }: FramedAvatarProps) => {
         src={avatar || DEFAULT_AVATAR_URL}
         alt="Avatar"
         className={styles.avatar}
-        style={{ width: frame ? width - 20 : width - 10 }}
+        style={{ width: width - 10 }}
       />
       {frame && <CustomImage src={frame} alt="Frame" className={styles.frame} />}
     </div>
