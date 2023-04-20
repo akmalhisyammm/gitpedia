@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   IonGrid,
   IonRow,
@@ -19,6 +19,9 @@ import type { IStoreItem } from 'types/store';
 import styles from './StoreList.module.scss';
 
 const StoreList = () => {
+  const [availableItems, setAvailableItems] = useState<IStoreItem[]>([]);
+  const [purchasedItems, setPurchasedItems] = useState<IStoreItem[]>([]);
+
   const [presentToast] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [presentLoading, dismissLoading] = useIonLoading();
@@ -91,6 +94,18 @@ const StoreList = () => {
     });
   };
 
+  useEffect(() => {
+    const available = storeCtx.items
+      .filter((item) => !userCtx.user?.items.some((i) => i.id === item.id))
+      .sort((a, b) => a.price - b.price);
+    const purchased = storeCtx.items
+      .filter((item) => userCtx.user?.items.some((i) => i.id === item.id))
+      .sort((a, b) => a.price - b.price);
+
+    setAvailableItems(available);
+    setPurchasedItems(purchased);
+  }, [userCtx.user?.items, storeCtx.items]);
+
   return (
     <IonGrid>
       <IonRow className="ion-margin-bottom">
@@ -102,11 +117,8 @@ const StoreList = () => {
             <small>Beli avatar untuk digunakan pada profil kamu.</small>
           </IonText>
         </IonCol>
-        {storeCtx.items
-          .filter(
-            (item) => item.type === 'avatar' && !userCtx.user?.items.some((i) => i.id === item.id)
-          )
-          .sort((a, b) => a.price - b.price)
+        {availableItems
+          .filter((item) => item.type === 'avatar')
           .map((item) => {
             if (!userCtx.user) return null;
 
@@ -118,11 +130,8 @@ const StoreList = () => {
               </IonCol>
             );
           })}
-        {storeCtx.items
-          .filter(
-            (item) => item.type === 'avatar' && userCtx.user?.items.some((i) => i.id === item.id)
-          )
-          .sort((a, b) => a.price - b.price)
+        {purchasedItems
+          .filter((item) => item.type === 'avatar')
           .map((item) => (
             <IonCol size="6" key={item.id}>
               <StoreCard
@@ -143,11 +152,8 @@ const StoreList = () => {
             <small>Beli bingkai untuk digunakan pada profil kamu.</small>
           </IonText>
         </IonCol>
-        {storeCtx.items
-          .filter(
-            (item) => item.type === 'frame' && !userCtx.user?.items.some((i) => i.id === item.id)
-          )
-          .sort((a, b) => a.price - b.price)
+        {availableItems
+          .filter((item) => item.type === 'frame')
           .map((item) => {
             if (!userCtx.user) return null;
 
@@ -159,11 +165,8 @@ const StoreList = () => {
               </IonCol>
             );
           })}
-        {storeCtx.items
-          .filter(
-            (item) => item.type === 'frame' && userCtx.user?.items.some((i) => i.id === item.id)
-          )
-          .sort((a, b) => a.price - b.price)
+        {purchasedItems
+          .filter((item) => item.type === 'frame')
           .map((item) => (
             <IonCol size="6" key={item.id}>
               <StoreCard

@@ -18,12 +18,12 @@ export interface IUserItem {
   thumbnail: string;
 }
 
-export interface IUserActivity {
+export interface IUserFriend {
   following: string[];
   followers: string[];
 }
 
-export interface IOtherUserActivity extends IUserActivity {
+export interface IOtherUserFriend extends IUserFriend {
   id: string;
 }
 
@@ -45,6 +45,6 @@ export interface IUser {
   email: string;
   profile: IUserProfile;
   items: IUserItem[];
-  activity: IUserActivity;
+  friend: IUserFriend;
   progress: IUserProgress;
 }

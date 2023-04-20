@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           isCompleted: false,
         },
         items: [],
-        activity: {
+        friend: {
           following: [],
           followers: [],
         },

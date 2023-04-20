@@ -4,6 +4,7 @@ export { default as StoreCard } from './StoreCard';
 export { default as StatisticCard } from './StatisticCard';
 
 /* ITEM */
+export { default as FriendItem } from './FriendItem';
 export { default as LeaderboardItem } from './LeaderboardItem';
 export { default as LessonItem } from './LessonItem';
 

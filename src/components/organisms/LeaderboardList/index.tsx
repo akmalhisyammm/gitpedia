@@ -37,17 +37,33 @@ const LeaderboardList = ({ mode }: LeaderboardListProps) => {
         </IonSelect>
       </IonItem>
       {mode === 'globals' ? (
-        leaderboardCtx.globals.map((player) => (
+        leaderboardCtx.globals.map((user) => (
           <CustomLink
-            key={player.id}
-            href={player.id === userCtx.user?.id ? '/main/profile' : `/user/${player.id}`}>
-            <LeaderboardItem {...player} mode={selectedSort} />
+            key={user.id}
+            href={user.id === userCtx.user?.id ? '/main/profile' : `/user/${user.id}`}>
+            <LeaderboardItem
+              mode={selectedSort}
+              rank={user.rank}
+              name={user.profile.name}
+              avatar={user.profile.avatar}
+              frame={user.profile.frame}
+              totalStars={user.progress.totalStars}
+              totalExp={user.progress.totalExp}
+            />
           </CustomLink>
         ))
       ) : leaderboardCtx.friends.length ? (
-        leaderboardCtx.friends.map((player) => (
-          <CustomLink key={player.id} href={`/user/${player.id}`}>
-            <LeaderboardItem {...player} mode={selectedSort} />
+        leaderboardCtx.friends.map((user) => (
+          <CustomLink key={user.id} href={`/user/${user.id}`}>
+            <LeaderboardItem
+              mode={selectedSort}
+              rank={user.rank}
+              name={user.profile.name}
+              avatar={user.profile.avatar}
+              frame={user.profile.frame}
+              totalStars={user.progress.totalStars}
+              totalExp={user.progress.totalExp}
+            />
           </CustomLink>
         ))
       ) : (
