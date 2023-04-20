@@ -1,19 +1,31 @@
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
+import {
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonRippleEffect,
+} from '@ionic/react';
 
 import styles from './StatisticCard.module.scss';
 
 type StatisticCardProps = {
   title: string;
   value: number;
+  onShowModal?: () => void;
 };
 
-const StatisticCard = ({ title, value }: StatisticCardProps) => {
+const StatisticCard = ({ title, value, onShowModal }: StatisticCardProps) => {
   return (
-    <IonCard color="medium" className={styles.card}>
+    <IonCard
+      color={onShowModal ? 'secondary' : 'medium'}
+      className={styles.card}
+      style={{ cursor: onShowModal ? 'pointer' : '' }}
+      onClick={onShowModal}>
       <IonCardHeader>
         <IonCardSubtitle>{title}</IonCardSubtitle>
         <IonCardTitle>{value}</IonCardTitle>
       </IonCardHeader>
+      {!!onShowModal && <IonRippleEffect />}
     </IonCard>
   );
 };

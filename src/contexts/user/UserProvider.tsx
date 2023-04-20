@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 
 import { UserContext } from './UserContext';
 import { AuthContext } from 'contexts/auth';
 import { usersCollection } from 'lib/firebase';
 
 import type {
-  IOtherUserActivity,
+  IOtherUserFriend,
   IUser,
-  IUserActivity,
+  IUserFriend,
   IUserItem,
   IUserProfile,
   IUserProgress,
@@ -20,68 +20,141 @@ type UserProviderProps = {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null);
-  const [isFetching, setIsFetching] = useState<boolean>(true);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   const authCtx = useContext(AuthContext);
 
   const addItem = async (payload: IUserItem) => {
-    setIsFetching(true);
-
     if (!authCtx.user || !user) return;
 
     try {
       await updateDoc(doc(usersCollection, authCtx.user.uid), {
         items: [...user.items, payload],
       });
+
+      if (user) {
+        // Bug: This will not update the user state properly because the state is updated asynchronously
+        // const updatedUser = { ...user, items: [...user.items, payload] };
+        // setUser(updatedUser);
+
+        // Workaround: This will update the user state properly because the state is updated synchronously
+        const updatedUser = { ...user };
+        updatedUser.items.push(payload);
+
+        setUser(updatedUser);
+      }
+
+      const updatedUsers = users.map((user) => {
+        if (user.id === authCtx.user?.uid) {
+          const updatedUser = { ...user };
+          updatedUser.items.push(payload);
+
+          return updatedUser;
+        }
+
+        return user;
+      });
+
+      setUsers(updatedUsers);
     } catch (error) {
       throw new Error('Terjadi kesalahan!');
     }
   };
 
-  const updateActivity = async (selfPayload: IUserActivity, othersPayload: IOtherUserActivity) => {
-    setIsFetching(true);
-
+  const updateFriend = async (selfPayload: IUserFriend, othersPayload: IOtherUserFriend) => {
     if (!authCtx.user) return;
 
     try {
-      await updateDoc(doc(usersCollection, authCtx.user.uid), { activity: selfPayload });
+      await updateDoc(doc(usersCollection, authCtx.user.uid), { friend: selfPayload });
       await updateDoc(doc(usersCollection, othersPayload.id), {
-        activity: {
+        friend: {
           following: othersPayload.following,
           followers: othersPayload.followers,
         },
       });
+
+      if (user) {
+        const updatedUser = { ...user, friend: selfPayload };
+        setUser(updatedUser);
+      }
+
+      const updatedUsers = users.map((user) => {
+        if (user.id === authCtx.user?.uid) {
+          return { ...user, friend: selfPayload };
+        }
+
+        if (user.id === othersPayload.id) {
+          return { ...user, friend: othersPayload };
+        }
+
+        return user;
+      });
+
+      setUsers(updatedUsers);
     } catch (error) {
       throw new Error('Terjadi kesalahan!');
     }
   };
 
   const updateProgress = async (payload: IUserProgress) => {
-    setIsFetching(true);
-
     if (!authCtx.user) return;
 
     try {
       await updateDoc(doc(usersCollection, authCtx.user.uid), { progress: payload });
+
+      if (user) {
+        const updatedUser = { ...user, progress: payload };
+        setUser(updatedUser);
+      }
+
+      const updatedUsers = users.map((user) => {
+        if (user.id === authCtx.user?.uid) {
+          return { ...user, progress: payload };
+        }
+
+        return user;
+      });
+
+      setUsers(updatedUsers);
     } catch (error) {
       throw new Error('Terjadi kesalahan!');
     }
   };
 
   const updateProfile = async (payload: IUserProfile) => {
-    setIsFetching(true);
-
     if (!authCtx.user) return;
 
     try {
       await updateDoc(doc(usersCollection, authCtx.user.uid), { profile: payload });
+
+      if (user) {
+        const updatedUser = { ...user, profile: payload };
+        setUser(updatedUser);
+      }
+
+      const updatedUsers = users.map((user) => {
+        if (user.id === authCtx.user?.uid) {
+          return { ...user, profile: payload };
+        }
+
+        return user;
+      });
+
+      setUsers(updatedUsers);
     } catch (error) {
       throw new Error('Terjadi kesalahan!');
     }
   };
 
   useEffect(() => {
-    const getUser = async () => {
+    const getAllUsers = async () => {
+      const snapshot = await getDocs(usersCollection);
+      const data = snapshot.docs.map((doc) => ({ ...(doc.data() as IUser) }));
+
+      setUsers(data);
+    };
+
+    const getAuthUser = async () => {
       if (!authCtx.user) return;
 
       const snapshot = await getDoc(doc(usersCollection, authCtx.user.uid));
@@ -104,14 +177,15 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       };
 
       setUser(newData);
-      setIsFetching(false);
     };
 
-    getUser();
-  }, [authCtx.user, isFetching]);
+    getAllUsers();
+    getAuthUser();
+  }, [authCtx.user]);
 
   return (
-    <UserContext.Provider value={{ user, addItem, updateActivity, updateProgress, updateProfile }}>
+    <UserContext.Provider
+      value={{ user, users, addItem, updateFriend, updateProgress, updateProfile }}>
       {children}
     </UserContext.Provider>
   );

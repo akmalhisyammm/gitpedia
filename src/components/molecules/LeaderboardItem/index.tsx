@@ -32,12 +32,12 @@ const LeaderboardItem = ({
         <IonText>{name}</IonText>
       </div>
       {mode === 'total_stars' ? (
-        <div slot="end" className={styles.stars}>
+        <div slot="end" className={styles.points}>
           <IonText>{totalStars}</IonText>
           <IonIcon icon={star} color="warning" />
         </div>
       ) : (
-        <div slot="end" className={styles.stars}>
+        <div slot="end" className={styles.points}>
           <IonText>{totalExp} XP</IonText>
         </div>
       )}

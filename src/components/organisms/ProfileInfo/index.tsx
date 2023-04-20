@@ -23,11 +23,10 @@ import {
 } from 'ionicons/icons';
 
 import { COIN_ICON_URL } from 'constants/images';
-import { LeaderboardContext } from 'contexts/leaderboard';
 import { UserContext } from 'contexts/user';
 import { CustomButton, CustomLink, FramedAvatar } from 'components/atoms';
 
-import type { IUserLeaderboard } from 'types/leaderboard';
+import type { IUser } from 'types/user';
 
 import styles from './ProfileInfo.module.scss';
 
@@ -37,12 +36,11 @@ type ProfileInfoProps = {
 };
 
 const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
-  const [currentUser, setCurrentUser] = useState<IUserLeaderboard | null>(null);
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
 
   const [presentToast] = useIonToast();
   const [presentLoading, dismissLoading] = useIonLoading();
 
-  const leaderboardCtx = useContext(LeaderboardContext);
   const userCtx = useContext(UserContext);
 
   const getSocialIcon = (name: string) => {
@@ -60,27 +58,27 @@ const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
     }
   };
 
-  const handleToggleActivity = async (mode: 'follow' | 'unfollow') => {
+  const handleToggleFriend = async (mode: 'follow' | 'unfollow') => {
     if (!userCtx.user || !currentUser) return;
 
     try {
       presentLoading({ mode: 'ios', spinner: 'crescent' });
 
-      await userCtx.updateActivity(
+      await userCtx.updateFriend(
         {
           following:
             mode === 'follow'
-              ? [...userCtx.user.activity.following, userId]
-              : userCtx.user.activity.following.filter((id) => id !== userId),
-          followers: userCtx.user.activity.followers,
+              ? [...userCtx.user.friend.following, userId]
+              : userCtx.user.friend.following.filter((id) => id !== userId),
+          followers: userCtx.user.friend.followers,
         },
         {
           id: currentUser.id,
-          following: currentUser.following,
+          following: currentUser.friend.following,
           followers:
             mode === 'follow'
-              ? [...currentUser.followers, userCtx.user.id]
-              : currentUser.followers.filter((id) => id !== userCtx.user?.id),
+              ? [...currentUser.friend.followers, userCtx.user.id]
+              : currentUser.friend.followers.filter((id) => id !== userCtx.user?.id),
         }
       );
     } catch (error) {
@@ -99,23 +97,27 @@ const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
   };
 
   useEffect(() => {
-    const user = leaderboardCtx.globals.find((user) => user.id === userId);
+    const user = userCtx.users.find((user) => user.id === userId);
     setCurrentUser(user || null);
-  }, [leaderboardCtx.globals, userId]);
+  }, [userCtx.users, userId]);
 
-  if (!userCtx.user || !currentUser) return null;
+  if (!currentUser) return null;
 
   return (
     <>
       <IonCard color="tertiary" className={styles.card}>
         <div className={styles.profile}>
-          <FramedAvatar avatar={currentUser.avatar} frame={currentUser.frame} width={80} />
+          <FramedAvatar
+            avatar={currentUser.profile.avatar}
+            frame={currentUser.profile.frame}
+            width={80}
+          />
           <IonCardHeader>
-            <IonCardTitle>{currentUser.name}</IonCardTitle>
+            <IonCardTitle>{currentUser.profile.name}</IonCardTitle>
             <IonCardSubtitle className={styles.occupation}>
-              {currentUser.occupation}
+              {currentUser.profile.occupation}
             </IonCardSubtitle>
-            {currentUser.gender === 'male' ? (
+            {currentUser.profile.gender === 'male' ? (
               <IonCardSubtitle className={styles.gender}>
                 <IonIcon icon={male} color="primary" />
                 Laki-laki
@@ -131,9 +133,9 @@ const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
 
         <hr className={styles.divider} />
 
-        {currentUser.socials.length ? (
+        {currentUser.profile.socials.length ? (
           <div className={styles.socialWrapper}>
-            {currentUser.socials.map((social) => (
+            {currentUser.profile.socials.map((social) => (
               <CustomLink key={social.name} href={social.url} isExternal>
                 <IonChip color="light" outline>
                   <IonIcon icon={getSocialIcon(social.name)} />
@@ -154,7 +156,7 @@ const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
           <CustomButton href="/user/edit" color="primary" className={styles.button}>
             Ubah Profil
           </CustomButton>
-          {!userCtx.user.profile.isCompleted && (
+          {!userCtx.user?.profile.isCompleted && (
             <div className={styles.info}>
               <IonText color="medium">
                 <small>Lengkapi profil kamu untuk mendapatkan +250</small>
@@ -163,18 +165,18 @@ const ProfileInfo = ({ type, userId }: ProfileInfoProps) => {
             </div>
           )}
         </>
-      ) : !userCtx.user.activity.following.includes(userId) ? (
+      ) : !userCtx.user?.friend.following.includes(userId) ? (
         <CustomButton
           color="primary"
           className={styles.button}
-          onClick={() => handleToggleActivity('follow')}>
+          onClick={() => handleToggleFriend('follow')}>
           Ikuti Sebagai Teman
         </CustomButton>
       ) : (
         <CustomButton
           color="secondary"
           className={styles.button}
-          onClick={() => handleToggleActivity('unfollow')}>
+          onClick={() => handleToggleFriend('unfollow')}>
           Berhenti Mengikuti
         </CustomButton>
       )}

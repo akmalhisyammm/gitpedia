@@ -1,9 +1,9 @@
 import { createContext } from 'react';
 
 import type {
-  IOtherUserActivity,
+  IOtherUserFriend,
   IUser,
-  IUserActivity,
+  IUserFriend,
   IUserItem,
   IUserProfile,
   IUserProgress,
@@ -11,19 +11,18 @@ import type {
 
 interface IContext {
   user: IUser | null;
+  users: IUser[];
   addItem: (payload: IUserItem) => Promise<void | null>;
-  updateActivity: (
-    selfPayload: IUserActivity,
-    othersPayload: IOtherUserActivity
-  ) => Promise<void | null>;
+  updateFriend: (selfPayload: IUserFriend, othersPayload: IOtherUserFriend) => Promise<void | null>;
   updateProgress: (payload: IUserProgress) => Promise<void | null>;
   updateProfile: (payload: IUserProfile) => Promise<void | null>;
 }
 
 export const UserContext = createContext<IContext>({
   user: null,
+  users: [],
   addItem: async () => null,
-  updateActivity: async () => null,
+  updateFriend: async () => null,
   updateProgress: async () => null,
   updateProfile: async () => null,
 });
