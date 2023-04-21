@@ -19,26 +19,26 @@ const LessonContent = ({ chapterId, lessonId }: LessonContentProps) => {
   const chapterCtx = useContext(ChapterContext);
 
   return (
-    <IonGrid>
-      <IonRow>
-        <IonCol>
-          <IonText className={styles.content}>
-            <ReactMarkdown>
-              {chapterCtx.chapters[Number(chapterId) - 1].lessons[
-                Number(lessonId) - 1
-              ].content.replaceAll('\\n', '\n')}
-            </ReactMarkdown>
-          </IonText>
-        </IonCol>
-      </IonRow>
-      <IonRow className="ion-margin-vertical">
-        <IonCol>
-          <CustomButton color="primary" href={`${location.pathname}/quiz`}>
-            Mulai Kuis
-          </CustomButton>
-        </IonCol>
-      </IonRow>
-    </IonGrid>
+    <>
+      <IonGrid>
+        <IonRow>
+          <IonCol>
+            <IonText className={styles.content}>
+              <ReactMarkdown>
+                {chapterCtx.chapters[Number(chapterId) - 1].lessons[
+                  Number(lessonId) - 1
+                ].content.replaceAll('\\n', '\n')}
+              </ReactMarkdown>
+            </IonText>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+      <div className={styles.button}>
+        <CustomButton color="primary" href={`${location.pathname}/quiz`}>
+          Mulai Kuis
+        </CustomButton>
+      </div>
+    </>
   );
 };
 

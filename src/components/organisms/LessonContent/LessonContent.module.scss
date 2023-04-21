@@ -31,3 +31,10 @@
     margin: 12px 0;
   }
 }
+
+.button {
+  position: sticky;
+  bottom: 0;
+  padding: 16px 8px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+}
