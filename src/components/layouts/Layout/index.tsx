@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
   IonBackButton,
   IonButtons,
@@ -5,9 +6,14 @@ import {
   IonHeader,
   IonMenuButton,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   IonTitle,
   IonToolbar,
+  type RefresherEventDetail,
 } from '@ionic/react';
+
+import { UserContext } from 'contexts/user';
 
 type LayoutProps = {
   title?: string;
@@ -16,6 +22,15 @@ type LayoutProps = {
 };
 
 const Layout = ({ title, isMenuButton, children }: LayoutProps) => {
+  const userCtx = useContext(UserContext);
+
+  const handleRefresh = async (e: CustomEvent<RefresherEventDetail>) => {
+    await userCtx.getAllUsers();
+    await userCtx.getAuthUser();
+
+    e.detail.complete();
+  };
+
   return (
     <IonPage>
       {title && (
@@ -29,7 +44,12 @@ const Layout = ({ title, isMenuButton, children }: LayoutProps) => {
         </IonHeader>
       )}
 
-      <IonContent>{children}</IonContent>
+      <IonContent>
+        <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+          <IonRefresherContent />
+        </IonRefresher>
+        {children}
+      </IonContent>
     </IonPage>
   );
 };
