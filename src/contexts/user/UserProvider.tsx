@@ -24,6 +24,38 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const authCtx = useContext(AuthContext);
 
+  const getAllUsers = async () => {
+    const snapshot = await getDocs(usersCollection);
+    const data = snapshot.docs.map((doc) => ({ ...(doc.data() as IUser) }));
+
+    setUsers(data);
+  };
+
+  const getAuthUser = async () => {
+    if (!authCtx.user) return;
+
+    const snapshot = await getDoc(doc(usersCollection, authCtx.user.uid));
+    const data = snapshot.exists() ? (snapshot.data() as IUser) : null;
+
+    if (!data) return;
+
+    const newData = {
+      ...data,
+      progress: {
+        ...data.progress,
+        learns: data.progress.learns.sort((a, b) => {
+          if (a.chapterId === b.chapterId) {
+            return a.lessonId - b.lessonId;
+          }
+
+          return a.chapterId - b.chapterId;
+        }),
+      },
+    };
+
+    setUser(newData);
+  };
+
   const addItem = async (payload: IUserItem) => {
     if (!authCtx.user || !user) return;
 
@@ -99,17 +131,28 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const updateProgress = async (payload: IUserProgress) => {
     if (!authCtx.user) return;
 
+    const sortedPayload = {
+      ...payload,
+      learns: payload.learns.sort((a, b) => {
+        if (a.chapterId === b.chapterId) {
+          return a.lessonId - b.lessonId;
+        }
+
+        return a.chapterId - b.chapterId;
+      }),
+    };
+
     try {
-      await updateDoc(doc(usersCollection, authCtx.user.uid), { progress: payload });
+      await updateDoc(doc(usersCollection, authCtx.user.uid), { progress: sortedPayload });
 
       if (user) {
-        const updatedUser = { ...user, progress: payload };
+        const updatedUser = { ...user, progress: sortedPayload };
         setUser(updatedUser);
       }
 
       const updatedUsers = users.map((user) => {
         if (user.id === authCtx.user?.uid) {
-          return { ...user, progress: payload };
+          return { ...user, progress: sortedPayload };
         }
 
         return user;
@@ -147,45 +190,22 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   };
 
   useEffect(() => {
-    const getAllUsers = async () => {
-      const snapshot = await getDocs(usersCollection);
-      const data = snapshot.docs.map((doc) => ({ ...(doc.data() as IUser) }));
-
-      setUsers(data);
-    };
-
-    const getAuthUser = async () => {
-      if (!authCtx.user) return;
-
-      const snapshot = await getDoc(doc(usersCollection, authCtx.user.uid));
-      const data = snapshot.exists() ? (snapshot.data() as IUser) : null;
-
-      if (!data) return;
-
-      const newData = {
-        ...data,
-        progress: {
-          ...data.progress,
-          learns: data.progress.learns.sort((a, b) => {
-            if (a.chapterId === b.chapterId) {
-              return a.lessonId - b.lessonId;
-            }
-
-            return a.chapterId - b.chapterId;
-          }),
-        },
-      };
-
-      setUser(newData);
-    };
-
     getAllUsers();
     getAuthUser();
   }, [authCtx.user]);
 
   return (
     <UserContext.Provider
-      value={{ user, users, addItem, updateFriend, updateProgress, updateProfile }}>
+      value={{
+        user,
+        users,
+        getAllUsers,
+        getAuthUser,
+        addItem,
+        updateFriend,
+        updateProgress,
+        updateProfile,
+      }}>
       {children}
     </UserContext.Provider>
   );

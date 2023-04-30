@@ -18,7 +18,14 @@ export const ChapterProvider = ({ children }: ChapterProviderProps) => {
       const snapshot = await getDocs(chaptersCollection);
       const data = snapshot.docs.map((doc) => ({ ...(doc.data() as IChapter) }));
 
-      setChapters(data);
+      const sortedData = data
+        .sort((a, b) => a.id - b.id)
+        .map((item) => ({
+          ...item,
+          lessons: item.lessons.sort((a, b) => a.id - b.id),
+        }));
+
+      setChapters(sortedData);
     };
 
     getAllChapters();

@@ -104,7 +104,7 @@ const StoreList = () => {
 
     setAvailableItems(available);
     setPurchasedItems(purchased);
-  }, [userCtx.user?.items, storeCtx.items]);
+  }, [userCtx.user]);
 
   return (
     <IonGrid>

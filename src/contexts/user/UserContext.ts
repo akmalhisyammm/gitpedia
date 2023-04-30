@@ -12,6 +12,8 @@ import type {
 interface IContext {
   user: IUser | null;
   users: IUser[];
+  getAllUsers: () => Promise<void | null>;
+  getAuthUser: () => Promise<void | null>;
   addItem: (payload: IUserItem) => Promise<void | null>;
   updateFriend: (selfPayload: IUserFriend, othersPayload: IOtherUserFriend) => Promise<void | null>;
   updateProgress: (payload: IUserProgress) => Promise<void | null>;
@@ -21,6 +23,8 @@ interface IContext {
 export const UserContext = createContext<IContext>({
   user: null,
   users: [],
+  getAllUsers: async () => null,
+  getAuthUser: async () => null,
   addItem: async () => null,
   updateFriend: async () => null,
   updateProgress: async () => null,

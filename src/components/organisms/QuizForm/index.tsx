@@ -271,7 +271,7 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
                   {currentQuiz?.options?.map((option) => (
                     <IonItem key={option} color="secondary" className={styles.radio}>
                       <IonLabel className="ion-text-wrap">{option}</IonLabel>
-                      <IonRadio slot="start" value={option} />
+                      <IonRadio slot="start" value={option} legacy />
                     </IonItem>
                   ))}
                 </IonRadioGroup>

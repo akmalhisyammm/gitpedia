@@ -60,6 +60,7 @@ const InputGroup = (
         inputMode={inputMode}
         placeholder={placeholder}
         disabled={isDisabled}
+        legacy
       />
       {labelEnd && <IonLabel slot="end">{labelEnd}</IonLabel>}
       {iconEnd && (

@@ -18,7 +18,7 @@ export const StoreProvider = ({ children }: StoreProviderProps) => {
       const snapshot = await getDocs(storesCollection);
       const data = snapshot.docs.map((doc) => ({ ...(doc.data() as IStoreItem) }));
 
-      setItems(data);
+      setItems(data.sort((a, b) => a.id - b.id));
     };
 
     getAllStoreItems();

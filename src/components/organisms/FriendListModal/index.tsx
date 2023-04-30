@@ -47,7 +47,7 @@ const FriendListModal = ({ type, userId, isOpen, onDismiss }: FriendListModalPro
     setCurrentUser(user || null);
     setFollowing(followingUsers);
     setFollowers(followerUsers);
-  }, [userCtx.user?.friend, userCtx.users, userId]);
+  }, [userCtx.user, userCtx.users, userId]);
 
   if (!currentUser || !following || !followers) return null;
 

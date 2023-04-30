@@ -57,7 +57,7 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
     };
 
     getAllLeaderboards();
-  }, [userCtx.user?.profile, userCtx.user?.progress, userCtx.user?.friend, userCtx.users]);
+  }, [userCtx.user, userCtx.users]);
 
   return (
     <LeaderboardContext.Provider value={{ globals, friends, sortBy }}>

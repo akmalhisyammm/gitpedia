@@ -33,7 +33,8 @@ const SelectGroup = (
         value={value}
         interface={type}
         placeholder={placeholder}
-        className={styles.select}>
+        className={styles.select}
+        legacy>
         {options.map((option) => (
           <IonSelectOption key={option.value} value={option.value}>
             {option.label}
