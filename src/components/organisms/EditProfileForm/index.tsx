@@ -182,10 +182,30 @@ const EditProfileForm = () => {
       });
     }
 
+    if (name.length > 16) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Nama maksimal 16 karakter!',
+        color: 'danger',
+        duration: 2000,
+        icon: alertCircle,
+      });
+    }
+
     if (!occupation.trim().length) {
       return presentToast({
         mode: 'ios',
         message: 'Pekerjaan harus diisi!',
+        color: 'danger',
+        duration: 2000,
+        icon: alertCircle,
+      });
+    }
+
+    if (occupation.length > 32) {
+      return presentToast({
+        mode: 'ios',
+        message: 'Pekerjaan maksimal 32 karakter!',
         color: 'danger',
         duration: 2000,
         icon: alertCircle,

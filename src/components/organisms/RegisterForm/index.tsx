@@ -83,10 +83,10 @@ const RegisterForm = () => {
       });
     }
 
-    if (occupation.length > 16) {
+    if (occupation.length > 32) {
       return presentToast({
         mode: 'ios',
-        message: 'Pekerjaan maksimal 16 karakter!',
+        message: 'Pekerjaan maksimal 32 karakter!',
         color: 'danger',
         duration: 2000,
         icon: alertCircle,
