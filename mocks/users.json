@@ -1,13 +1,21 @@
 [
   {
     "id": 1,
-    "name": "Admin Gitpedia",
-    "username": "admin",
-    "occupation": "Software Engineer",
-    "gender": "male",
-    "email": "mcyuutogaming@gmail.com",
-    "avatar": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Fbear.png?alt=media&token=a95f46f6-6efc-4204-bd9a-af3d7f33d1db",
-    "frame": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Fcolorful.png?alt=media&token=2cb835b7-7db1-4efa-86e7-560c478e4aa2",
+    "email": "admin@gitpedia.com",
+    "profile": {
+      "name": "Admin Gitpedia",
+      "occupation": "Software Engineer",
+      "gender": "male",
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Favatars%2Fbear.png?alt=media&token=a95f46f6-6efc-4204-bd9a-af3d7f33d1db",
+      "frame": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Fcolorful.png?alt=media&token=2cb835b7-7db1-4efa-86e7-560c478e4aa2",
+      "socials": [
+        {
+          "name": "Website",
+          "url": "https://akmalhisyam.my.id"
+        }
+      ],
+      "isCompleted": false
+    },
     "items": [
       {
         "id": 1,
@@ -40,8 +48,7 @@
         "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/icons%2Fframes%2Frainbow.png?alt=media&token=35d3447f-8ac9-4e1f-ba6f-f21d78969f5f"
       }
     ],
-    "socials": [],
-    "activity": {
+    "friend": {
       "following": [],
       "followers": []
     },
@@ -81,6 +88,7 @@
           "isPassed": false
         }
       ],
+      "isEasterEggDone": false,
       "lastUpdated": 1681708997667
     }
   }
