@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
               isPassed: false,
             },
           ],
-          lastUpdated: new Date(),
+          lastUpdated: Date.now(),
           isEasterEggDone: false,
         },
       });
