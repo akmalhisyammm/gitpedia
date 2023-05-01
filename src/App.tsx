@@ -27,15 +27,17 @@ import 'theme/globals.css';
 
 setupIonicReact();
 
-const App = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonSplitPane contentId="main">
-        <SideMenu />
-        <Routes />
-      </IonSplitPane>
-    </IonReactRouter>
-  </IonApp>
-);
+const App = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonSplitPane contentId="main">
+          <SideMenu />
+          <Routes />
+        </IonSplitPane>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

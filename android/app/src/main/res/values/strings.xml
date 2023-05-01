@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Gitpedia</string>
+    <string name="title_activity_main">Gitpedia</string>
+    <string name="package_name">id.ac.umn.muhammadakmalhisyam.ionic.gitpedia</string>
+    <string name="custom_url_scheme">id.ac.umn.muhammadakmalhisyam.ionic.gitpedia</string>
+</resources>
