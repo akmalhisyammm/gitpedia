@@ -1,12 +1,40 @@
-import { IonCol, IonGrid, IonIcon, IonRow, IonText } from '@ionic/react';
-import { openOutline } from 'ionicons/icons';
+import { useContext } from 'react';
+import { IonCol, IonGrid, IonIcon, IonRow, IonText, useIonToast } from '@ionic/react';
+import { alertCircle, openOutline } from 'ionicons/icons';
 
 import { CODING_ILLUSTRATION_URL } from 'constants/images';
+import { UserContext } from 'contexts/user';
 import { CustomImage, CustomLink } from 'components/atoms';
 
 import styles from './AboutContent.module.scss';
 
 const AboutContent = () => {
+  const userCtx = useContext(UserContext);
+
+  const [presentToast] = useIonToast();
+
+  const handleEasterEgg = async () => {
+    if (!userCtx.user || userCtx.user.progress.isEasterEggDone) return;
+
+    try {
+      await userCtx.updateProgress({
+        ...userCtx.user.progress,
+        totalCoins: userCtx.user.progress.totalCoins + 500,
+        isEasterEggDone: true,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        presentToast({
+          mode: 'ios',
+          message: error.message,
+          color: 'danger',
+          duration: 2000,
+          icon: alertCircle,
+        });
+      }
+    }
+  };
+
   return (
     <IonGrid>
       <IonRow className={styles.section}>
@@ -67,7 +95,11 @@ const AboutContent = () => {
       <IonRow className="ion-text-center ion-margin-vertical">
         <IonCol>
           <IonText>&copy; 2023 &bull; </IonText>
-          <CustomLink href="https://akmalhisyam.my.id" color="primary" isExternal>
+          <CustomLink
+            href="https://akmalhisyam.my.id"
+            color="primary"
+            isExternal
+            onClick={handleEasterEgg}>
             Muhammad Akmal Hisyam <IonIcon icon={openOutline} />
           </CustomLink>
         </IonCol>

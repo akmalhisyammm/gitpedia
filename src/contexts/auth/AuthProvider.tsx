@@ -89,6 +89,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
               isPassed: false,
             },
           ],
+          lastUpdated: new Date(),
+          isEasterEggDone: false,
         },
       });
       await sendEmailVerification(user);

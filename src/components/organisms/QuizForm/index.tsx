@@ -75,6 +75,7 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
         presentLoading({ mode: 'ios', spinner: 'crescent' });
 
         await userCtx.updateProgress({
+          ...userCtx.user.progress,
           totalCoins: userCtx.user.progress.totalCoins + correctCount * 50,
           totalStars:
             correctCount > currentLearn.stars

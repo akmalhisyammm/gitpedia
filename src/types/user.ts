@@ -38,6 +38,7 @@ export interface IUserProgress {
     isPassed: boolean;
   }[];
   lastUpdated: number;
+  isEasterEggDone: boolean;
 }
 
 export interface IUser {
