@@ -17,7 +17,9 @@ const Lesson = () => {
 
   return (
     <Layout title={chapterCtx.chapters[Number(chapterId) - 1]?.lessons[Number(lessonId) - 1].title}>
-      <LessonContent chapterId={Number(chapterId)} lessonId={Number(lessonId)} />
+      {!!chapterCtx.chapters.length && (
+        <LessonContent chapterId={Number(chapterId)} lessonId={Number(lessonId)} />
+      )}
     </Layout>
   );
 };

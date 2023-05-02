@@ -18,8 +18,12 @@
   }
 
   .radio {
-    margin: 8px 0;
+    margin: 4px 0;
+    padding: 16px;
     border-radius: 12px;
+    width: 100%;
+    color: black;
+    background-color: var(--ion-color-secondary);
   }
 
   .illustration {

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Countdown, { zeroPad } from 'react-countdown';
 import {
   IonGrid,
@@ -9,8 +9,6 @@ import {
   IonCard,
   IonCardContent,
   IonRadioGroup,
-  IonItem,
-  IonLabel,
   IonRadio,
   useIonToast,
   useIonLoading,
@@ -44,6 +42,7 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
   const [presentLoading, dismissLoading] = useIonLoading();
 
   const history = useHistory();
+  const location = useLocation();
 
   const chapterCtx = useContext(ChapterContext);
   const userCtx = useContext(UserContext);
@@ -144,6 +143,13 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
   };
 
   useEffect(() => {
+    if (!chapterCtx.chapters.length) {
+      const splittedCurrentPath = location.pathname.split('/');
+      splittedCurrentPath.pop();
+
+      return history.replace(splittedCurrentPath.join('/'));
+    }
+
     // Get current lesson quiz
     const lessonQuiz = chapterCtx.chapters[chapterId - 1].lessons[lessonId - 1].quiz;
 
@@ -263,17 +269,22 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
                   type="text"
                   inputMode="text"
                   placeholder="Ketik perintah di sini..."
-                  labelStart="$"
+                  label="$"
                 />
               </IonCol>
             ) : (
               <IonCol>
                 <IonRadioGroup ref={choiceRef}>
                   {currentQuiz?.options?.map((option) => (
-                    <IonItem key={option} color="secondary" className={styles.radio}>
-                      <IonLabel className="ion-text-wrap">{option}</IonLabel>
-                      <IonRadio slot="start" value={option} legacy />
-                    </IonItem>
+                    <IonRadio
+                      key={option}
+                      value={option}
+                      labelPlacement="end"
+                      justify="start"
+                      slot="start"
+                      className={styles.radio}>
+                      {option}
+                    </IonRadio>
                   ))}
                 </IonRadioGroup>
               </IonCol>

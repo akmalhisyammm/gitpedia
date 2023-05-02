@@ -29,6 +29,7 @@ const LeaderboardList = ({ mode }: LeaderboardListProps) => {
         <IonIcon icon={funnelOutline} color="primary" slot="start" />
         <IonSelect
           value={selectedSort}
+          mode="ios"
           interface="popover"
           slot="end"
           onIonChange={(e) => setSelectedSort(e.detail.value)}>
