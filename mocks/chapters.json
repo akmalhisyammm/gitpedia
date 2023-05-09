@@ -6,43 +6,82 @@
     "lessons": [
       {
         "id": 1,
-        "title": "Pengaturan Git",
-        "content": "Git hadir dengan perintah yang disebut `git config`, yang memungkinkan pengguna mendapatkan dan mengatur variabel konfigurasi yang mengontrol semua aspek tampilan dan pengoperasian Git. \\n ### Identitas Pengguna \\n Hal pertama yang harus dilakukan pertama kali adalah mengatur nama dan alamat email pengguna. Hal ini penting karena setiap rekaman pada Git akan menggunakan informasi ini, dan informasi ini disimpan secara permanen ke dalam rekaman yang telah pengguna buat. Pengguna dapat mengatur identitasnya menggunakan perintah berikut: \\n ``` \\n $ git config --global user.name \"<nama>\" \\n $ git config --global user.email \"<email>\" \\n ``` \\n Contoh: \\n ``` \\n $ git config --global user.name \"John Doe\" \\n $ git config --global user.email \"john.doe@example.com\" \\n ``` \\n Pengguna perlu melakukan ini hanya sekali jika menambahkan opsi `--global`, karena telah disimpan secara global sehingga Git akan selalu menggunakan informasi itu untuk proyek apa pun yang terdapat pada sistem tersebut. Jika pengguna ingin menimpanya dengan nama atau alamat email yang berbeda dalam proyek tertentu, pengguna dapat menjalankan perintah tersebut dengan opsi `--local` saat pengguna berada dalam proyek tersebut. \\n ### Text Editor \\n Setelah identitas diatur, pengguna dapat mengonfigurasi text editor yang akan digunakan saat Git membutuhkan pengguna untuk mengetik pesan. Jika tidak dikonfigurasi, maka secara otomatis Git menggunakan text editor bawaan sistem pengguna. Jika pengguna ingin menggunakan text editor lain, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --global core.editor \"<editor>\" \\n ``` \\n Contoh: \\n ``` \\n $ git config --global core.editor \"vim\" \\n ``` \\n ### Nama Cabang \\n Secara default, Git akan membuat cabang utama bernama `master` saat pengguna membuat repositori baru. Mulai dari Git versi 2.28 dan seterusnya, pengguna dapat menetapkan nama yang berbeda untuk cabang utama. Jika pengguna ingin mengatur nama cabang utama, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --global init.defaultBranch <nama> \\n ``` \\n Contoh: \\n ``` \\n $ git config --global init.defaultBranch main \\n ``` \\n ### Memeriksa Pengaturan \\n Jika pengguna ingin memeriksa pengaturan konfigurasi dengan menampilkan daftar pengaturan Git yang terdapat pada sistem tersebut, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --list \\n ``` \\n Selain itu, pengguna juga dapat memeriksa pengaturan dengan nilai kunci tertentu. Jika pengguna hanya ingin menampilkan pengaturan Git secara spesifik, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config <objek> \\n ``` \\n Contoh: \\n ``` \\n $ git config user.name \\n ```",
+        "title": "Sejarah Singkat Git",
+        "content": "Kernel Linux adalah proyek perangkat lunak sumber terbuka dalam lingkup yang cukup besar. Sebagian besar waktu pemeliharaan dari kernel Linux (1991-2002), perubahan-perubahan pada perangkat lunak diberikan sebagai patch dan file arsip. Pada tahun 2002, proyek kernel Linux mulai menggunakan Distributed Version Control System (DVCS) terpatenkan yang bernama BitKeeper. Pada tahun 2005, hubungan antara komunitas yang mengembangkan kernel Linux dengan perusahaan komersial yang mengembangkan BitKeeper terputus, dan status bebas biaya dari alatnya dicabut. Hal ini mendesak komunitas pengembangan Linux (khususnya Linus Torvalds, pencipta Linux) untuk mengembangkan alat mereka sendiri yang dinamakan Git berdasarkan beberapa pelajaran yang telah mereka pelajari ketika menggunakan BitKeeper. Beberapa sasaran dari diciptakannya Git adalah sebagai berikut: \\n - Kecepatan \\n - Desain yang sederhana \\n - Dukungan yang kuat untuk pengembangan non-linier (ribuan cabang paralel) \\n - Sepenuhnya didistribusikan \\n - Mampu menangani proyek besar seperti kernel Linux secara efisien (kecepatan dan ukuran data) \\n \\n Sejak kelahirannya pada tahun 2005, Git telah berevolusi dan berkembang untuk dapat digunakan dengan mudah digunakan namun tetap mempertahankan kualitas awalnya. Git memiliki performa yang sangat cepat, sangat efisien dengan proyek-proyek besar, dan memiliki sistem percabangan yang hebat untuk pengembangan non-linier.",
         "quiz": [
           {
             "id": 1,
-            "question": "Seorang pengguna yang bernama Tony Stark baru saja menginstall Git pada komputernya. Jika pengguna tersebut ingin mengatur namanya agar tersimpan pada konfigurasi Git secara global, perintah apa yang harus dijalankan?",
+            "question": "Siapakah pencipta kernel Linux dan Git?",
+            "answer": "Linus Torvalds",
+            "options": ["Mark Zuckerberg", "Linus Torvalds", "Bill Gates"],
+            "type": "choice"
+          },
+          {
+            "id": 2,
+            "question": "Alat apa yang digunakan untuk mengelola perubahan-perubahan pada proyek kernel Linux sebelum Git diciptakan?",
+            "answer": "BitKeeper",
+            "options": ["BitKeeper", "Subversion", "Mercurial"],
+            "type": "choice"
+          },
+          {
+            "id": 3,
+            "question": "Manakah yang bukan sasaran dari diciptakannya Git?",
+            "answer": "Dukungan yang kuat untuk pengembangan linier",
+            "options": [
+              "Kecepatan",
+              "Desain yang sederhana",
+              "Dukungan yang kuat untuk pengembangan linier"
+            ],
+            "type": "choice"
+          },
+          {
+            "id": 4,
+            "question": "Pada tahun berapa Git diciptakan?",
+            "answer": "2005",
+            "options": ["2004", "2005", "2006"],
+            "type": "choice"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Pengaturan Git",
+        "content": "Git hadir dengan perintah `git config`, dimana pengguna dapat menampilkan dan mengatur variabel-variabel pengaturan yang mengatur semua aspek tampilan dan pengoperasian Git. Pengguna dapat mengatur variabel pengaturan sekali saja jika menggunakan opsi `--global`, karena telah disimpan secara global sehingga Git akan selalu menggunakan informasi yang pengguna masukkan untuk proyek apa pun yang terdapat pada komputer pengguna. Jika pengguna ingin mengatur variabel pengaturan hanya untuk satu proyek saja, pengguna dapat menggunakan opsi `--local` saat pengguna berada dalam proyek tersebut. \\n ### Identitas Pengguna \\n Hal pertama yang harus dilakukan pertama kali adalah mengatur nama dan alamat email pengguna. Hal ini penting karena setiap commit pada Git akan menggunakan informasi ini, dan informasi ini disimpan secara permanen ke dalam commit yang telah pengguna buat. Pengguna dapat mengatur identitasnya menggunakan perintah berikut: \\n ``` \\n $ git config --global user.name \"<nama>\" \\n $ git config --global user.email \"<email>\" \\n ``` \\n Contoh: \\n ``` \\n $ git config --global user.name \"John Doe\" \\n $ git config --global user.email \"john.doe@example.com\" \\n ```",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Jika seorang pengguna yang bernama Tony Stark ingin mengatur namanya agar tersimpan pada pengaturan Git secara global, perintah apa yang harus dijalankan?",
             "answer": "git config --global user.name \"Tony Stark\"",
             "type": "fill"
           },
           {
             "id": 2,
-            "question": "Jika pengguna ingin mengatur default dari nama cabang utama dengan nama production pada konfigurasi Git secara global, perintah apa harus dijalankan?",
+            "question": "Jika pengguna ingin mengatur nama branch utama dengan nama `main` pada pengaturan Git secara global, perintah apa harus dijalankan?",
             "answer": "git config --global init.defaultBranch production",
             "type": "fill"
           },
           {
             "id": 3,
-            "question": "Jika pengguna ingin menampilkan daftar konfigurasi pengaturan Git pada komputernya secara keseluruhan, perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin menampilkan daftar pengaturan Git yang terdapat pada komputernya secara keseluruhan, perintah apa yang harus dijalankan?",
             "answer": "git config --list",
             "type": "fill"
           },
           {
             "id": 4,
-            "question": "Jika pengguna ingin menampilkan konfigurasi email pada pengaturan Git di komputernya secara spesifik, perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin menampilkan objek nama pada pengaturan Git yang terdapat pada komputernya secara spesifik, perintah apa yang harus dijalankan?",
             "answer": "git config user.email",
             "type": "fill"
           },
           {
             "id": 5,
-            "question": "Jika pengguna ingin mengatur konfigurasi Git untuk satu proyek saja, apakah opsi yang dapat digunakan oleh pengguna?",
+            "question": "Jika pengguna ingin mengatur variabel pengaturan Git untuk satu proyek saja, apakah opsi yang dapat digunakan oleh pengguna?",
             "answer": "--local",
             "options": ["--global", "--local", "--help"],
             "type": "choice"
           },
           {
             "id": 6,
-            "question": "Jika pengguna belum pernah mengatur default dari nama cabang utama pada konfigurasi Git, apakah nama cabang utama yang dibuat oleh Git secara default saat pengguna membuat repositori baru?",
+            "question": "Jika pengguna belum pernah mengatur nama branch utama pada pengaturan Git, apakah nama default dari branch utama yang dibuat oleh Git ketika pengguna membuat repositori baru?",
             "answer": "master",
             "options": ["master", "main", "production"],
             "type": "choice"
@@ -58,34 +97,34 @@
     "lessons": [
       {
         "id": 1,
-        "title": "Mendapatkan Repositori Git",
-        "content": "Pengguna biasanya mendapatkan repositori Git dengan dua cara, yaitu menginisialisasi direktori lokal yang tidak berada di bawah kontrol versi menjadi repositori Git atau mengkloning repositori Git yang telah ada dari sebuah server seperti GitHub, GitLab, dan lainnya. \\n ### Menginisialisasi repositori pada direktori lokal \\n Jika pengguna memiliki direktori proyek yang saat ini tidak berada di bawah kontrol versi dan ingin mulai mengontrolnya dengan Git, pengguna harus masuk ke direktori proyek tersebut kemudian gunakan perintah berikut: \\n ``` \\n $ git init \\n ``` \\n Perintah ini akan membuat subdirektori baru bernama `.git` yang merupakan direktori tersembunyi yang berisi informasi dan metadata penting tentang repository Git. \\n ### Mengkloning repositori Git yang telah ada \\n Jika pengguna ingin mengkloning repositori yang telah ada dari sebuah server, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git clone <url> \\n ``` \\n Contoh: \\n ``` \\n $ git clone https://github.com/akmalhisyammm/next-chakra-starter.git \\n ``` \\n Saat pengguna menggunakan perintah ini, setiap versi file pada riwayat proyek tersebut ditarik secara default. Perintah tersebut akan membuat direktori lokal dengan nama yang sama seperti yang ada di server, menginisialisasi direktori `.git` di dalamnya, menarik semua data pada repositori tersebut, dan memeriksa salinan pekerjaan dari versi terbaru. Jika pengguna masuk ke direktori tersebut, pengguna dapat melihat file-file proyek yang telah dikloning dan siap untuk digunakan.",
+        "title": "Membuat Repositori Git",
+        "content": "Pengguna dapat membuat repositori Git pada komputernya dengan dua cara, yaitu menginisialisasi direktori lokal menjadi repositori Git atau menduplikat repositori Git yang telah ada dari sebuah server (seperti GitHub, GitLab, dan lainnya). \\n ### Menginisialisasi repositori pada direktori lokal \\n Jika pengguna memiliki proyek pada direktori lokal yang belum menggunakan kontrol versi dan ingin mulai mengontrolnya dengan Git, pengguna harus masuk ke direktori lokal tersebut kemudian gunakan perintah berikut: \\n ``` \\n $ git init \\n ``` \\n Perintah ini akan membuat subdirektori baru bernama `.git` yang merupakan direktori tersembunyi yang berisi informasi dan metadata penting mengenai repositori Git. \\n ### Menduplikat repositori Git yang telah ada \\n Jika pengguna ingin menduplikat repositori yang telah ada dari sebuah server ke dalam komputernya, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git clone <url> \\n ``` \\n Contoh: \\n ``` \\n $ git clone https://github.com/gojek/heimdall \\n ``` \\n Perintah tersebut secara otomatis akan membuat direktori lokal dengan nama yang sama seperti yang ada di server, menginisialisasi direktori `.git` di dalamnya, menarik semua data pada repositori tersebut, dan memeriksa salinan pekerjaan dari versi terbaru. Jika pengguna masuk ke direktori tersebut, pengguna dapat melihat file-file proyek yang telah diduplikat dan siap untuk digunakan.",
         "quiz": [
           {
             "id": 1,
-            "question": "Jika pengguna ingin menginisialisasi repositori Git pada direktori lokal, perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin menginisialisasi direktori lokal menjadi repositori Git, perintah apa yang harus dijalankan?",
             "answer": "git init",
             "type": "fill"
           },
           {
             "id": 2,
-            "question": "Seorang pengguna ingin mengkloning repositori Git yang telah ada dari sebuah server. Jika url repositori tersebut adalah https://github.com/gojek/heimdall, perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin menduplikat sebuah repositori Git yang telah ada dari GitHub dan url repositori tersebut adalah `https://github.com/gojek/heimdall`, perintah apa yang harus dijalankan?",
             "answer": "git clone https://github.com/gojek/heimdall",
             "type": "fill"
           },
           {
             "id": 3,
-            "question": "Manakah yang bukan cara praktis untuk mendapatkan repositori Git?",
+            "question": "Manakah yang bukan cara praktis untuk membuat repositori Git?",
             "answer": "Mengunduh repositori Git dalam bentuk zip dari sebuah server",
             "options": [
               "Mengunduh repositori Git dalam bentuk zip dari sebuah server",
-              "Mengkloning repositori Git yang telah ada dari sebuah server",
+              "Menduplikat repositori Git yang telah ada dari sebuah server",
               "Menginisialisasi repositori Git pada direktori lokal"
             ]
           },
           {
             "id": 4,
-            "question": "Apakah fungsi utama dari subdirektori .git?",
+            "question": "Apakah fungsi utama dari subdirektori `.git`?",
             "answer": "Menyimpan informasi dan metadata penting tentang repository Git",
             "options": [
               "Menyimpan informasi dan metadata penting tentang repository Git",
@@ -99,45 +138,45 @@
       {
         "id": 2,
         "title": "Merekam Perubahan ke Repositori",
-        "content": "Pada tahap ini, pengguna harus memiliki repositori Git pada direktori lokal beserta salinan pekerjaan dari semua filenya. Biasanya, pengguna ingin membuat perubahan dan merekam perubahan tersebut ke dalam repositorinya setiap kali proyek mencapai status yang ingin direkam. Setiap file yang ada di direktori kerja pengguna dapat berada di salah satu dari dua kondisi, yaitu terlacak atau tidak terlacak. Singkatnya, file yang terlacak adalah file yang diketahui oleh Git, sedangkan file yang tidak terlacak merupakan file yang tidak ada di rekaman terakhir maupun di area tahapan. File yang terlacak dapat berstatus tidak diubah (unmodified), diubah (modified), maupun bertahap (staged). \\n ![Git Lifecycle](https://git-scm.com/book/en/v2/images/lifecycle.png) \\n ### Memeriksa status file pada repositori \\n Untuk menampilkan status dari masing-masing file yang terdapat pada sebuah repositori, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git status \\n ``` \\n ### Melacak file baru pada repositori \\n Untuk mulai melacak file baru, pengguna dapat menggunakan perintah berikut: \\n ``` \\n git add <file> \\n ``` \\n Contoh: \\n ``` \\n $ git add README.md \\n ``` \\n Setelah menjalankan perintah berikut, pengguna dapat memeriksa status repositori kembali untuk melihat bahwa file tersebut telah terlacak dan masuk ke area tahapan untuk direkam. \\n ### Merekam perubahan yang dilakukan \\n Pada tahap ini, pengguna dapat merekam perubahan pada file yang telah masuk ke area tahapan. Ingatlah bahwa perubahan apa pun pada file yang belum masuk ke dalam area tahapan tidak akan terekam. Sebelum merekam, sebaiknya periksa status repositori terlebih dahulu untuk melihat file apa saja yang berada di area tahapan. Pengguna dapat merekam perubahan dengan perintah berikut: \\n ``` \\n git commit -m \"<pesan>\" \\n ``` \\n Contoh: \\n ``` \\n $ git commit -m \"Menambahkan README\" \\n ``` \\n Pengguna dapat merekam perubahan lain untuk menambahkannya ke riwayat repositori. Setiap kali pengguna menggunakan perintah ini, pengguna merekam perubahan yang dapat dikembalikan atau dibandingkan di waktu yang akan datang.",
+        "content": "![Git Lifecycle](https://git-scm.com/book/en/v2/images/lifecycle.png) \\n Setiap file pada sebuah repositori dapat berada di antara dua kondisi, yaitu terlacak (tracked) atau tidak terlacak (untracked). Singkatnya, file yang terlacak adalah file yang telah berada di dalam staging area maupun commit terakhir, sedangkan file yang tidak terlacak sebaliknya. Staging area merupakan bagian dari Git yang digunakan untuk menyimpan perubahan pada file yang akan di-commit ke dalam riwayat repositori. File yang terlacak dapat memiliki status yang berbeda, yaitu unmodified, modified, maupun staged. \\n ### Memeriksa status file pada repositori \\n Untuk menampilkan status dari file-file yang terdapat pada sebuah repositori, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git status \\n ``` \\n ### Melacak file baru pada repositori \\n Untuk mulai melacak file yang belum terlacak ke staging area, pengguna dapat menggunakan perintah berikut: \\n ``` \\n git add <file> \\n ``` \\n Contoh: \\n ``` \\n $ git add README.md \\n ``` \\n Jika pengguna memiliki banyak file yang belum terlacak dan pengguna ingin melacak semua file tersebut ke dalam staging area secara sekaligus, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git add . \\n ``` \\n Setelah menjalankan perintah tersebut, pengguna dapat memeriksa status file pada repositori kembali untuk memastikan bahwa file tersebut telah terlacak dan masuk ke staging area untuk dilakukan commit. \\n ### Commit perubahan yang dilakukan \\n Pada tahap ini, pengguna dapat melakukan commit perubahan pada file-file yang telah masuk ke staging area. Sebelum melakukan commit, sebaiknya periksa status file pada repositori terlebih dahulu untuk melihat file apa saja yang berada di staging area. Pengguna dapat melakukan commit perubahan dengan perintah berikut: \\n ``` \\n git commit -m \"<pesan>\" \\n ``` \\n Contoh: \\n ``` \\n $ git commit -m \"Menambahkan README\" \\n ``` \\n Setiap kali pengguna menjalankan perintah ini, pengguna melakukan commit perubahan ke dalam riwayat repositori dalam bentuk versi dan versi tersebut dapat dikembalikan atau dibandingkan di waktu yang akan datang.",
         "quiz": [
           {
             "id": 1,
-            "question": "Jika pengguna ingin menampilkan daftar status dari setiap file yang terdapat pada sebuah repositori, perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin menampilkan status dari file-file yang terdapat pada sebuah repositori, perintah apa yang harus dijalankan?",
             "answer": "git status",
             "type": "fill"
           },
           {
             "id": 2,
-            "question": "Seorang pengguna baru saja menambahkan dan mengubah beberapa file pada sebuah repositori. Jika pengguna ingin memasukkan semua file tersebut ke dalam area tahapan secara sekaligus, perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin melacak semua file yang belum terlacak ke dalam staging area secara sekaligus, perintah apa yang harus dijalankan?",
             "answer": "git add .",
             "type": "fill"
           },
           {
             "id": 3,
-            "question": "Seorang pengguna baru saja menambahkan dan mengubah beberapa file pada sebuah repositori. Jika pengguna hanya ingin memasukkan file yang bernama README.md ke dalam area tahapan, perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin melacak file yang bernama `README.md` ke dalam staging area, perintah apa yang harus dijalankan?",
             "answer": "git add README.md",
             "type": "fill"
           },
           {
             "id": 4,
-            "question": "Seorang pengguna telah memasukkan beberapa file ke dalam area tahapan. Jika pengguna ingin merekam perubahan pada semua file yang terdapat pada area tahapan dengan memberi pesan \"Menambahkan beberapa komponen dashboard\", perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin melakukan commit perubahan pada file-file yang berada di dalam staging area dengan memberi pesan \"Menambahkan beberapa komponen dashboard\", perintah apa yang harus dijalankan?",
             "answer": "git commit -m \"Menambahkan beberapa komponen dashboard\"",
             "type": "fill"
           },
           {
             "id": 5,
-            "question": "Manakah yang bukan status dari file yang terdapat pada repositori Git?",
+            "question": "Manakah yang bukan jenis status file pada repositori Git?",
             "answer": "Untracked",
             "options": ["Modified", "Staged", "Untracked"],
             "type": "choice"
           },
           {
             "id": 6,
-            "question": "Apakah fungsi dari area tahapan?",
-            "answer": "Menyimpan perubahan pada file yang akan direkam ke dalam riwayat repositori",
+            "question": "Apakah fungsi dari staging area?",
+            "answer": "Menyimpan perubahan pada file yang akan di-commit ke dalam riwayat repositori",
             "options": [
-              "Menyimpan perubahan pada file yang akan direkam ke dalam riwayat repositori",
+              "Menyimpan perubahan pada file yang akan di-commit ke dalam riwayat repositori",
               "Menyimpan perubahan pada file yang akan dihapus dari riwayat repositori",
               "Menyimpan perubahan pada file yang akan diubah dari riwayat repositori"
             ]
@@ -146,49 +185,142 @@
       },
       {
         "id": 3,
-        "title": "Melihat Riwayat Rekaman",
-        "content": "Setelah pengguna membuat beberapa rekaman atau mengkloning repositori dengan riwayat rekaman yang ada, pengguna mungkin ingin melihat ke belakang untuk melihat perubahan apa saja yang telah terjadi. Pengguna dapat melakukan hal tersebut dengan menggunakan perintah berikut: \\n ``` \\n $ git log \\n ``` \\n Secara default, perintah ini menampilkan rekaman yang telah dibuat pada repositori tersebut dalam urutan kronologis terbalik, yaitu rekaman terbaru terletak pada urutan pertama sedangkan rekaman terlama terletak pada urutan terakhir. Perintah ini mencantumkan setiap rekaman dengan menampilkan checksum SHA-1, nama dan email penulis, tanggal penulisan, serta pesan rekaman.",
-        "quiz": [
-          {
-            "id": 1,
-            "question": "Jika pengguna ingin melihat riwayat rekaman dari sebuah repositori, perintah apa yang harus dijalankan?",
-            "answer": "git log",
-            "type": "fill"
-          }
-        ]
-      },
-      {
-        "id": 4,
         "title": "Membatalkan Suatu Hal",
-        "content": "Pada tahap tertentu, pengguna mungkin ingin membatalkan sesuatu. Hal ini dapat dilakukan, namun pengguna harus berhati-hati. Jika pengguna salah langkah, pengguna mungkin akan kehilangan beberapa pekerjaan yang telah dilakukan. Salah satu pembatalan yang umum terjadi adalah ketika pengguna merekam perubahan terlalu dini dan lupa menambahkan beberapa file pada rekaman tersebut, atau pengguna menuliskan pesan rekaman yang salah. Jika pengguna ingin mengulangi rekaman tersebut, hal yang perlu dilakukan adalah membuat perubahan tambahan yang pengguna lupakan, masukkan ke area tahapan, dan rekam kembali dengan menambahkan opsi `--amend` seperti perintah berikut: \\n ``` \\n $ git commit --amend -m \"<pesan>\" \\n ``` \\n Perintah ini mengambil semua file yang terdapat pada area tahapan untuk direkam ulang. Jika pengguna tidak membuat perubahan sejak rekaman terakhir, rekaman ini akan terlihat sama persis, dan yang akan terubah hanyalah pesan dari rekaman tersebut. \\n ### Membatalkan file dari area tahapan  \\n Jika pengguna telah mengubah dua file dan ingin merekam sebagai dua perubahan yang terpisah, tetapi pengguna secara tidak sengaja memasukkan keduanya ke dalam area tahapan dan ingin membatalkannya, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git restore --staged <file> \\n ``` \\n Contoh: \\n ``` \\n $ git restore --staged README.md \\n ``` \\n ### Membatalkan perubahan file \\n Jika pengguna tidak ingin menyimpan perubahan pada file dan ingin membatalkan perubahannya dengan mengembalikannya seperti yang terdapat pada rekaman terakhir, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git restore <file> \\n ``` \\n Contoh: \\n ``` \\n $ git restore README.md \\n ```",
+        "content": "Pada tahap tertentu, pengguna mungkin ingin membatalkan suatu hal yang telah dilakukan sebelumnya. Contoh pembatalan yang umum terjadi adalah ketika pengguna melakukan commit perubahan terlalu dini dan lupa menambahkan beberapa file pada commit tersebut, atau pengguna menuliskan pesan commit yang salah. Jika pengguna ingin mengulangi commit tersebut, hal yang perlu dilakukan adalah membuat perubahan baru, lacak perubahan tersebut ke staging area, dan commit kembali dengan menambahkan opsi `--amend` seperti perintah berikut: \\n ``` \\n $ git commit --amend -m \"<pesan>\" \\n ``` \\n Contoh: \\n ``` \\n $ git commit --amend -m \"Menambahkan README\" \\n ``` \\n Perintah ini mengambil semua perubahan file yang terdapat pada staging area untuk di-commit ulang. Jika pengguna tidak membuat perubahan apa pun, commit ini akan terlihat sama persis seperti sebelumnya, dan yang akan terubah hanyalah pesan dari commit tersebut. \\n ### Membatalkan file dari staging area \\n Jika pengguna tidak sengaja memasukkan suatu file ke dalam staging area dan ingin membatalkannya, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git restore --staged <file> \\n ``` \\n Contoh: \\n ``` \\n $ git restore --staged README.md \\n ``` \\n Pengguna juga dapat membatalkan semua file yang berada dalam staging area dengan menggunakan perintah berikut: \\n ``` \\n $ git restore --staged . \\n ``` \\n ### Membatalkan perubahan file \\n Jika pengguna tidak ingin menyimpan perubahan yang baru saja dilakukan pada file tertentu dan ingin mengembalikannya seperti yang terdapat pada commit terakhir, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git restore <file> \\n ``` \\n Contoh: \\n ``` \\n $ git restore README.md \\n ``` \\n Pengguna juga dapat membatalkan perubahan pada semua file yang telah diubah dengan menggunakan perintah berikut: \\n ``` \\n $ git restore . \\n ```",
         "quiz": [
           {
             "id": 1,
-            "question": "Pada suatu ketika, seorang pengguna melakukan kesalahan dalam menulis pesan pada rekaman terakhirnya. Jika pengguna ingin mengubah pesan pada rekaman terakhirnya menjadi \"Mengubah tipe data mahasiswa\", perintah apa yang harus dijalankan?",
-            "answer": "git commit --amend -m \"Mengubah tipe data mahasiswa\"",
+            "question": "Jika pengguna ingin mengubah pesan pada commit terakhirnya menjadi \"Menambahkan komponen profile\", perintah apa yang harus dijalankan?",
+            "answer": "git commit --amend -m \"Menambahkan komponen profile\"",
             "type": "fill"
           },
           {
             "id": 2,
-            "question": "Seorang pengguna tidak sengaja memasukkan sebuah file yang bernama README.md ke dalam area tahapan. Jika pengguna tersebut ingin membatalkan penambahan file tersebut dari area tahapan, perintah apa yang harus dijalankan?",
-            "answer": "git restore --staged README.md",
+            "question": "Jika pengguna ingin membatalkan semua file yang berada dalam staging area, perintah apa yang harus dijalankan?",
+            "answer": "git restore --staged .",
             "type": "fill"
           },
           {
             "id": 3,
-            "question": "Seorang pengguna tidak sengaja mengubah sebuah file yang bernama README.md. Jika pengguna tersebut ingin membatalkan perubahan yang telah dilakukan pada file tersebut, perintah apa yang harus dijalankan?",
+            "question": "Jika pengguna ingin membatalkan perubahan pada file yang bernama `README.md`, perintah apa yang harus dijalankan?",
             "answer": "git restore README.md",
             "type": "fill"
           },
           {
             "id": 4,
-            "question": "Apakah perbedaan antara perintah git restore --staged <file> dan git restore <file>?",
-            "answer": "Perintah git restore --staged <file> digunakan untuk membatalkan penambahan file ke dalam area tahapan, sedangkan perintah git restore <file> digunakan untuk membatalkan perubahan pada file",
+            "question": "Apakah perbedaan antara perintah `git restore --staged` dengan `git restore`?",
+            "answer": "Perintah `git restore --staged` digunakan untuk membatalkan file dari staging area, sedangkan perintah `git restore` digunakan untuk membatalkan perubahan pada file",
             "options": [
-              "Perintah git restore --staged <file> digunakan untuk membatalkan penambahan file ke dalam area tahapan, sedangkan perintah git restore <file> digunakan untuk membatalkan perubahan pada file",
-              "Perintah git restore --staged <file> digunakan untuk membatalkan perubahan pada file, sedangkan perintah git restore <file> digunakan untuk membatalkan penambahan file ke dalam area tahapan",
+              "Perintah `git restore --staged` digunakan untuk membatalkan file dari staging area, sedangkan perintah `git restore` digunakan untuk membatalkan perubahan pada file",
+              "Perintah `git restore --staged` digunakan untuk membatalkan perubahan pada file, sedangkan perintah `git restore` digunakan untuk membatalkan file dari staging area",
               "Tidak ada perbedaan antara kedua perintah tersebut"
             ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Bekerja dengan Remote",
+        "content": "Untuk dapat berkolaborasi dalam sebuah proyek, pengguna perlu mengetahui cara mengelola repositori remote. Repositori remote adalah proyek pengguna yang di-hosting pada suatu server (seperti GitHub, GitLab, dan lainnya). Berkolaborasi dengan pengguna lain melibatkan pengelolaan repositori remote dengan melakukan push maupun pull data ketika pengguna perlu berbagi pekerjaan. \\n ### Menampilkan server repositori remote \\n Pengguna dapat melihat daftar server yang terhubung dengan suatu repositori remote dengan menampilkan nama alias dan url dari setiap server yang terhubung. Jika pengguna menduplikat sebuah repositori remote dari sebuah server, maka server tersebut secara default akan diberikan nama alias `origin`. Untuk menampilkan semua nama alias beserta url server yang terhubung, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git remote -v \\n ``` \\n ### Menambahkan repositori remote \\n Untuk menambahkan repositori remote pada direktori lokal, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git remote add <alias> <url> \\n ``` \\n Contoh: \\n ``` \\n $ git remote add test https://github.com/gojek/heimdall \\n ``` \\n Setelah menggunakan perintah tersebut, pengguna dapat menggunakan nama alias yang telah ditentukan pada baris perintah sebagai alias dari url server tersebut. \\n ### Fetch dan pull data dari repositori remote \\n Untuk melakukan fetch data dari repositori remote, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git fetch \\n ``` \\n Perintah ini menarik data apa pun yang telah di-push ke repositori remote tersebut sejak pengguna menduplikatnya. Tetapi, perintah ini tidak secara otomatis menggabungkannya dengan data yang terdapat pada direktori lokal. Pengguna harus menggabungkannya secara manual ke dalam direktori lokal jika pengguna menginginkannya. Jika pengguna ingin menarik data sekaligus menggabungkannya secara otomatis dari repositori remote ke dalam direktori lokal, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git pull \\n ``` \\n Perintah ini mungkin membuat alur kerja menjadi lebih mudah atau lebih nyaman untuk pengguna. Perintah ini umumnya menarik data dari server tempat pengguna menduplikat dan secara otomatis menggabungkannya ke dalam pekerjaan pengguna jika tidak terdapat konflik. \\n ### Push data ke repositori remote \\n Ketika pengguna ingin melakukan push data ke repositori remote, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git push \\n ``` \\n Perintah ini hanya berfungsi jika pengguna memiliki akses untuk mengubah repositori remote tersebut dan jika tidak ada pengguna lain yang melakukan push untuk sementara. Jika pengguna lain telah melakukan push terlebih dahulu, maka push yang dilakukan pengguna akan ditolak. Pengguna harus menarik data pekerjaan pengguna lainnya terlebih dahulu dan menggabungkannya ke dalam direktori lokal sebelum diizinkan untuk melakukan push kembali.",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Jika pengguna ingin menampilkan daftar server yang terhubung dengan suatu repositori remote, perintah apa yang harus dijalankan?",
+            "answer": "git remote -v",
+            "type": "fill"
+          },
+          {
+            "id": 2,
+            "question": "Jika pengguna ingin menambahkan repositori remote dengan nama alias `test` dan url `https://github.com/gojek/heimdall`, perintah apa yang harus dijalankan?",
+            "answer": "git remote add test https://github.com/gojek/heimdall",
+            "type": "fill"
+          },
+          {
+            "id": 3,
+            "question": "Jika pengguna ingin menarik data dari repositori remote tanpa menggabungkan secara otomatis ke dalam direktori lokal, perintah apa yang harus dijalankan?",
+            "answer": "git fetch",
+            "type": "fill"
+          },
+          {
+            "id": 4,
+            "question": "Jika pengguna ingin menarik data dari repositori remote dan menggabungkannya secara otomatis ke dalam direktori lokal, perintah apa yang harus dijalankan?",
+            "answer": "git pull",
+            "type": "fill"
+          },
+          {
+            "id": 5,
+            "question": "Jika pengguna ingin melakukan push data ke repositori remote, perintah apa yang harus dijalankan?",
+            "answer": "git push",
+            "type": "fill"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Percabangan pada Git",
+    "thumbnail": "https://firebasestorage.googleapis.com/v0/b/gitpedia-prod.appspot.com/o/illustrations%2Fversion-control-pana.svg?alt=media&token=1e231e28-fd1d-4028-a97a-fbd9a9895841",
+    "lessons": [
+      {
+        "id": 1,
+        "title": "Percabangan dan Penggabungan",
+        "content": "Hampir setiap sistem kontrol versi memiliki beberapa bentuk dukungan percabangan atau biasa disebut dengan branching. Branching berarti pengguna beralih dari branch utama proyek dan melakukan pekerjaan pada branch lain tanpa mengubah pekerjaan pada branch utama. \\n ### Percabangan Dasar \\n Pengguna biasanya membuat branch baru ketika ingin mengerjakan pekerjaan yang terpisah dari branch utama seperti penambahan fitur, perbaikan isu, dan lainnya. Untuk membuat branch baru dan beralih ke branch tersebut, pengguna dapat menggunakan kedua perintah berikut: \\n ``` \\n $ git branch <branch_baru> \\n $ git checkout <branch_baru> \\n ``` \\n Contoh: \\n ``` \\n $ git branch development \\n $ git checkout development \\n ``` \\n Atau pengguna juga dapat melakukan kedua hal tersebut hanya dengan satu perintah dengan menggunakan perintah berikut: \\n ``` \\n $ git checkout -b <branch_baru> \\n ``` \\n Contoh: \\n ``` \\n $ git checkout -b development \\n ``` \\n Jika pengguna ingin menghapus branch, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git branch -d <nama_branch> \\n ``` \\n Contoh: \\n ``` \\n $ git branch -d development \\n ``` \\n ### Penggabungan Dasar \\n Pengguna biasanya melakukan penggabungan branch ketika pengguna telah memutuskan bahwa pekerjaannya pada suatu branch telah selesai dan siap untuk digabungkan ke branch yang dituju. Untuk melakukan hal tersebut, pengguna dapat beralih ke branch yang dituju kemudian gabungkan branch asal dengan menggunakan perintah berikut: \\n ``` \\n $ git checkout <branch_tujuan> \\n $ git merge <branch_asal> \\n ``` \\n Contoh: \\n ``` \\n $ git checkout master \\n $ git merge development \\n ```",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Jika pengguna ingin membuat branch baru dengan nama `development` dan beralih ke branch tersebut dengan satu perintah, perintah apa yang harus dijalankan?",
+            "answer": "git checkout -b development",
+            "type": "fill"
+          },
+          {
+            "id": 2,
+            "question": "Jika pengguna ingin menghapus suatu branch yang bernama `development`, perintah apa yang harus dijalankan?",
+            "answer": "git branch -d development",
+            "type": "fill"
+          },
+          {
+            "id": 3,
+            "question": "Jika pengguna ingin berpindah branch ke branch yang bernama `master`, perintah apa yang harus dijalankan?",
+            "answer": "git checkout master",
+            "type": "fill"
+          },
+          {
+            "id": 4,
+            "question": "Jika pengguna ingin menggabungkan branch yang bernama `development` ke branch yang sedang ditempati pengguna saat ini, perintah apa yang harus dijalankan?",
+            "answer": "git merge development",
+            "type": "fill"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Manajemen Branch",
+        "content": "Setelah pengguna membuat, menggabungkan, dan menghapus branch, pengguna dapat menampilkan daftar branch yang terdapat pada repositori dengan menggunakan perintah berikut: \\n ``` \\n $ git branch \\n ``` \\n Untuk menampilkan daftar branch beserta commit terakhir pada setiap branch, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git branch -v \\n ``` \\n Untuk menampilkan daftar branch yang telah digabungkan ke dalam branch yang sedang ditempati oleh pengguna saat ini, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git branch --merged \\n ``` \\n Untuk menampilkan daftar branch yang belum pernah digabungkan sama sekali, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git branch --no-merged \\n ``` \\n ### Mengubah nama branch \\n Pengguna dapat mengubah nama branch dengan menggunakan perintah berikut: \\n ``` \\n $ git branch --move <branch_lama> <branch_baru> \\n ``` \\n Contoh: \\n ``` \\n $ git branch --move master main \\n ``` \\n Perintah ini mengubah nama branch yang lama dengan nama branch yang baru. Tetapi, perintah ini hanya mengubah nama branch secara lokal pada komputer pengguna. Untuk mengubah nama branch yang ada di server, pengguna perlu melakukan push nama branch yang baru tersebut ke server dengan menggunakan perintah berikut: \\n ``` \\n $ git push --set-upstream origin <branch_baru> \\n ``` \\n Contoh: \\n ``` \\n $ git push --set-upstream origin main \\n ``` \\n Kemudian, pengguna dapat menghapus branch yang lama pada server dengan menggunakan perintah berikut: \\n ``` \\n $ git push origin --delete <branch_nama> \\n ``` \\n Contoh: \\n ``` \\n $ git push origin --delete master \\n ```",
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Jika pengguna ingin menampilkan daftar branch yang terdapat pada repositori, perintah apa yang harus dijalankan?",
+            "answer": "git branch",
+            "type": "fill"
+          },
+          {
+            "id": 2,
+            "question": "Jika pengguna ingin menampilkan daftar branch yang telah digabungkan ke dalam branch yang sedang ditempati pengguna saat ini, perintah apa yang harus dijalankan?",
+            "answer": "git branch --merged",
+            "type": "fill"
+          },
+          {
+            "id": 3,
+            "question": "Jika pengguna ingin menampilkan daftar branch yang belum pernah digabungkan sama sekali, perintah apa yang harus dijalankan?",
+            "answer": "git branch --no-merged",
+            "type": "fill"
+          },
+          {
+            "id": 4,
+            "question": "Jika pengguna ingin mengubah nama branch yang bernama `master` menjadi `main`, perintah apa yang harus dijalankan?",
+            "answer": "git branch --move master main",
+            "type": "fill"
           }
         ]
       }

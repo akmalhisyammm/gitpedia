@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Countdown, { zeroPad } from 'react-countdown';
+import ReactMarkdown from 'react-markdown';
 import {
   IonGrid,
   IonRow,
@@ -12,6 +13,8 @@ import {
   IonRadio,
   useIonToast,
   useIonLoading,
+  IonItem,
+  IonLabel,
 } from '@ionic/react';
 import { alertCircle, checkmarkCircle, closeCircle } from 'ionicons/icons';
 
@@ -254,8 +257,10 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
             <IonCol>
               <IonCard color="tertiary" className={styles.card}>
                 <IonCardContent>
-                  <IonText>
-                    <h2>{currentQuiz?.question}</h2>
+                  <IonText className={styles.question}>
+                    {currentQuiz && (
+                      <ReactMarkdown>{currentQuiz.question.replaceAll('\\n', '\n')}</ReactMarkdown>
+                    )}
                   </IonText>
                 </IonCardContent>
               </IonCard>
@@ -276,15 +281,12 @@ const QuizForm = ({ chapterId, lessonId }: QuizFormProps) => {
               <IonCol>
                 <IonRadioGroup ref={choiceRef}>
                   {currentQuiz?.options?.map((option) => (
-                    <IonRadio
-                      key={option}
-                      value={option}
-                      labelPlacement="end"
-                      justify="start"
-                      slot="start"
-                      className={styles.radio}>
-                      {option}
-                    </IonRadio>
+                    <IonItem key={option} color="secondary" className={styles.radio}>
+                      <IonLabel className={`ion-text-wrap ${styles.answer}`}>
+                        <ReactMarkdown>{option}</ReactMarkdown>{' '}
+                      </IonLabel>
+                      <IonRadio slot="start" value={option} legacy className={styles.radioInner} />
+                    </IonItem>
                   ))}
                 </IonRadioGroup>
               </IonCol>

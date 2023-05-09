@@ -248,6 +248,7 @@ const EditProfileForm = () => {
         mode: 'ios',
         message: 'Profil berhasil diubah!',
         color: 'success',
+        cssClass: 'main-toast',
         duration: 2000,
         icon: checkmarkCircle,
       });

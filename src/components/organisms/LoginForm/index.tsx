@@ -63,6 +63,7 @@ const LoginForm = ({ onForgotPassword }: LoginFormProps) => {
         mode: 'ios',
         message: 'Berhasil masuk!',
         color: 'success',
+        cssClass: 'main-toast',
         duration: 2000,
         icon: checkmarkCircle,
       });

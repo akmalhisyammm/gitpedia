@@ -65,6 +65,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
               isPassed: false,
             },
             {
+              chapterId: 1,
+              lessonId: 2,
+              stars: 0,
+              isPassed: false,
+            },
+            {
               chapterId: 2,
               lessonId: 1,
               stars: 0,
@@ -85,6 +91,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             {
               chapterId: 2,
               lessonId: 4,
+              stars: 0,
+              isPassed: false,
+            },
+            {
+              chapterId: 3,
+              lessonId: 1,
+              stars: 0,
+              isPassed: false,
+            },
+            {
+              chapterId: 3,
+              lessonId: 2,
               stars: 0,
               isPassed: false,
             },

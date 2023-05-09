@@ -37,8 +37,9 @@ const CustomLink = ({
       href={isExternal ? href : undefined}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      className={isUnderline ? styles.link : undefined}
       onClick={onClick}
+      className={styles.link}
+      style={{ textDecoration: isUnderline ? 'underline' : 'none' }}
       {...rest}>
       {children}
     </IonRouterLink>

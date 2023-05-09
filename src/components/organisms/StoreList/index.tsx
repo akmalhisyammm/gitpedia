@@ -54,6 +54,7 @@ const StoreList = () => {
                 mode: 'ios',
                 message: 'Koin kamu tidak cukup!',
                 color: 'danger',
+                cssClass: 'main-toast',
                 duration: 2000,
                 icon: alertCircle,
               });
@@ -72,6 +73,7 @@ const StoreList = () => {
                 mode: 'ios',
                 message: `Berhasil membeli ${item.type === 'avatar' ? 'avatar' : 'bingkai'}!`,
                 color: 'success',
+                cssClass: 'main-toast',
                 duration: 2000,
                 icon: checkmarkCircle,
               });
@@ -81,6 +83,7 @@ const StoreList = () => {
                   mode: 'ios',
                   message: error.message,
                   color: 'danger',
+                  cssClass: 'main-toast',
                   duration: 2000,
                   icon: alertCircle,
                 });
