@@ -23,6 +23,10 @@ const LeaderboardList = ({ mode }: LeaderboardListProps) => {
     leaderboardCtx.sortBy(selectedSort);
   }, [selectedSort]);
 
+  useEffect(() => {
+    setSelectedSort('total_stars');
+  }, [userCtx.user, userCtx.users]);
+
   return (
     <IonList className={styles.list}>
       <IonItem className={styles.sort}>

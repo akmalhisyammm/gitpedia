@@ -27,8 +27,14 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const getAllUsers = async () => {
     const snapshot = await getDocs(usersCollection);
     const data = snapshot.docs.map((doc) => ({ ...(doc.data() as IUser) }));
+    const sortedData = data.sort((a, b) => {
+      const sortByTotalStars = b.progress.totalStars - a.progress.totalStars;
+      const sortByLastUpdated = a.progress.lastUpdated - b.progress.lastUpdated;
 
-    setUsers(data);
+      return sortByTotalStars !== 0 ? sortByTotalStars : sortByLastUpdated;
+    });
+
+    setUsers(sortedData);
   };
 
   const getAuthUser = async () => {
