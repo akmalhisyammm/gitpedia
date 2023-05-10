@@ -6,6 +6,10 @@ ion-app {
   margin: 0 auto;
 }
 
+ion-content {
+  --keyboard-offset: 0px !important;
+}
+
 ion-card {
   border-radius: 12px;
 }
