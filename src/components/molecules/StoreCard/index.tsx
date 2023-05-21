@@ -28,7 +28,7 @@ const StoreCard = ({ title, price, thumbnail, isPurchased }: StoreCardProps) => 
           </div>
         ) : (
           <div className={styles.content}>
-            <IonCardTitle>Terjual</IonCardTitle>
+            <IonCardTitle>Dimiliki</IonCardTitle>
           </div>
         )}
       </IonCardContent>
