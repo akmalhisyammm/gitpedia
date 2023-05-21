@@ -1,7 +1,7 @@
 {
   "name": "gitpedia",
   "description": "Basic Git learning app",
-  "version": "0.0.1",
+  "version": "1.4.0",
   "license": "MIT",
   "private": true,
   "author": {
