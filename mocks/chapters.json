@@ -46,7 +46,7 @@
       {
         "id": 2,
         "title": "Pengaturan Git",
-        "content": "Git hadir dengan perintah `git config`, dimana pengguna dapat menampilkan dan mengatur variabel-variabel pengaturan yang mengatur semua aspek tampilan dan pengoperasian Git. Pengguna dapat mengatur variabel pengaturan sekali saja jika menggunakan opsi `--global`, karena telah disimpan secara global sehingga Git akan selalu menggunakan informasi yang pengguna masukkan untuk proyek apa pun yang terdapat pada komputer pengguna. Jika pengguna ingin mengatur variabel pengaturan hanya untuk satu proyek saja, pengguna dapat menggunakan opsi `--local` saat pengguna berada dalam proyek tersebut. \\n ### Identitas Pengguna \\n Hal pertama yang harus dilakukan pertama kali adalah mengatur nama dan alamat email pengguna. Hal ini penting karena setiap commit pada Git akan menggunakan informasi ini, dan informasi ini disimpan secara permanen ke dalam commit yang telah pengguna buat. Pengguna dapat mengatur identitasnya menggunakan perintah berikut: \\n ``` \\n $ git config --global user.name \"<nama>\" \\n $ git config --global user.email \"<email>\" \\n ``` \\n Contoh: \\n ``` \\n $ git config --global user.name \"John Doe\" \\n $ git config --global user.email \"john.doe@example.com\" \\n ```",
+        "content": "Git hadir dengan perintah `git config`, dimana pengguna dapat menampilkan dan mengatur variabel-variabel pengaturan yang mengatur semua aspek tampilan dan pengoperasian Git. Pengguna dapat mengatur variabel pengaturan sekali saja jika menggunakan opsi `--global`, karena telah disimpan secara global sehingga Git akan selalu menggunakan informasi yang pengguna masukkan untuk proyek apa pun yang terdapat pada komputer pengguna. Jika pengguna ingin mengatur variabel pengaturan hanya untuk satu proyek saja, pengguna dapat menggunakan opsi `--local` saat pengguna berada dalam proyek tersebut. \\n ### Identitas Pengguna \\n Hal pertama yang harus dilakukan pertama kali adalah mengatur nama dan alamat email pengguna. Hal ini penting karena setiap commit pada Git akan menggunakan informasi ini, dan informasi ini disimpan secara permanen ke dalam commit yang telah pengguna buat. Pengguna dapat mengatur identitasnya menggunakan perintah berikut: \\n ``` \\n $ git config --global user.name \"<nama>\" \\n $ git config --global user.email \"<email>\" \\n ``` \\n Contoh: \\n ``` \\n $ git config --global user.name \"John Doe\" \\n $ git config --global user.email \"john.doe@example.com\" \\n ``` \\n ### Text Editor \\n Setelah identitas diatur, pengguna dapat mengatur text editor yang akan digunakan ketika Git membutuhkan pengguna untuk mengetik pesan. Jika tidak diatur, maka secara otomatis Git akan menggunakan text editor bawaan komputer pengguna. Jika pengguna ingin menggunakan text editor lain, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --global core.editor \"<text_editor>\" \\n ``` \\n Contoh: \\n ``` \\n $ git config --global core.editor \"vim\" \\n ``` \\n ### Nama Branch \\n Secara default, Git akan membuat branch utama bernama `master` saat pengguna membuat repositori baru. Mulai dari Git versi 2.28 dan seterusnya, pengguna dapat menetapkan nama yang berbeda untuk branch utama. Jika pengguna ingin mengatur nama branch utama, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --global init.defaultBranch <nama_branch> \\n ``` \\n Contoh: \\n ``` \\n $ git config --global init.defaultBranch main \\n ``` \\n ### Memeriksa Pengaturan \\n Jika pengguna ingin menampilkan daftar pengaturan Git yang terdapat pada komputernya secara keseluruhan, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config --list \\n ``` \\n Selain itu, pengguna juga dapat memeriksa pengaturan Git dengan menentukan objek pengaturan yang ingin ditampilkan. Jika pengguna ingin menampilkan pengaturan Git secara spesifik, pengguna dapat menggunakan perintah berikut: \\n ``` \\n $ git config <objek> \\n ``` \\n Contoh: \\n ``` \\n $ git config user.name \\n ```",
         "quiz": [
           {
             "id": 1,
@@ -57,7 +57,7 @@
           {
             "id": 2,
             "question": "Jika pengguna ingin mengatur nama branch utama dengan nama `main` pada pengaturan Git secara global, perintah apa harus dijalankan?",
-            "answer": "git config --global init.defaultBranch production",
+            "answer": "git config --global init.defaultBranch main",
             "type": "fill"
           },
           {
@@ -69,7 +69,7 @@
           {
             "id": 4,
             "question": "Jika pengguna ingin menampilkan objek nama pada pengaturan Git yang terdapat pada komputernya secara spesifik, perintah apa yang harus dijalankan?",
-            "answer": "git config user.email",
+            "answer": "git config user.name",
             "type": "fill"
           },
           {
