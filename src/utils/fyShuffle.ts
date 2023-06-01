@@ -1,22 +1,30 @@
-// Modern Fisher-Yates Shuffle Algorithm
-// https://bost.ocks.org/mike/shuffle/
-// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 export function fyShuffle<T>(array: T[]): T[] {
-  let currentIndex = array.length;
-  let temporaryValue;
-  let randomIndex;
+  // Declare variables
+  let range = array.length;
+  let roll = 0;
+  const scratch = [...array];
+  const result = [];
 
   // While there remain elements to shuffle
-  while (currentIndex !== 0) {
-    // Pick a remaining element
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
+  while (range !== 0) {
+    // Randomly pick a number from 0 to range
+    roll = Math.floor(Math.random() * range);
 
-    // And swap it with the current element
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+    // Pick the element at the index of roll from scratch and put it into result
+    result.push(scratch[roll]);
+
+    // Replace the picked element with the last element in scratch
+    if (roll < range - 1) {
+      scratch[roll] = scratch[range - 1];
+      scratch.pop();
+    } else {
+      scratch.pop();
+    }
+
+    // Decrement range
+    range--;
   }
 
-  return array;
+  // Return the shuffled array
+  return result;
 }
