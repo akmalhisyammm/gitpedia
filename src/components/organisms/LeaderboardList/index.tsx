@@ -54,12 +54,15 @@ const LeaderboardList = ({ mode }: LeaderboardListProps) => {
               frame={user.profile.frame}
               totalStars={user.progress.totalStars}
               totalExp={user.progress.totalExp}
+              isSelf={user.id === userCtx.user?.id}
             />
           </CustomLink>
         ))
       ) : leaderboardCtx.friends.length ? (
         leaderboardCtx.friends.map((user) => (
-          <CustomLink key={user.id} href={`/user/${user.id}`}>
+          <CustomLink
+            key={user.id}
+            href={user.id === userCtx.user?.id ? '/main/profile' : `/user/${user.id}`}>
             <LeaderboardItem
               mode={selectedSort}
               rank={user.rank}
@@ -68,6 +71,7 @@ const LeaderboardList = ({ mode }: LeaderboardListProps) => {
               frame={user.profile.frame}
               totalStars={user.progress.totalStars}
               totalExp={user.progress.totalExp}
+              isSelf={user.id === userCtx.user?.id}
             />
           </CustomLink>
         ))

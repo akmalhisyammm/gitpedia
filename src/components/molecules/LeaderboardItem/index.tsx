@@ -13,6 +13,7 @@ type LeaderboardItemProps = {
   totalStars: number;
   totalExp: number;
   mode: 'total_stars' | 'total_exp';
+  isSelf?: boolean;
 };
 
 const LeaderboardItem = ({
@@ -23,9 +24,10 @@ const LeaderboardItem = ({
   totalStars,
   totalExp,
   mode,
+  isSelf,
 }: LeaderboardItemProps) => {
   return (
-    <IonItem button detail>
+    <IonItem color={isSelf ? 'secondary' : ''} button detail>
       <IonText>{rank}</IonText>
       <div className={styles.profile}>
         <FramedAvatar avatar={avatar} frame={frame} width={60} />

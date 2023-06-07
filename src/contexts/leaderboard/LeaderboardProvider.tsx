@@ -49,7 +49,9 @@ export const LeaderboardProvider = ({ children }: LeaderboardProviderProps) => {
       const globalUsers = userCtx.users.map((user, idx) => ({ ...user, rank: idx + 1 }));
 
       const friendUsers = userCtx.users
-        .filter((user) => userCtx.user?.friend.following.includes(user.id))
+        .filter(
+          (user) => userCtx.user?.friend.following.includes(user.id) || user.id === userCtx.user?.id
+        )
         .map((user, idx) => ({ ...user, rank: idx + 1 }));
 
       setGlobals(globalUsers);
