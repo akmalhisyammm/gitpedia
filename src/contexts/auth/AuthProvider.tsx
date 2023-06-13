@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           followers: [],
         },
         progress: {
-          totalCoins: 0,
+          totalCoins: 200,
           totalStars: 0,
           totalExp: 0,
           learns: [
